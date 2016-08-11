@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5h6-wa-b24">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,47 +17,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlK-m2-qQS" customClass="GIDSignInButton">
-                                <rect key="frame" x="40" y="346" width="240" height="41"/>
-                                <color key="backgroundColor" red="0.34054411753775732" green="0.61262363562539701" blue="0.68508809804916382" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_back_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="QUS-ds-W9f">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="338"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVE-G4-gjK">
-                                <rect key="frame" x="107" y="172" width="107" height="55"/>
+                                <rect key="frame" x="102" y="203" width="116" height="60"/>
                                 <string key="text">Welcome
 To FreJun!</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sign up using" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEH-kM-tGu">
-                                <rect key="frame" x="114" y="307" width="93" height="18"/>
+                                <rect key="frame" x="113" y="341" width="93" height="18"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnF-qJ-rbQ">
-                                <rect key="frame" x="223" y="317" width="70" height="1"/>
+                                <rect key="frame" x="222" y="351" width="70" height="1"/>
                                 <color key="backgroundColor" red="0.74567307692307694" green="0.74567307692307694" blue="0.74567307692307694" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Td2-zT-lzr">
-                                <rect key="frame" x="28" y="316" width="70" height="1"/>
+                                <rect key="frame" x="27" y="350" width="70" height="1"/>
                                 <color key="backgroundColor" red="0.74567307689999995" green="0.74567307689999995" blue="0.74567307689999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeR-uw-dbk">
-                                <rect key="frame" x="54" y="245" width="226" height="36"/>
+                                <rect key="frame" x="54" y="279" width="226" height="36"/>
                                 <string key="text">In hac habitasse platea dictumst.
 Vivamus adipiscing fermentum.</string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xhu-nG-CXT">
+                                <rect key="frame" x="36" y="379" width="249" height="41"/>
+                                <state key="normal" title="Button" image="google-login-button.png"/>
+                                <connections>
+                                    <action selector="signInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="542-R2-szs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="signInButton" destination="BlK-m2-qQS" id="gsY-6V-iLK"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -66,7 +69,7 @@ Vivamus adipiscing fermentum.</string>
         <!--Main View Controller-->
         <scene sceneID="85f-PO-yKt">
             <objects>
-                <viewController id="zJM-Mj-ics" customClass="mainViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="main" storyboardIdentifier="main" id="zJM-Mj-ics" customClass="mainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="00z-9H-ncg"/>
                         <viewControllerLayoutGuide type="bottom" id="70f-Yp-XhW"/>
@@ -284,7 +287,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <segment title="!!"/>
                                                     <segment title="!!!"/>
                                                 </segments>
-                                                <color key="tintColor" red="0.77071314102564104" green="0.20811878457203314" blue="0.20059304645640422" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.90980392156862744" green="0.32549019607843138" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePi-oq-dg6">
                                                 <rect key="frame" x="17" y="207" width="286" height="1"/>
@@ -335,7 +338,7 @@ Vivamus adipiscing fermentum.</string>
                                                 <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ETD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWG-p1-B9K">
-                                                <rect key="frame" x="13" y="351" width="146" height="30"/>
+                                                <rect key="frame" x="41" y="351" width="122" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -344,7 +347,7 @@ Vivamus adipiscing fermentum.</string>
                                                 <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ETA" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2n1-PU-0RF">
-                                                <rect key="frame" x="13" y="380" width="146" height="30"/>
+                                                <rect key="frame" x="41" y="380" width="122" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -354,6 +357,12 @@ Vivamus adipiscing fermentum.</string>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccd-Nc-iaz">
                                                 <rect key="frame" x="0.0" y="409" width="320" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qG-Pl-Lom">
+                                                        <rect key="frame" x="24" y="9" width="17" height="18"/>
+                                                        <state key="normal" image="tab1"/>
+                                                    </button>
+                                                </subviews>
                                                 <color key="backgroundColor" red="0.93633814100000001" green="0.93633814100000001" blue="0.93633814100000001" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remind me based on ETD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOQ-TL-RdD">
@@ -373,6 +382,12 @@ Vivamus adipiscing fermentum.</string>
                                                 <rect key="frame" x="17" y="478" width="286" height="1"/>
                                                 <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eta" translatesAutoresizingMaskIntoConstraints="NO" id="1CN-gf-Hhe">
+                                                <rect key="frame" x="13" y="359" width="20" height="14"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eta" translatesAutoresizingMaskIntoConstraints="NO" id="0jK-xe-dWo">
+                                                <rect key="frame" x="13" y="387" width="20" height="14"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -394,8 +409,12 @@ Vivamus adipiscing fermentum.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="eta" width="48" height="34"/>
+        <image name="google-login-button.png" width="1200" height="200"/>
         <image name="handle.png" width="300" height="158"/>
         <image name="ic_add" width="24" height="24"/>
         <image name="ic_search" width="24" height="24"/>
+        <image name="login_back_image.jpg" width="375" height="395"/>
+        <image name="tab1" width="41" height="46"/>
     </resources>
 </document>

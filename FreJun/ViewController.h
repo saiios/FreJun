@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Google/SignIn.h>
 
-@interface ViewController : UIViewController<GIDSignInUIDelegate>
+@interface ViewController : UIViewController<GIDSignInUIDelegate,GIDSignInDelegate>
 
-//@property(weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
-@property (weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
+- (IBAction)signInButtonPressed:(id)sender;
+
 @end
 

@@ -18,19 +18,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // TODO(developer) Configure the sign-in button look/feel
-    
-    [GIDSignIn sharedInstance].uiDelegate = self;
-    UIImageView *buttonImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"google-login-button.png"]];
-   // buttonImage.image = [UIImage imageNamed:@"google-login-button.png"];
-    [self.signInButton addSubview:buttonImage];
-    self.signInButton.layer.cornerRadius = 6;
-    self.signInButton.clipsToBounds = YES;
-    
 
+    [GIDSignIn sharedInstance].uiDelegate = self;
+    [GIDSignIn sharedInstance].delegate = self;
     
     // Uncomment to automatically sign in the user.
     //[[GIDSignIn sharedInstance] signInSilently];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"email"]) {
+        [self jumpScreen];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,5 +42,49 @@
 - (IBAction)didTapSignOut:(id)sender {
     [[GIDSignIn sharedInstance] signOut];
 }
+
+# pragma mark Helper Methods
+
+- (IBAction)signInButtonPressed:(id)sender {
+    [[GIDSignIn sharedInstance] signIn];
+}
+
+
+# pragma mark - Google SignIn Delegate
+- (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
+    
+}
+
+- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController {
+    
+    [self presentViewController:viewController animated:YES completion:nil];
+    
+}
+
+- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user
+     withError:(NSError *)error {
+    //user signed in
+    NSLog(@"EMAIL : %@",user.profile.email);
+    NSLog(@"Logged In");
+    [[NSUserDefaults standardUserDefaults] setObject:user.profile.email forKey:@"email"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self jumpScreen];
+}
+
+- (void)jumpScreen {
+    
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"main"];
+    [self presentViewController:vc animated:NO completion:nil];
+    
+}
+
 
 @end
