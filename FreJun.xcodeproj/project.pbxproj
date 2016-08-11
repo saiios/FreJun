@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E6382F473EEE22DB6C3468 /* libPods.a */; };
+		B465CA331D5B05CA00E83C30 /* google-login-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B465CA321D5B05CA00E83C30 /* google-login-button.png */; };
+		B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA351D5B092D00E83C30 /* mainViewController.m */; };
+		B465CA411D5B0D7100E83C30 /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA391D5B0D7100E83C30 /* DateUtil.m */; };
+		B465CA421D5B0D7100E83C30 /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA3B1D5B0D7100E83C30 /* DMLazyScrollView.m */; };
+		B465CA431D5B0D7100E83C30 /* SACalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA3D1D5B0D7100E83C30 /* SACalendar.m */; };
+		B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA3F1D5B0D7100E83C30 /* SACalendarCell.m */; };
+		B465CA471D5B193200E83C30 /* addEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA461D5B193200E83C30 /* addEventViewController.m */; };
+		B465CA491D5B44E000E83C30 /* handle.png in Resources */ = {isa = PBXBuildFile; fileRef = B465CA481D5B44E000E83C30 /* handle.png */; };
+		B47EDD2E1D5A00080003A602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD2D1D5A00080003A602 /* main.m */; };
+		B47EDD311D5A00080003A602 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD301D5A00080003A602 /* AppDelegate.m */; };
+		B47EDD341D5A00080003A602 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD331D5A00080003A602 /* ViewController.m */; };
+		B47EDD371D5A00080003A602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD351D5A00080003A602 /* Main.storyboard */; };
+		B47EDD3A1D5A00080003A602 /* FreJun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD381D5A00080003A602 /* FreJun.xcdatamodeld */; };
+		B47EDD3C1D5A00080003A602 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD3B1D5A00080003A602 /* Assets.xcassets */; };
+		B47EDD3F1D5A00080003A602 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD3D1D5A00080003A602 /* LaunchScreen.storyboard */; };
+		B47EDD4A1D5A00080003A602 /* FreJunTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD491D5A00080003A602 /* FreJunTests.m */; };
+		B47EDD551D5A00080003A602 /* FreJunUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD541D5A00080003A602 /* FreJunUITests.m */; };
+		B47EDD631D5A005E0003A602 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD621D5A005E0003A602 /* Podfile */; };
+		B47EDD651D5A01A30003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
+		B47EDD661D5A01EC0003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
+		B47EDD671D5A01ED0003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B47EDD461D5A00080003A602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B47EDD211D5A00070003A602 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B47EDD281D5A00070003A602;
+			remoteInfo = FreJun;
+		};
+		B47EDD511D5A00080003A602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B47EDD211D5A00070003A602 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B47EDD281D5A00070003A602;
+			remoteInfo = FreJun;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B465CA321D5B05CA00E83C30 /* google-login-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-login-button.png"; sourceTree = "<group>"; };
+		B465CA341D5B092D00E83C30 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
+		B465CA351D5B092D00E83C30 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
+		B465CA381D5B0D7100E83C30 /* DateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateUtil.h; sourceTree = "<group>"; };
+		B465CA391D5B0D7100E83C30 /* DateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateUtil.m; sourceTree = "<group>"; };
+		B465CA3A1D5B0D7100E83C30 /* DMLazyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLazyScrollView.h; sourceTree = "<group>"; };
+		B465CA3B1D5B0D7100E83C30 /* DMLazyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLazyScrollView.m; sourceTree = "<group>"; };
+		B465CA3C1D5B0D7100E83C30 /* SACalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACalendar.h; sourceTree = "<group>"; };
+		B465CA3D1D5B0D7100E83C30 /* SACalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACalendar.m; sourceTree = "<group>"; };
+		B465CA3E1D5B0D7100E83C30 /* SACalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACalendarCell.h; sourceTree = "<group>"; };
+		B465CA3F1D5B0D7100E83C30 /* SACalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACalendarCell.m; sourceTree = "<group>"; };
+		B465CA401D5B0D7100E83C30 /* SACalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACalendarConstants.h; sourceTree = "<group>"; };
+		B465CA451D5B193200E83C30 /* addEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addEventViewController.h; sourceTree = "<group>"; };
+		B465CA461D5B193200E83C30 /* addEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addEventViewController.m; sourceTree = "<group>"; };
+		B465CA481D5B44E000E83C30 /* handle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = handle.png; sourceTree = "<group>"; };
+		B47EDD291D5A00070003A602 /* FreJun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreJun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B47EDD2D1D5A00080003A602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B47EDD2F1D5A00080003A602 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B47EDD301D5A00080003A602 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B47EDD321D5A00080003A602 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B47EDD331D5A00080003A602 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B47EDD361D5A00080003A602 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B47EDD391D5A00080003A602 /* FreJun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FreJun.xcdatamodel; sourceTree = "<group>"; };
+		B47EDD3B1D5A00080003A602 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B47EDD3E1D5A00080003A602 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B47EDD401D5A00080003A602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B47EDD451D5A00080003A602 /* FreJunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreJunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B47EDD491D5A00080003A602 /* FreJunTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreJunTests.m; sourceTree = "<group>"; };
+		B47EDD4B1D5A00080003A602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B47EDD501D5A00080003A602 /* FreJunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreJunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B47EDD541D5A00080003A602 /* FreJunUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreJunUITests.m; sourceTree = "<group>"; };
+		B47EDD561D5A00080003A602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B47EDD621D5A005E0003A602 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B8E6382F473EEE22DB6C3468 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B47EDD261D5A00070003A602 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B47EDD421D5A00080003A602 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B47EDD4D1D5A00080003A602 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		49DB7F77058A39D41FD12A93 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */,
+				45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B465CA371D5B0D7100E83C30 /* SACalendar */ = {
+			isa = PBXGroup;
+			children = (
+				B465CA381D5B0D7100E83C30 /* DateUtil.h */,
+				B465CA391D5B0D7100E83C30 /* DateUtil.m */,
+				B465CA3A1D5B0D7100E83C30 /* DMLazyScrollView.h */,
+				B465CA3B1D5B0D7100E83C30 /* DMLazyScrollView.m */,
+				B465CA3C1D5B0D7100E83C30 /* SACalendar.h */,
+				B465CA3D1D5B0D7100E83C30 /* SACalendar.m */,
+				B465CA3E1D5B0D7100E83C30 /* SACalendarCell.h */,
+				B465CA3F1D5B0D7100E83C30 /* SACalendarCell.m */,
+				B465CA401D5B0D7100E83C30 /* SACalendarConstants.h */,
+			);
+			path = SACalendar;
+			sourceTree = "<group>";
+		};
+		B47EDD201D5A00070003A602 = {
+			isa = PBXGroup;
+			children = (
+				B47EDD621D5A005E0003A602 /* Podfile */,
+				B47EDD2B1D5A00080003A602 /* FreJun */,
+				B47EDD481D5A00080003A602 /* FreJunTests */,
+				B47EDD531D5A00080003A602 /* FreJunUITests */,
+				B47EDD2A1D5A00080003A602 /* Products */,
+				49DB7F77058A39D41FD12A93 /* Pods */,
+				BE8D8C20676BCFF051BB8654 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B47EDD2A1D5A00080003A602 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B47EDD291D5A00070003A602 /* FreJun.app */,
+				B47EDD451D5A00080003A602 /* FreJunTests.xctest */,
+				B47EDD501D5A00080003A602 /* FreJunUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B47EDD2B1D5A00080003A602 /* FreJun */ = {
+			isa = PBXGroup;
+			children = (
+				B47EDD2F1D5A00080003A602 /* AppDelegate.h */,
+				B47EDD301D5A00080003A602 /* AppDelegate.m */,
+				B47EDD321D5A00080003A602 /* ViewController.h */,
+				B47EDD331D5A00080003A602 /* ViewController.m */,
+				B465CA341D5B092D00E83C30 /* mainViewController.h */,
+				B465CA351D5B092D00E83C30 /* mainViewController.m */,
+				B465CA451D5B193200E83C30 /* addEventViewController.h */,
+				B465CA461D5B193200E83C30 /* addEventViewController.m */,
+				B47EDD351D5A00080003A602 /* Main.storyboard */,
+				B465CA371D5B0D7100E83C30 /* SACalendar */,
+				B47EDD3B1D5A00080003A602 /* Assets.xcassets */,
+				B47EDD3D1D5A00080003A602 /* LaunchScreen.storyboard */,
+				B47EDD401D5A00080003A602 /* Info.plist */,
+				B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */,
+				B47EDD381D5A00080003A602 /* FreJun.xcdatamodeld */,
+				B465CA321D5B05CA00E83C30 /* google-login-button.png */,
+				B465CA481D5B44E000E83C30 /* handle.png */,
+				B47EDD2C1D5A00080003A602 /* Supporting Files */,
+			);
+			path = FreJun;
+			sourceTree = "<group>";
+		};
+		B47EDD2C1D5A00080003A602 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B47EDD2D1D5A00080003A602 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B47EDD481D5A00080003A602 /* FreJunTests */ = {
+			isa = PBXGroup;
+			children = (
+				B47EDD491D5A00080003A602 /* FreJunTests.m */,
+				B47EDD4B1D5A00080003A602 /* Info.plist */,
+			);
+			path = FreJunTests;
+			sourceTree = "<group>";
+		};
+		B47EDD531D5A00080003A602 /* FreJunUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B47EDD541D5A00080003A602 /* FreJunUITests.m */,
+				B47EDD561D5A00080003A602 /* Info.plist */,
+			);
+			path = FreJunUITests;
+			sourceTree = "<group>";
+		};
+		BE8D8C20676BCFF051BB8654 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8E6382F473EEE22DB6C3468 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B47EDD281D5A00070003A602 /* FreJun */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B47EDD591D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJun" */;
+			buildPhases = (
+				2D2FBD9ABB06D5CFC21C0E43 /* Check Pods Manifest.lock */,
+				B47EDD251D5A00070003A602 /* Sources */,
+				B47EDD261D5A00070003A602 /* Frameworks */,
+				B47EDD271D5A00070003A602 /* Resources */,
+				D1E9C4E95C0FEC7BF579824A /* Embed Pods Frameworks */,
+				6F4E960B62F94FFAD8B6A562 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FreJun;
+			productName = FreJun;
+			productReference = B47EDD291D5A00070003A602 /* FreJun.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B47EDD441D5A00080003A602 /* FreJunTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B47EDD5C1D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJunTests" */;
+			buildPhases = (
+				B47EDD411D5A00080003A602 /* Sources */,
+				B47EDD421D5A00080003A602 /* Frameworks */,
+				B47EDD431D5A00080003A602 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B47EDD471D5A00080003A602 /* PBXTargetDependency */,
+			);
+			name = FreJunTests;
+			productName = FreJunTests;
+			productReference = B47EDD451D5A00080003A602 /* FreJunTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B47EDD4F1D5A00080003A602 /* FreJunUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B47EDD5F1D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJunUITests" */;
+			buildPhases = (
+				B47EDD4C1D5A00080003A602 /* Sources */,
+				B47EDD4D1D5A00080003A602 /* Frameworks */,
+				B47EDD4E1D5A00080003A602 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B47EDD521D5A00080003A602 /* PBXTargetDependency */,
+			);
+			name = FreJunUITests;
+			productName = FreJunUITests;
+			productReference = B47EDD501D5A00080003A602 /* FreJunUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B47EDD211D5A00070003A602 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = GOTESO;
+				TargetAttributes = {
+					B47EDD281D5A00070003A602 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					B47EDD441D5A00080003A602 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = B47EDD281D5A00070003A602;
+					};
+					B47EDD4F1D5A00080003A602 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = B47EDD281D5A00070003A602;
+					};
+				};
+			};
+			buildConfigurationList = B47EDD241D5A00070003A602 /* Build configuration list for PBXProject "FreJun" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B47EDD201D5A00070003A602;
+			productRefGroup = B47EDD2A1D5A00080003A602 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B47EDD281D5A00070003A602 /* FreJun */,
+				B47EDD441D5A00080003A602 /* FreJunTests */,
+				B47EDD4F1D5A00080003A602 /* FreJunUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B47EDD271D5A00070003A602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B47EDD3F1D5A00080003A602 /* LaunchScreen.storyboard in Resources */,
+				B47EDD3C1D5A00080003A602 /* Assets.xcassets in Resources */,
+				B47EDD651D5A01A30003A602 /* GoogleService-Info.plist in Resources */,
+				B47EDD631D5A005E0003A602 /* Podfile in Resources */,
+				B465CA491D5B44E000E83C30 /* handle.png in Resources */,
+				B465CA331D5B05CA00E83C30 /* google-login-button.png in Resources */,
+				B47EDD371D5A00080003A602 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B47EDD431D5A00080003A602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B47EDD661D5A01EC0003A602 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B47EDD4E1D5A00080003A602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B47EDD671D5A01ED0003A602 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2D2FBD9ABB06D5CFC21C0E43 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6F4E960B62F94FFAD8B6A562 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1E9C4E95C0FEC7BF579824A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B47EDD251D5A00070003A602 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B47EDD341D5A00080003A602 /* ViewController.m in Sources */,
+				B47EDD3A1D5A00080003A602 /* FreJun.xcdatamodeld in Sources */,
+				B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */,
+				B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */,
+				B465CA421D5B0D7100E83C30 /* DMLazyScrollView.m in Sources */,
+				B465CA471D5B193200E83C30 /* addEventViewController.m in Sources */,
+				B465CA411D5B0D7100E83C30 /* DateUtil.m in Sources */,
+				B465CA431D5B0D7100E83C30 /* SACalendar.m in Sources */,
+				B47EDD311D5A00080003A602 /* AppDelegate.m in Sources */,
+				B47EDD2E1D5A00080003A602 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B47EDD411D5A00080003A602 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B47EDD4A1D5A00080003A602 /* FreJunTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B47EDD4C1D5A00080003A602 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B47EDD551D5A00080003A602 /* FreJunUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B47EDD471D5A00080003A602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B47EDD281D5A00070003A602 /* FreJun */;
+			targetProxy = B47EDD461D5A00080003A602 /* PBXContainerItemProxy */;
+		};
+		B47EDD521D5A00080003A602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B47EDD281D5A00070003A602 /* FreJun */;
+			targetProxy = B47EDD511D5A00080003A602 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B47EDD351D5A00080003A602 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B47EDD361D5A00080003A602 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B47EDD3D1D5A00080003A602 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B47EDD3E1D5A00080003A602 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B47EDD571D5A00080003A602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B47EDD581D5A00080003A602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B47EDD5A1D5A00080003A602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FreJun/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B47EDD5B1D5A00080003A602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FreJun/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B47EDD5D1D5A00080003A602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FreJunTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJunTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FreJun.app/FreJun";
+			};
+			name = Debug;
+		};
+		B47EDD5E1D5A00080003A602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FreJunTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJunTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FreJun.app/FreJun";
+			};
+			name = Release;
+		};
+		B47EDD601D5A00080003A602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FreJunUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJunUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FreJun;
+			};
+			name = Debug;
+		};
+		B47EDD611D5A00080003A602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FreJunUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJunUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FreJun;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B47EDD241D5A00070003A602 /* Build configuration list for PBXProject "FreJun" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B47EDD571D5A00080003A602 /* Debug */,
+				B47EDD581D5A00080003A602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B47EDD591D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJun" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B47EDD5A1D5A00080003A602 /* Debug */,
+				B47EDD5B1D5A00080003A602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B47EDD5C1D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJunTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B47EDD5D1D5A00080003A602 /* Debug */,
+				B47EDD5E1D5A00080003A602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B47EDD5F1D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJunUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B47EDD601D5A00080003A602 /* Debug */,
+				B47EDD611D5A00080003A602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B47EDD381D5A00080003A602 /* FreJun.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B47EDD391D5A00080003A602 /* FreJun.xcdatamodel */,
+			);
+			currentVersion = B47EDD391D5A00080003A602 /* FreJun.xcdatamodel */;
+			path = FreJun.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B47EDD211D5A00070003A602 /* Project object */;
+}
