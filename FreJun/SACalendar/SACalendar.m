@@ -61,7 +61,8 @@
    scrollDirection:(scrollDirection)direction
      pagingEnabled:(BOOL)paging
 {
-    self = [super initWithFrame:frame];
+   
+     self = [super initWithFrame:frame];
     if (self) {
         
         controllers = [NSMutableDictionary dictionary];
@@ -198,11 +199,13 @@
         contr.view.backgroundColor = scrollViewBackgroundColor;
         
         UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        flowLayout.itemSize = self.frame.size;
+        CGRect newFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/2);
+        flowLayout.itemSize = newFrame.size;
         
         headerSize = self.frame.size.height / calendarToHeaderRatio;
+        NSLog(@"header %d",headerSize);
         
-        CGRect rect = CGRectMake(0, headerSize, self.frame.size.width, self.frame.size.height - headerSize);
+        CGRect rect = CGRectMake(0, headerSize*1.3, self.frame.size.width, (self.frame.size.height/2 - headerSize));
         UICollectionView *calendar = [[UICollectionView alloc]initWithFrame:rect collectionViewLayout:flowLayout];
         calendar.dataSource = self;
         calendar.delegate = self;
@@ -223,12 +226,102 @@
         monthLabel.text = [NSString stringWithFormat:@"%@ %04i",[DateUtil getMonthString:month],year];
         monthLabel.textColor = headerTextColor;
         
+        NSArray *days = [[NSArray alloc]initWithObjects:@"S",@"M",@"T",@"W",@"T",@"F",@"S", nil];
+        UIView *daysView = [[UIView alloc]initWithFrame:CGRectMake(10, headerSize*0.9, contr.view.frame.size.width-20, headerSize*0.31)];
+        daysView.clipsToBounds = YES;
+        //daysView.backgroundColor = [UIColor clearColor];
+        for (int i = 0; i < 7; i++) {
+            
+            UILabel *day = [[UILabel alloc]initWithFrame:CGRectMake(i*daysView.frame.size.width/7, 0, headerSize*0.63, headerSize*0.314)];
+            day.font = [UIFont systemFontOfSize: desiredFontSize * headerFontRatio * 0.6];
+            day.textAlignment = NSTextAlignmentCenter;
+            day.text = days[i];
+            day.textColor = headerTextColor;
+            [daysView addSubview:day];
+        }
+        
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, headerSize*0.8, self.frame.size.width, 1)];
+        lineView.backgroundColor = [UIColor blackColor];
+        lineView.alpha = 0.1;
+        
+        UIView *blankView = [[UIView alloc]initWithFrame:CGRectMake(0, 300, self.frame.size.width, 300)];
+        blankView.backgroundColor = [UIColor redColor];
+        //lineView.alpha = 0.1;
+        //[contr.view addSubview:blankView];
+
+        
         [contr.view addSubview:monthLabel];
         [contr.view addSubview:calendar];
+        [contr.view addSubview:daysView];
+        [contr.view addSubview:lineView];
+        
         
         [calendars setObject:calendar forKey:[NSString stringWithFormat:@"%li",(long)index]];
         [controllers setObject:contr forKey:[NSString stringWithFormat:@"%li",(long)index]];
         [monthLabels setObject:monthLabel forKey:[NSString stringWithFormat:@"%li",(long)index]];
+        
+        //Testing Phase
+        if (1) {
+            
+            UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
+            CGRect newFrame = CGRectMake(0, self.frame.size.height/2, self.frame.size.width, self.frame.size.height/2);
+            flowLayout.itemSize = newFrame.size;
+            
+            headerSize = self.frame.size.height / calendarToHeaderRatio;
+            NSLog(@"header %d",headerSize);
+            
+            CGRect rect = CGRectMake(0, self.frame.size.height/2+headerSize*1.3, self.frame.size.width, (self.frame.size.height/2 - headerSize));
+            UICollectionView *calendar = [[UICollectionView alloc]initWithFrame:rect collectionViewLayout:flowLayout];
+            calendar.dataSource = self;
+            calendar.delegate = self;
+            calendar.scrollEnabled = NO;
+            [calendar registerClass:[SACalendarCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+            [calendar setBackgroundColor:calendarBackgroundColor];
+            calendar.tag = index;
+            
+            NSString *string = @"STRING";
+            CGSize size = [string sizeWithAttributes:
+                           @{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+            float pointsPerPixel = 12.0 / size.height;
+            float desiredFontSize = headerSize * pointsPerPixel;
+            
+            UILabel *monthLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height/2, self.frame.size.width, headerSize)];
+            monthLabel.font = [UIFont systemFontOfSize: desiredFontSize * headerFontRatio];
+            monthLabel.textAlignment = NSTextAlignmentCenter;
+            monthLabel.text = [NSString stringWithFormat:@"%@ %04i",[DateUtil getMonthString:month],year];
+            monthLabel.textColor = headerTextColor;
+            
+            NSArray *days = [[NSArray alloc]initWithObjects:@"S",@"M",@"T",@"W",@"T",@"F",@"S", nil];
+            UIView *daysView = [[UIView alloc]initWithFrame:CGRectMake(10, self.frame.size.height/2+headerSize*0.9, contr.view.frame.size.width-20, headerSize*0.31)];
+            daysView.clipsToBounds = YES;
+            //daysView.backgroundColor = [UIColor clearColor];
+            for (int i = 0; i < 7; i++) {
+                
+                UILabel *day = [[UILabel alloc]initWithFrame:CGRectMake(i*daysView.frame.size.width/7, 0, headerSize*0.63, headerSize*0.314)];
+                day.font = [UIFont systemFontOfSize: desiredFontSize * headerFontRatio * 0.6];
+                day.textAlignment = NSTextAlignmentCenter;
+                day.text = days[i];
+                day.textColor = headerTextColor;
+                [daysView addSubview:day];
+            }
+            
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height/2+headerSize*0.8, self.frame.size.width, 1)];
+            lineView.backgroundColor = [UIColor blackColor];
+            lineView.alpha = 0.1;
+            
+            UIView *blankView = [[UIView alloc]initWithFrame:CGRectMake(0, 300, self.frame.size.width, 300)];
+            blankView.backgroundColor = [UIColor redColor];
+            //lineView.alpha = 0.1;
+            //[contr.view addSubview:blankView];
+            
+            
+            [contr.view addSubview:monthLabel];
+            [contr.view addSubview:calendar];
+            [contr.view addSubview:daysView];
+            [contr.view addSubview:lineView];
+
+        }
+        
         
         return contr;
     }
@@ -327,7 +420,6 @@
     else{
         cell.topLineView.hidden = cell.dateLabel.hidden = NO;
         cell.circleView.hidden = YES;
-        
         // get appropriate font size
         NSString *string = @"STRING";
         
@@ -384,7 +476,7 @@
  */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     int width = self.frame.size.width;
-    int height = self.frame.size.height - headerSize;
+    int height = (self.frame.size.height/2 - headerSize);
     cellSize = CGSizeMake(width/DAYS_IN_WEEKS, height / MAX_WEEK);
     return CGSizeMake(width/DAYS_IN_WEEKS, height / MAX_WEEK);
 }

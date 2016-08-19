@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E6382F473EEE22DB6C3468 /* libPods.a */; };
+		B408F7F31D6437CC007FE4E5 /* taskDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B408F7F21D6437CC007FE4E5 /* taskDetailsViewController.m */; };
 		B44024AB1D5C69B1002DB6DE /* login_back_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B44024AA1D5C69B1002DB6DE /* login_back_image.jpg */; };
 		B465CA331D5B05CA00E83C30 /* google-login-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B465CA321D5B05CA00E83C30 /* google-login-button.png */; };
 		B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA351D5B092D00E83C30 /* mainViewController.m */; };
@@ -17,6 +18,8 @@
 		B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA3F1D5B0D7100E83C30 /* SACalendarCell.m */; };
 		B465CA471D5B193200E83C30 /* addEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA461D5B193200E83C30 /* addEventViewController.m */; };
 		B465CA491D5B44E000E83C30 /* handle.png in Resources */ = {isa = PBXBuildFile; fileRef = B465CA481D5B44E000E83C30 /* handle.png */; };
+		B47135881D61FA300013AF17 /* preferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47135871D61FA300013AF17 /* preferencesViewController.m */; };
+		B4775E4E1D5DA39A00CB37F3 /* settingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4775E4D1D5DA39A00CB37F3 /* settingsViewController.m */; };
 		B47EDD2E1D5A00080003A602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD2D1D5A00080003A602 /* main.m */; };
 		B47EDD311D5A00080003A602 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD301D5A00080003A602 /* AppDelegate.m */; };
 		B47EDD341D5A00080003A602 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47EDD331D5A00080003A602 /* ViewController.m */; };
@@ -30,6 +33,14 @@
 		B47EDD651D5A01A30003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
 		B47EDD661D5A01EC0003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
 		B47EDD671D5A01ED0003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
+		B4921E5B1D6361A700BE2C1F /* eventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4921E5A1D6361A700BE2C1F /* eventDetailsViewController.m */; };
+		B4921E5E1D639A8900BE2C1F /* eventRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4921E5D1D639A8900BE2C1F /* eventRequestViewController.m */; };
+		B4E663F11D62D6030034E7B9 /* newEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E663F01D62D6030034E7B9 /* newEventViewController.m */; };
+		B4E663FB1D63162B0034E7B9 /* BBBadgeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E663FA1D63162B0034E7B9 /* BBBadgeBarButtonItem.m */; };
+		B4E663FE1D6318A40034E7B9 /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E663FD1D6318A40034E7B9 /* MKNumberBadgeView.m */; };
+		B4E664011D631C3B0034E7B9 /* calenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E664001D631C3B0034E7B9 /* calenderViewController.m */; };
+		B4E664041D6329960034E7B9 /* calenderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E664031D6329960034E7B9 /* calenderTableViewCell.m */; };
+		B4E664061D632CC10034E7B9 /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E664051D632CC10034E7B9 /* Empty.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +62,8 @@
 
 /* Begin PBXFileReference section */
 		45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B408F7F11D6437CC007FE4E5 /* taskDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taskDetailsViewController.h; sourceTree = "<group>"; };
+		B408F7F21D6437CC007FE4E5 /* taskDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = taskDetailsViewController.m; sourceTree = "<group>"; };
 		B44024AA1D5C69B1002DB6DE /* login_back_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_back_image.jpg; sourceTree = "<group>"; };
 		B465CA321D5B05CA00E83C30 /* google-login-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-login-button.png"; sourceTree = "<group>"; };
 		B465CA341D5B092D00E83C30 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
@@ -67,6 +80,10 @@
 		B465CA451D5B193200E83C30 /* addEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addEventViewController.h; sourceTree = "<group>"; };
 		B465CA461D5B193200E83C30 /* addEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addEventViewController.m; sourceTree = "<group>"; };
 		B465CA481D5B44E000E83C30 /* handle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = handle.png; sourceTree = "<group>"; };
+		B47135861D61FA2F0013AF17 /* preferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = preferencesViewController.h; sourceTree = "<group>"; };
+		B47135871D61FA300013AF17 /* preferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = preferencesViewController.m; sourceTree = "<group>"; };
+		B4775E4C1D5DA39A00CB37F3 /* settingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingsViewController.h; sourceTree = "<group>"; };
+		B4775E4D1D5DA39A00CB37F3 /* settingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingsViewController.m; sourceTree = "<group>"; };
 		B47EDD291D5A00070003A602 /* FreJun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreJun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47EDD2D1D5A00080003A602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B47EDD2F1D5A00080003A602 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -86,6 +103,21 @@
 		B47EDD561D5A00080003A602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B47EDD621D5A005E0003A602 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B4921E591D6361A700BE2C1F /* eventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventDetailsViewController.h; sourceTree = "<group>"; };
+		B4921E5A1D6361A700BE2C1F /* eventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventDetailsViewController.m; sourceTree = "<group>"; };
+		B4921E5C1D639A8900BE2C1F /* eventRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventRequestViewController.h; sourceTree = "<group>"; };
+		B4921E5D1D639A8900BE2C1F /* eventRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventRequestViewController.m; sourceTree = "<group>"; };
+		B4E663EF1D62D6030034E7B9 /* newEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newEventViewController.h; sourceTree = "<group>"; };
+		B4E663F01D62D6030034E7B9 /* newEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newEventViewController.m; sourceTree = "<group>"; };
+		B4E663F91D63162B0034E7B9 /* BBBadgeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBadgeBarButtonItem.h; sourceTree = "<group>"; };
+		B4E663FA1D63162B0034E7B9 /* BBBadgeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBadgeBarButtonItem.m; sourceTree = "<group>"; };
+		B4E663FC1D6318A40034E7B9 /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNumberBadgeView.h; sourceTree = "<group>"; };
+		B4E663FD1D6318A40034E7B9 /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNumberBadgeView.m; sourceTree = "<group>"; };
+		B4E663FF1D631C3B0034E7B9 /* calenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calenderViewController.h; sourceTree = "<group>"; };
+		B4E664001D631C3B0034E7B9 /* calenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calenderViewController.m; sourceTree = "<group>"; };
+		B4E664021D6329960034E7B9 /* calenderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calenderTableViewCell.h; sourceTree = "<group>"; };
+		B4E664031D6329960034E7B9 /* calenderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calenderTableViewCell.m; sourceTree = "<group>"; };
+		B4E664051D632CC10034E7B9 /* Empty.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
 		B8E6382F473EEE22DB6C3468 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,7 +207,27 @@
 				B465CA351D5B092D00E83C30 /* mainViewController.m */,
 				B465CA451D5B193200E83C30 /* addEventViewController.h */,
 				B465CA461D5B193200E83C30 /* addEventViewController.m */,
+				B4E663EF1D62D6030034E7B9 /* newEventViewController.h */,
+				B4E663F01D62D6030034E7B9 /* newEventViewController.m */,
+				B4775E4C1D5DA39A00CB37F3 /* settingsViewController.h */,
+				B4775E4D1D5DA39A00CB37F3 /* settingsViewController.m */,
+				B47135861D61FA2F0013AF17 /* preferencesViewController.h */,
+				B47135871D61FA300013AF17 /* preferencesViewController.m */,
+				B4E663FF1D631C3B0034E7B9 /* calenderViewController.h */,
+				B4E664001D631C3B0034E7B9 /* calenderViewController.m */,
+				B4E663FC1D6318A40034E7B9 /* MKNumberBadgeView.h */,
+				B4E663FD1D6318A40034E7B9 /* MKNumberBadgeView.m */,
+				B4E664021D6329960034E7B9 /* calenderTableViewCell.h */,
+				B4E664031D6329960034E7B9 /* calenderTableViewCell.m */,
+				B4921E591D6361A700BE2C1F /* eventDetailsViewController.h */,
+				B4921E5A1D6361A700BE2C1F /* eventDetailsViewController.m */,
+				B408F7F11D6437CC007FE4E5 /* taskDetailsViewController.h */,
+				B408F7F21D6437CC007FE4E5 /* taskDetailsViewController.m */,
+				B4921E5C1D639A8900BE2C1F /* eventRequestViewController.h */,
+				B4921E5D1D639A8900BE2C1F /* eventRequestViewController.m */,
+				B4E664051D632CC10034E7B9 /* Empty.xib */,
 				B47EDD351D5A00080003A602 /* Main.storyboard */,
+				B4E663F81D63162B0034E7B9 /* BBBadgeBarButtonItem */,
 				B465CA371D5B0D7100E83C30 /* SACalendar */,
 				B47EDD3B1D5A00080003A602 /* Assets.xcassets */,
 				B47EDD3D1D5A00080003A602 /* LaunchScreen.storyboard */,
@@ -214,6 +266,15 @@
 				B47EDD561D5A00080003A602 /* Info.plist */,
 			);
 			path = FreJunUITests;
+			sourceTree = "<group>";
+		};
+		B4E663F81D63162B0034E7B9 /* BBBadgeBarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				B4E663F91D63162B0034E7B9 /* BBBadgeBarButtonItem.h */,
+				B4E663FA1D63162B0034E7B9 /* BBBadgeBarButtonItem.m */,
+			);
+			path = BBBadgeBarButtonItem;
 			sourceTree = "<group>";
 		};
 		BE8D8C20676BCFF051BB8654 /* Frameworks */ = {
@@ -333,6 +394,7 @@
 				B47EDD3F1D5A00080003A602 /* LaunchScreen.storyboard in Resources */,
 				B47EDD3C1D5A00080003A602 /* Assets.xcassets in Resources */,
 				B47EDD651D5A01A30003A602 /* GoogleService-Info.plist in Resources */,
+				B4E664061D632CC10034E7B9 /* Empty.xib in Resources */,
 				B47EDD631D5A005E0003A602 /* Podfile in Resources */,
 				B465CA491D5B44E000E83C30 /* handle.png in Resources */,
 				B465CA331D5B05CA00E83C30 /* google-login-button.png in Resources */,
@@ -412,16 +474,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4E664011D631C3B0034E7B9 /* calenderViewController.m in Sources */,
 				B47EDD341D5A00080003A602 /* ViewController.m in Sources */,
 				B47EDD3A1D5A00080003A602 /* FreJun.xcdatamodeld in Sources */,
+				B4E663FB1D63162B0034E7B9 /* BBBadgeBarButtonItem.m in Sources */,
 				B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */,
 				B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */,
 				B465CA421D5B0D7100E83C30 /* DMLazyScrollView.m in Sources */,
 				B465CA471D5B193200E83C30 /* addEventViewController.m in Sources */,
 				B465CA411D5B0D7100E83C30 /* DateUtil.m in Sources */,
+				B4E663FE1D6318A40034E7B9 /* MKNumberBadgeView.m in Sources */,
+				B408F7F31D6437CC007FE4E5 /* taskDetailsViewController.m in Sources */,
+				B4E664041D6329960034E7B9 /* calenderTableViewCell.m in Sources */,
 				B465CA431D5B0D7100E83C30 /* SACalendar.m in Sources */,
 				B47EDD311D5A00080003A602 /* AppDelegate.m in Sources */,
+				B4775E4E1D5DA39A00CB37F3 /* settingsViewController.m in Sources */,
+				B4E663F11D62D6030034E7B9 /* newEventViewController.m in Sources */,
 				B47EDD2E1D5A00080003A602 /* main.m in Sources */,
+				B4921E5B1D6361A700BE2C1F /* eventDetailsViewController.m in Sources */,
+				B47135881D61FA300013AF17 /* preferencesViewController.m in Sources */,
+				B4921E5E1D639A8900BE2C1F /* eventRequestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

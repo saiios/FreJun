@@ -23,14 +23,14 @@
     [GIDSignIn sharedInstance].delegate = self;
     
     // Uncomment to automatically sign in the user.
-    //[[GIDSignIn sharedInstance] signInSilently];
+    [[GIDSignIn sharedInstance] signInSilently];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"email"]) {
-        [self jumpScreen];
+       // [self jumpScreen];
     }
 }
 
@@ -70,7 +70,15 @@
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user
      withError:(NSError *)error {
     //user signed in
-    NSLog(@"EMAIL : %@",user.profile.email);
+    NSString *userId = user.userID;                  // For client-side use only!
+    NSString *idToken = user.authentication.idToken; // Safe to send to the server
+    NSString *fullName = user.profile.name;
+    NSString *givenName = user.profile.givenName;
+    NSString *familyName = user.profile.familyName;
+    NSString *email = user.profile.email;
+    
+    
+    NSLog(@"{userId : %@},{idToken : %@},{fullName : %@},{givenName : %@},{familyName : %@},{email : %@}",userId,idToken,fullName,givenName,familyName,email);
     NSLog(@"Logged In");
     [[NSUserDefaults standardUserDefaults] setObject:user.profile.email forKey:@"email"];
     [[NSUserDefaults standardUserDefaults] synchronize];

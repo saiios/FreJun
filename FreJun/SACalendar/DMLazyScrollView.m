@@ -176,7 +176,8 @@ enum {
 - (CGRect) visibleRect {
     CGRect visibleRect;
     visibleRect.origin = self.contentOffset;
-    visibleRect.size = self.bounds.size;
+    //visibleRect.size = self.bounds.size;
+    visibleRect.size = CGSizeMake(self.bounds.size.width, self.bounds.size.height);
     return visibleRect;
 }
 

@@ -12,7 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *notificationsCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *calendarBackGroundView;
-@property (weak, nonatomic) IBOutlet UILabel *weekDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *dragButton;
-@property (weak, nonatomic) IBOutlet UIView *tableView;
+
+@property (weak, nonatomic) IBOutlet UIView *tableViewBackground;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+
 @end
