@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mainViewController : UIViewController
+@interface mainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *notificationsCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *calendarBackGroundView;
 @property (weak, nonatomic) IBOutlet UIButton *dragButton;
 
 @property (weak, nonatomic) IBOutlet UIView *tableViewBackground;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property UITableView *tableView;
 
 
 @end

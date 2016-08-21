@@ -10,6 +10,7 @@
 #import "SACalendar.h"
 #import "eventRequestViewController.h"
 #import "MKNumberBadgeView.h"
+#import "calenderViewController.h"
 CGFloat kResizeThumbSize = 45.0f;
 @interface mainViewController (){
     
@@ -35,9 +36,9 @@ CGFloat kResizeThumbSize = 45.0f;
     //self.tableView.scrollEnabled = NO;
     self.navigationItem.title = @"example@example.com";
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    
-
-    
+    self.tableView = [[UITableView alloc]init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     self.notificationsCountLabel.layer.cornerRadius = 7.5;
     self.notificationsCountLabel.clipsToBounds = YES;
   
@@ -46,6 +47,14 @@ CGFloat kResizeThumbSize = 45.0f;
                                         pagingEnabled:YES];
     frejunCalendar.delegate = self;
     [self.calendarBackGroundView addSubview:frejunCalendar];
+    
+    //removing contraints
+    [self.view removeConstraints:self.view.constraints];
+//    [self.tableView removeConstraints:self.tableView.constraints];
+//    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+//    self.tableView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.tableView.backgroundColor = [UIColor yellowColor];
+    self.tableViewBackground.backgroundColor = [UIColor greenColor];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -53,8 +62,8 @@ CGFloat kResizeThumbSize = 45.0f;
     numberBadge.value = 1;
     [self.navigationController.navigationBar addSubview:numberBadge];
     
-    eventRequestViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventRequest"];
-    [self.navigationController pushViewController:infoController animated:YES];
+    calenderViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"calender"];
+    //[self.navigationController pushViewController:infoController animated:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     
@@ -67,7 +76,10 @@ CGFloat kResizeThumbSize = 45.0f;
     [super viewDidLayoutSubviews];
     
     self.calendarBackGroundView.frame = CGRectMake(0, 70, self.view.frame.size.width, (self.view.frame.size.height-70));
-    self.tableViewBackground.frame = CGRectMake(0, (self.view.frame.size.height-70)/2 + 70, self.view.frame.size.width, (self.view.frame.size.height-70)/2);
+    self.tableViewBackground.frame = CGRectMake(0, (self.view.frame.size.height-70)/2 + 70, self.view.frame.size.width, (self.view.frame.size.height-70));
+    self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height-70));
+    [self.tableViewBackground addSubview:self.tableView];
+    self.calendarBackGroundView.clipsToBounds = YES;
     self.dragButton.center = CGPointMake(self.view.center.x, self.view.center.y+35);
     
     
@@ -204,8 +216,8 @@ CGFloat kResizeThumbSize = 45.0f;
     button.center = CGPointMake(button.center.x,
                                 button.center.y + delta_y);
     self.calendarBackGroundView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.calendarBackGroundView.frame.size.height + delta_y);
-    self.tableViewBackground.frame = CGRectMake(0, self.tableViewBackground.frame.origin.y + delta_y, self.view.frame.size.width, self.tableViewBackground.frame.size.height - delta_y);
-    self.tableView.frame = CGRectMake(0, self.tableViewBackground.frame.origin.y + delta_y, self.view.frame.size.width, self.tableViewBackground.frame.size.height - delta_y);
+    self.tableViewBackground.frame = CGRectMake(0, self.tableViewBackground.frame.origin.y + delta_y, self.view.frame.size.width, self.tableViewBackground.frame.size.height);
+   // self.tableView.frame = CGRectMake(0, self.tableViewBackground.frame.origin.y + delta_y, self.view.frame.size.width, self.tableViewBackground.frame.size.height - delta_y);
     
     NSLog(@"was dragged");
 }
@@ -220,7 +232,7 @@ CGFloat kResizeThumbSize = 45.0f;
         button.center = CGPointMake(button.center.x, 70);
         self.calendarBackGroundView.frame = CGRectMake(0, 70, self.view.frame.size.width, 0);
         self.tableViewBackground.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height-70);
-        self.tableView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height-70);
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-70);
         //frejunCalendar.frame = CGRectMake(0, 0, self.view.frame.size.width-20, 0);
         
     }
@@ -229,7 +241,7 @@ CGFloat kResizeThumbSize = 45.0f;
         button.center = CGPointMake(button.center.x, self.view.frame.size.height);
         self.calendarBackGroundView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height-70);
         self.tableViewBackground.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
-        self.tableView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-70);
        // frejunCalendar.frame = CGRectMake(0, 0, self.view.frame.size.width-20, 500);
         
     }
@@ -238,7 +250,7 @@ CGFloat kResizeThumbSize = 45.0f;
         button.center = CGPointMake(button.center.x, (self.view.frame.size.height-70)/2 + 70);
         self.calendarBackGroundView.frame = CGRectMake(0, 70, self.view.frame.size.width, (self.view.frame.size.height-70)/2);
         self.tableViewBackground.frame = CGRectMake(0, (self.view.frame.size.height-70)/2 + 70, self.view.frame.size.width, (self.view.frame.size.height-70)/2);
-        self.tableView.frame = CGRectMake(0, (self.view.frame.size.height-70)/2 + 70, self.view.frame.size.width, (self.view.frame.size.height-70)/2);
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height-70)/2);
         //frejunCalendar.frame = CGRectMake(0, 0, self.view.frame.size.width-20, 250);
     }
 }
@@ -269,6 +281,25 @@ CGFloat kResizeThumbSize = 45.0f;
     [self.navigationController pushViewController:infoController animated:YES];
     
 }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return 15;
+    
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell==nil) {
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    }
+
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+    
+     return cell;
+
+}
 
 @end
