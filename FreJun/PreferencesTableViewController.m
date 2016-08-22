@@ -1,14 +1,14 @@
 //
-//  preferencesViewController.m
+//  PreferencesTableViewController.m
 //  FreJun
 //
-//  Created by GOTESO on 15/08/16.
+//  Created by GOTESO on 22/08/16.
 //  Copyright © 2016 GOTESO. All rights reserved.
 //
 
-#import "preferencesViewController.h"
+#import "PreferencesTableViewController.h"
 
-@interface preferencesViewController (){
+@interface PreferencesTableViewController (){
     
     NSMutableArray *arrayForBool;
     NSArray *sectionTitleArray;
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation preferencesViewController
+@implementation PreferencesTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,13 +56,9 @@
         [arrayForBool addObject:[NSNumber numberWithBool:NO]];
     }
     [arrayForBool replaceObjectAtIndex:5 withObject:[NSNumber numberWithBool:YES]];
-    _expandableTableView.dataSource=self;
-    _expandableTableView.delegate=self;
-    _expandableTableView.bounces = NO;
-    _expandableTableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    _expandableTableView.showsVerticalScrollIndicator = NO;
-    _expandableTableView.contentInset = UIEdgeInsetsMake(35, 0, -1, 0);
-    //_expandableTableView.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0);
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,11 +102,11 @@
         cell.accessoryView = switchView;
         [switchView setOn:NO animated:NO];
         [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
-        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0 , 49, _expandableTableView.frame.size.width, 1)];
+        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0 , 49, self.tableView.frame.size.width, 1)];
         separatorLineView.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1];
         [cell.contentView addSubview:separatorLineView];
         return cell;
-
+        
     }
     
     static NSString *cellid=@"hello";
@@ -140,7 +136,7 @@
     cell.textLabel.textColor=[UIColor colorWithRed:28.0/255.0 green:87.0/255.0 blue:255.0/255.0 alpha:1.0];
     
     /********** Add a custom Separator with cell *******************/
-    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49, _expandableTableView.frame.size.width-15, 1)];
+    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49, self.tableView.frame.size.width-15, 1)];
     separatorLineView.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1];
     [cell.contentView addSubview:separatorLineView];
     
@@ -158,11 +154,11 @@
         
     }
     else{
-    /*************** Close the section, once the data is selected ***********************************/
-    [arrayForBool replaceObjectAtIndex:indexPath.section withObject:[NSNumber numberWithBool:NO]];
-    [_expandableTableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        /*************** Close the section, once the data is selected ***********************************/
+        [arrayForBool replaceObjectAtIndex:indexPath.section withObject:[NSNumber numberWithBool:NO]];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-
+    
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -196,13 +192,13 @@
     UIView *sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 280,50)];
     sectionView.tag=section;
     sectionView.backgroundColor = [UIColor whiteColor];
-    UILabel *viewLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, _expandableTableView.frame.size.width-10, 50)];
+    UILabel *viewLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.tableView.frame.size.width-10, 50)];
     viewLabel.backgroundColor=[UIColor whiteColor];
     if (section == 5) {
         viewLabel.backgroundColor=[UIColor clearColor];
         sectionView.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
         sectionView.frame = CGRectMake(0, 0, 280,35);
-        viewLabel.frame = CGRectMake(10, 0, _expandableTableView.frame.size.width-10, 35);
+        viewLabel.frame = CGRectMake(10, 0, self.tableView.frame.size.width-10, 35);
         viewLabel.font=[UIFont systemFontOfSize:10];
         viewLabel.adjustsFontSizeToFitWidth = YES;
         viewLabel.textColor = [UIColor colorWithRed:109.0/255.0 green:109.0/255.0 blue:114.0/255.0 alpha:1];
@@ -212,18 +208,18 @@
     viewLabel.text=[sectionTitleArray objectAtIndex:section];
     [sectionView addSubview:viewLabel];
     /********** Add a custom Separator with Section view *******************/
-    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49, _expandableTableView.frame.size.width-15, 1)];
+    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49, self.tableView.frame.size.width-15, 1)];
     if (section == 4) {
-        separatorLineView.frame = CGRectMake(0, 49, _expandableTableView.frame.size.width, 1);
+        separatorLineView.frame = CGRectMake(0, 49, self.tableView.frame.size.width, 1);
     }
     if (section == 5) {
-        separatorLineView.frame = CGRectMake(0, 34, _expandableTableView.frame.size.width, 1);
+        separatorLineView.frame = CGRectMake(0, 34, self.tableView.frame.size.width, 1);
     }
-
+    
     separatorLineView.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:199.0/255.0 blue:204.0/255.0 alpha:1.0];
     [sectionView addSubview:separatorLineView];
     
-    UILabel *selected = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, _expandableTableView.frame.size.width-10, 50)];
+    UILabel *selected = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width-10, 50)];
     selected.textAlignment = NSTextAlignmentRight;
     selected.text = selectedOptions[section];
     [sectionView addSubview:selected];
@@ -243,16 +239,17 @@
     }
     else{
         if (indexPath.row == 0) {
-        BOOL collapsed  = [[arrayForBool objectAtIndex:indexPath.section] boolValue];
-        for (int i=0; i<[sectionTitleArray count]; i++) {
-            if (indexPath.section==i) {
-                [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+            BOOL collapsed  = [[arrayForBool objectAtIndex:indexPath.section] boolValue];
+            for (int i=0; i<[sectionTitleArray count]; i++) {
+                if (indexPath.section==i) {
+                    [arrayForBool replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
+                }
             }
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
         }
-        [_expandableTableView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-    }
     }
 }
+
 
 @end

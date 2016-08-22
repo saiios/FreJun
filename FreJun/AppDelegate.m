@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 @import GoogleMaps;
+#import <GooglePlaces/GooglePlaces.h>
 @interface AppDelegate ()
 
 @end
@@ -24,7 +25,7 @@
     [GIDSignIn sharedInstance].delegate = self;
     
     [GMSServices provideAPIKey:@"AIzaSyAbKblQ2xiJjE215BS5oxmWUdQ9DJzgEiU"];
-    
+    [GMSPlacesClient provideAPIKey:@"AIzaSyAHd5Mbt6L9VZSQGZ1wt0XuFh9g7rQcSF8"];
     return YES;
 }
 

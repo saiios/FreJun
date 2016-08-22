@@ -7,6 +7,8 @@
 //
 
 #import "SettingsTableViewController.h"
+#import "AccountsTableViewController.h"
+#import "PreferencesTableViewController.h"
 
 @interface SettingsTableViewController (){
     
@@ -25,7 +27,6 @@
     buttons = [[NSArray alloc]init];
     buttons = @[@"Accounts",@"Preferences",@"Chat with us"];
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
-    self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 }
 
@@ -53,9 +54,22 @@
     }
     cell.textLabel.text = buttons[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+    cell.selectionStyle= UITableViewCellSelectionStyleNone;
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.row == 0) {
+        
+        AccountsTableViewController* infoController = [[AccountsTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:infoController animated:YES];
+    }
+    else if (indexPath.row == 1){
+        
+        PreferencesTableViewController* infoController = [[PreferencesTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:infoController animated:YES];
+    }
+}
 
 @end

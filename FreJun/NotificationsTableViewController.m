@@ -65,9 +65,10 @@
     infoLabel.font = [UIFont systemFontOfSize:14];
     infoLabel.adjustsFontSizeToFitWidth = YES;
     [cell.contentView addSubview:infoLabel];
-
+    cell.selectionStyle= UITableViewCellSelectionStyleNone;
     
     return cell;
 }
+
 
 @end
