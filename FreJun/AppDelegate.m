@@ -7,8 +7,9 @@
 //
 
 #import "AppDelegate.h"
-@import GoogleMaps;
+//@import GoogleMaps;
 #import <GooglePlaces/GooglePlaces.h>
+#import <GoogleMaps/GoogleMaps.h>
 @interface AppDelegate ()
 
 @end
@@ -19,11 +20,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     NSError* configureError;
-    [[GGLContext sharedInstance] configureWithError: &configureError];
-    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
-    
-    [GIDSignIn sharedInstance].delegate = self;
-    
+//    [[GGLContext sharedInstance] configureWithError: &configureError];
+//    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+//    
+//    [GIDSignIn sharedInstance].delegate = self;
+//    
     [GMSServices provideAPIKey:@"AIzaSyAbKblQ2xiJjE215BS5oxmWUdQ9DJzgEiU"];
     [GMSPlacesClient provideAPIKey:@"AIzaSyAHd5Mbt6L9VZSQGZ1wt0XuFh9g7rQcSF8"];
     return YES;

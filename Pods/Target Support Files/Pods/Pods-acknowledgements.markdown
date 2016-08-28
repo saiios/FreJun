@@ -1,23 +1,27 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## FirebaseAnalytics
+## GGLInstanceID
 
-Copyright 2016 Google
-
-## FirebaseInstanceID
-
-Copyright 2016 Google
+Copyright 2015 Google Inc.
 
 ## Google
 
-Copyright 2016 Google Inc.
+Copyright 2015 Google Inc.
 
 ## GoogleAppUtilities
 
 Copyright 2015 Google Inc.
 
 ## GoogleAuthUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleCloudMessaging
+
+Copyright 2015 Google Inc.
+
+## GoogleIPhoneUtilities
 
 Copyright 2015 Google Inc.
 

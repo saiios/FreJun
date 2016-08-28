@@ -11,6 +11,10 @@
 #import "NotificationsTableViewController.h"
 #import "SettingsTableViewController.h"
 #import "AddEventTableViewController.h"
+#import "mainTableViewCell.h"
+#import "DateUtil.h"
+#import "calenderViewController.h"
+#import "eventDetailsViewController.h"
 CGFloat kResizeThumbSize = 45.0f;
 @interface mainViewController (){
     
@@ -25,6 +29,7 @@ CGFloat kResizeThumbSize = 45.0f;
     CGPoint touchStart;
     float navBarHeight;
     UIView *numberBadge;
+    NSArray *events;
 }
 
 @end
@@ -33,6 +38,45 @@ CGFloat kResizeThumbSize = 45.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    events = [[NSArray alloc]initWithObjects:
+              @{@"allday":@"YES",
+                @"Title":@"Task 1",
+                @"Priority":@"3",
+                @"State":@"1" },
+              
+              @{@"allday":@"NO",
+                @"Title":@"Call Roman",
+                @"Priority":@"1",
+                @"State":@"2" },
+              
+              @{@"allday":@"NO",
+                @"Title":@"Another one task",
+                @"Priority":@"0",
+                @"State":@"2" },
+              
+              @{@"allday":@"NO",
+                @"Title":@"Some event",
+                @"Priority":@"2",
+                @"State":@"0" },
+              
+              @{@"allday":@"NO",
+                @"Title":@"Buy something else",
+                @"Priority":@"0",
+                @"State":@"2" },
+              
+              @{@"allday":@"NO",
+                @"Title":@"Meeting with BrandedMe",
+                @"Priority":@"2",
+                @"State":@"0" },
+              
+              @{@"allday":@"NO",
+                @"Title":@"Home Dinner",
+                @"Priority":@"0",
+                @"State":@"1" },
+              nil];
+
+    
+    
     navBarHeight = self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height;
     self.navigationItem.title = @"example@example.com";
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
@@ -53,7 +97,8 @@ CGFloat kResizeThumbSize = 45.0f;
     UILabel *number = [[UILabel alloc]initWithFrame:CGRectMake(0.5, 0.5, numberBadge.frame.size.width-1, numberBadge.frame.size.height-1)];
     number.font = [UIFont systemFontOfSize:12];
     number.textColor = [UIColor whiteColor];
-    number.text = @"00";
+    dataclass *obj = [dataclass getInstance];
+    number.text = obj.NotificationCount;
     number.textAlignment = NSTextAlignmentCenter;
     number.adjustsFontSizeToFitWidth = YES;
     [numberBadge addSubview:number];
@@ -183,31 +228,102 @@ CGFloat kResizeThumbSize = 45.0f;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 15;
+    return events.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    static NSString *cellid=@"mainTableViewCell";
+    mainTableViewCell *cell = (mainTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell==nil) {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"mainTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
-
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     
-     return cell;
+    cell.title.text = [events[indexPath.row] objectForKey:@"Title"];
+    cell.title.frame = CGRectMake(cell.title.frame.origin.x, 0, [[events[indexPath.row] objectForKey:@"Title"] sizeWithFont:cell.textLabel.font constrainedToSize:CGSizeMake(MAXFLOAT, cell.frame.size.height)].width, cell.frame.size.height);
+    
+    cell.priorityLabel.text = [events[indexPath.row] objectForKey:@"Priority"];
+    cell.priorityLabel.frame = CGRectMake(cell.title.frame.origin.x + cell.title.frame.size.width+20, 0, 35, cell.frame.size.height);
+    
+    cell.accessoryType = [[events[indexPath.row] objectForKey:@"state"] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+
+    return cell;
 
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
+    [self.navigationController pushViewController:infoController animated:YES];
+    
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 3;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 10;
+    return 30;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *sectionHeaderView;
+    
+    sectionHeaderView = [[UIView alloc] initWithFrame:
+                         CGRectMake(0, 0, tableView.frame.size.width, 30)];
+    
+    
+    sectionHeaderView.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];;
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:
+                            CGRectMake(10,0, sectionHeaderView.frame.size.width, sectionHeaderView.frame.size.height)];
+    
+    headerLabel.backgroundColor = [UIColor clearColor];
+    [headerLabel setTextColor:[UIColor lightGrayColor]];
+    [headerLabel setFont:[UIFont systemFontOfSize:12]];
+    [sectionHeaderView addSubview:headerLabel];
+    
+    switch (section) {
+        case 0:
+            headerLabel.text = @"Section 1";
+            return sectionHeaderView;
+            break;
+        case 1:
+            headerLabel.text = @"Section 2";
+            return sectionHeaderView;
+            break;
+        case 2:
+            headerLabel.text = @"Section 3";
+            return sectionHeaderView;
+            break;
+        default:
+            break;
+    }
+    
+    return sectionHeaderView;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
     return 0.0001;
 }
+
+-(void) SACalendar:(SACalendar*)calendar didSelectDate:(int)day month:(int)month year:(int)year
+{
+    NSLog(@"Date Selected : %02i/%02i/%04i",day,month,year);
+    calenderViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"calender"];
+    [self.navigationController pushViewController:infoController animated:YES];
+}
+
+/**
+ *  Delegate method : get called user has scroll to a new month
+ */
+-(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
+    NSLog(@"Displaying : %@ %04i",[DateUtil getMonthString:month],year);
+}
+
 
 @end

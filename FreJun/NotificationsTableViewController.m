@@ -22,6 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    dataclass *obj = [dataclass getInstance];
+    obj.NotificationCount = @"0";
+    
     self.navigationItem.title = @"Notifications";
     buttons = [[NSArray alloc]init];
     buttons = @[@"demo1@gmail.com accepted invite",@"demo2@gmail.com declined invite",@"demo3@gmail.com accepted invite"];

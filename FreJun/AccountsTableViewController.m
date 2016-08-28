@@ -7,10 +7,12 @@
 //
 
 #import "AccountsTableViewController.h"
+#import "accountsTableViewCell.h"
 
 @interface AccountsTableViewController (){
     
     NSArray *accounts;
+    NSArray *colors;
 }
 
 
@@ -27,7 +29,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
     //self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
-
+    colors = [[NSArray alloc]initWithObjects:@"color1.jpg",@"color2.jpg",@"color3.jpg",@"color4.jpg",@"color5.jpg", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,19 +54,27 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     
     if (indexPath.section == 1) {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell==nil) {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    }
-        cell.imageView.image = [UIImage imageNamed:@"google-icon"];
-    cell.textLabel.text = accounts[indexPath.row];
+        static NSString *cellid=@"accountsTableViewCell";
+        accountsTableViewCell *cell = (accountsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellid];
+        if (cell==nil) {
+            NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"accountsTableViewCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        cell.dot.image = [UIImage imageNamed:colors[indexPath.row]];
+        cell.dot.layer.cornerRadius = 7;
+        cell.title.text = accounts[indexPath.row];
+//    cell.imageView.image = [UIImage imageNamed:colors[indexPath.row]];
+//    cell.imageView.frame = CGRectMake(12, 12, 10, 10);
+//    cell.imageView.layer.cornerRadius = 5;
+//    cell.textLabel.text = accounts[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
-    }
+     }
     else{
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -108,7 +118,7 @@
         [sectionView addSubview:label];
         
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(15, 5, 20, 20)];
-        image.image = [UIImage imageNamed:@"google-icon"];
+        image.image = [UIImage imageNamed:@"google-icon"];;
         [sectionView addSubview:image];
         
         return  sectionView;
@@ -119,15 +129,5 @@
     
 }
 
-+ (UIImage *)imageFromColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
 
 @end

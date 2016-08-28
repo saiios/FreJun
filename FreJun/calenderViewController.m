@@ -8,6 +8,7 @@
 
 #import "calenderViewController.h"
 #import "calenderTableViewCell.h"
+#import "eventDetailsViewController.h"
 
 @interface calenderViewController (){
     
@@ -178,9 +179,11 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
+    [self.navigationController pushViewController:infoController animated:YES];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

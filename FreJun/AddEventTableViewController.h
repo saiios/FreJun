@@ -11,8 +11,10 @@
 @import GoogleMaps;
 #import <CoreLocation/CoreLocation.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "MVPlaceSearchTextField/MVPlaceSearchTextField.h"
+#import "MPGTextField.h"
 
-@interface AddEventTableViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate,GMSMapViewDelegate, CLLocationManagerDelegate,GMSAutocompleteTableDataSourceDelegate,MKMapViewDelegate,UISearchDisplayDelegate>
+@interface AddEventTableViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate,GMSMapViewDelegate, CLLocationManagerDelegate,GMSAutocompleteTableDataSourceDelegate,MKMapViewDelegate,UISearchDisplayDelegate,UITextViewDelegate,PlaceSearchTextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,MPGTextFieldDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *prioritySegment;
 
@@ -31,5 +33,21 @@
 @property (nonatomic, strong)GMSAutocompleteTableDataSource *tableDataSource;
 @property (nonatomic, strong)UISearchController  *searchDisplayController;
 @property (nonatomic, strong)GMSPlacesClient *placesClient;
+
+@property (weak, nonatomic) IBOutlet UITextView *notes;
+@property (weak, nonatomic) IBOutlet UILabel *notesLAbel;
+
+@property (weak, nonatomic) IBOutlet MVPlaceSearchTextField *address1;
+@property (weak, nonatomic) IBOutlet UICollectionView *list1;
+@property (weak, nonatomic) IBOutlet UICollectionView *list2;
+@property (weak, nonatomic) IBOutlet UICollectionView *list3;
+@property (weak, nonatomic) IBOutlet UIButton *timeButton;
+
+@property (weak, nonatomic) IBOutlet MPGTextField *invitee;
+@property (weak, nonatomic) IBOutlet UITextField *eventName;
+@property (weak, nonatomic) IBOutlet UISwitch *eventSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *address2;
+@property (weak, nonatomic) IBOutlet UITextField *zipcode;
+@property (weak, nonatomic) IBOutlet UITextField *country;
 
 @end

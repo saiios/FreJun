@@ -1,0 +1,18 @@
+//
+//  PrefixHeader.pch
+//  FreJun
+//
+//  Created by GOTESO on 26/08/16.
+//  Copyright © 2016 GOTESO. All rights reserved.
+//
+
+#ifdef __OBJC__
+
+#import "dataclass.h"
+#define directory @"104.131.157.128:80"
+#define color1 [UIColor colorWithRed:243.0/255.0 green:63.0/255.0 blue:63.0/255.0 alpha:1]
+#define color2 [UIColor colorWithRed:75.0/255.0 green:224.0/255.0 blue:60.0/255.0 alpha:1]
+#define color3 [UIColor colorWithRed:249.0/255.0 green:228.0/255.0 blue:50.0/255.0 alpha:1]
+#define color4 [UIColor colorWithRed:181.0/255.0 green:53.0/255.0 blue:234.0/255.0 alpha:1]
+#define color5 [UIColor colorWithRed:63.0/255.0 green:190.0/255.0 blue:243.0/255.0 alpha:1]
+#endif

@@ -22,6 +22,7 @@
     NSArray *selectedOptions;
     
     NSArray *preferences;
+    NSArray *widths;
 }
 
 @end
@@ -58,7 +59,7 @@
     [arrayForBool replaceObjectAtIndex:5 withObject:[NSNumber numberWithBool:YES]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0);
-
+    widths = [[NSArray alloc]initWithObjects:@82,@192,@133,@133,@99, @100,nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -154,6 +155,8 @@
         
     }
     else{
+        
+        
         /*************** Close the section, once the data is selected ***********************************/
         [arrayForBool replaceObjectAtIndex:indexPath.section withObject:[NSNumber numberWithBool:NO]];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -219,8 +222,9 @@
     separatorLineView.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:199.0/255.0 blue:204.0/255.0 alpha:1.0];
     [sectionView addSubview:separatorLineView];
     
-    UILabel *selected = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width-10, 50)];
+    UILabel *selected = [[UILabel alloc]initWithFrame:CGRectMake([widths[section] intValue]+15, 0, self.tableView.frame.size.width-25-[widths[section] intValue], 50)];
     selected.textAlignment = NSTextAlignmentRight;
+    selected.adjustsFontSizeToFitWidth = YES;
     selected.text = selectedOptions[section];
     [sectionView addSubview:selected];
     
