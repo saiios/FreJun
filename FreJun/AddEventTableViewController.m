@@ -17,22 +17,34 @@
 #import "ContactList.h"
 #import "MPGTextField.h"
 #import "ZFTokenField.h"
+#import "Amplitude.h"
 
-@interface AddEventTableViewController ()<ZFTokenFieldDataSource, ZFTokenFieldDelegate>{
+@interface AddEventTableViewController ()<ZFTokenFieldDataSource, ZFTokenFieldDelegate,NSURLConnectionDelegate,UITextFieldDelegate>{
+    
+    BOOL loading;
+    UIView *loadingView;
+    NSMutableData *mutableData;
+    NSMutableArray *selectedDates;
+    
     UIToolbar *toolBar;
     UIToolbar *toolBar2;
     UIToolbar *toolBar3;
+    UIToolbar *toolBar4;
     NSDate *datePicked;
     NSDate *datePicked2;
+    NSDate *datePicked4;
     NSString *hourPicked;
     NSString *hourPicked2;
     NSString *hourPicked3;
+    NSString *hourPicked4;
     NSString *minutePicked;
     NSString *minutePicked2;
     NSString *minutePicked3;
+    NSString *minutePicked4;
     NSString *dayTimePicked;
     NSString *dayTimePicked2;
     NSString *dayTimePicked3;
+    NSString *dayTimePicked4;
     
     BOOL locationChanged;
     GMSMarker *marker;
@@ -45,6 +57,8 @@
     NSInteger tHeight3;
     NSInteger tHeight4;
     
+    NSInteger inviteeHeight;
+    
     UITableView *table1;
     UITableView *table2;
     UITableView *table3;
@@ -54,6 +68,10 @@
     NSArray *remindMinutes;
     
     NSMutableArray *suggestionData;
+    
+    NSMutableArray *table1State;
+    NSMutableArray *table2State;
+    NSMutableArray *table3State;
     
     //Final Data
     NSString *userID;
@@ -74,7 +92,6 @@
     NSString *repeat;
     NSString *repeatTime;
     NSString *notes;
-    NSArray *invitees;
 }
 
 @property (weak, nonatomic) IBOutlet ZFTokenField *tokenField;
@@ -93,6 +110,7 @@
 @property (strong, nonatomic) UIPickerView *pickerView;
 @property (strong, nonatomic) UIPickerView *pickerView2;
 @property (strong, nonatomic) UIPickerView *pickerView3;
+@property (strong, nonatomic) UIPickerView *pickerView4;
 @end
 
 @implementation AddEventTableViewController
@@ -107,6 +125,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadingView];
+    [[Amplitude instance] logEvent:@"Add Event"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"refreshContacts" object:nil];
+    _invitees = [[NSMutableArray alloc]init];
+    repeat = @"Never";
     UITableView *tableView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStyleGrouped];
     self.tableView = tableView;
     self.notes.delegate = self;
@@ -115,32 +138,66 @@
    // _address1.superViewOfList                     = self.view;  // View, on which Autocompletion list should be appeared.
    // _address1.autoCompleteShouldHideOnSelection   = YES;
    // _address1.maximumNumberOfAutoCompleteRows     = 5;
+    [self.eventSwitch setOn:NO animated:NO];
+    [self.eventSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
     [self initTableViews];
     [self addressBook];
     [self tokenView];
+    [self prefInit];
     [self.invitee setDelegate:self];
+    [self.address1 setReturnKeyType:UIReturnKeyDone];
+    [self.address2 setReturnKeyType:UIReturnKeyDone];
+    [self.zipcode setReturnKeyType:UIReturnKeyDone];
+    [self.country setReturnKeyType:UIReturnKeyDone];
+    [self.notes setReturnKeyType:UIReturnKeyDone];
+    [self.invitee setReturnKeyType:UIReturnKeyDone];
+    [self.eventName setReturnKeyType:UIReturnKeyDone];
+    [self.eta setReturnKeyType:UIReturnKeyDone];
+    [self.etd setReturnKeyType:UIReturnKeyDone];
+    self.eta.enabled = NO;
+    self.etd.enabled = NO;
+    //self.tokenField.userInteractionEnabled = NO;
+    self.invitee.delegate = self;
+    self.address1.delegate = self;
+    self.address2.delegate = self;
+    self.zipcode.delegate = self;
+    self.country.delegate = self;
+    self.notes.delegate = self;
+    self.eventName.delegate = self;
+    self.eta.delegate = self;
+    self.etd.delegate = self;
+    
     tabIndex = 1;
     tHeight1 = 44;
     tHeight2 = 44;
     tHeight3 = 0;
     tHeight4 = 0;
+    //inviteeHeight = 176;
     //Picked Values
     datePicked = [NSDate date];
     datePicked2 = [NSDate date];
+    datePicked4 = [NSDate date];
     hourPicked = @"10";
-    hourPicked2 = @"12";
-    hourPicked3 = @"12";
+    hourPicked2 = @"11";
+    hourPicked3 = @"11";
+    hourPicked4 = @"10";
     minutePicked = @"00";
     minutePicked2 = @"00";
     minutePicked3 = @"00";
+    minutePicked4 = @"00";
     dayTimePicked = @"AM";
     dayTimePicked2 = @"AM";
     dayTimePicked3 = @"AM";
+    dayTimePicked4 = @"AM";
     
     //Nav Bar
+    dataclass *obj = [dataclass getInstance];
     self.navigationItem.title = @"example@example.com";
+    self.navigationItem.title = obj.emailTitle;
     UIBarButtonItem *Add = [[UIBarButtonItem alloc]init];
     [Add setTitle:@"Add"];
+    [Add setTarget:self];
+    [Add setAction:@selector(createEvent)];
     self.navigationItem.rightBarButtonItem = Add;
     
     //Segment Control
@@ -193,6 +250,23 @@
     _pickerView3.hidden = YES;
     toolBar3.hidden = YES;
     
+    
+    self.pickerView4 = [[UIPickerView alloc] initWithFrame:(CGRect){{0, 264}, self.tableView.frame.size.width, 215}];
+    self.pickerView4.delegate = self;
+    self.pickerView4.dataSource = self;
+    toolBar4 = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 264, self.view.frame.size.width, 44)];
+    toolBar4.barStyle = UIBarStyleDefault;
+    toolBar4.translucent = true;
+    toolBar4.tintColor = [UIColor colorWithRed:76/255 green:217/255 blue:100/255 alpha:1];
+    UIBarButtonItem *doneButton4 = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(done4)];
+    UIBarButtonItem *spaceButton4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *cancelButton4 = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel4)];
+    [toolBar4 setItems:@[cancelButton4,spaceButton4,doneButton4]];
+    toolBar4.userInteractionEnabled = true;
+    _pickerView4.hidden = NO;
+    toolBar4.hidden = NO;
+    
+    
     //Picker View Arrays
     self.hours = [[NSArray alloc]initWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12", nil];
     self.minutes = [[NSArray alloc]initWithObjects:@"00",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",@"25",@"26",@"27",@"28",@"29",@"30",@"31",@"32",@"33",@"34",@"35",@"36",@"37",@"38",@"39",@"40",@"41",@"42",@"43",@"44",@"45",@"46",@"47",@"48",@"49",@"50",@"51",@"52",@"53",@"54",@"55",@"56",@"57",@"58",@"59", nil];
@@ -213,6 +287,9 @@
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     _startDate.text = [dateFormatter stringFromDate:tomorrow];
     _endDate.text = [dateFormatter stringFromDate:tomorrow];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    startTime = [NSString stringWithFormat:@"%@ 10:00:00",[dateFormatter stringFromDate:tomorrow]];
+    endTime = [NSString stringWithFormat:@"%@ 11:00:00",[dateFormatter stringFromDate:tomorrow]];
     
     //tableview
     //self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
@@ -233,28 +310,82 @@
     marker.groundAnchor = CGPointMake(0.5, 0.5);
     UIImage *markerIcon = [UIImage imageNamed:@"location"];
     marker.icon = markerIcon;
+    
+    self.invitee.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
 
+}
+
+- (void) switchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
+    if(switchControl.on){
+        
+        self.endDate.text = self.startDate.text;
+        self.endTime.text = @"";
+        self.startTime.text = @"";
+        
+    }
+}
+
+-(void)refreshDates{
+    
+    //Dates Array
+    NSDate *lastDate = datePicked;
+    NSDate *todaysDate = [NSDate date];
+    NSTimeInterval lastDiff = [lastDate timeIntervalSinceNow];
+    NSTimeInterval todaysDiff = [todaysDate timeIntervalSinceNow];
+    NSTimeInterval dateDiff = lastDiff - todaysDiff;
+    int noOfDays = (int)dateDiff/(3600*24);
+    selectedDates = [[NSMutableArray alloc]init];
+    for (int i = 0; i<noOfDays+2; i++) {
+        
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = i;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+        [selectedDates addObject:nextDate];
+    }
+    NSLog(@"%@",selectedDates);
+    [_pickerView4 reloadAllComponents];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)refresh:(NSNotification *)notification {
+    [self addressBook];
 }
 
 -(void)addressBook{
     
     [[ContactList sharedContacts] fetchAllContacts]; //fetch all contacts by calling single to method
-    
+    dataclass *obj = [dataclass getInstance];
     if ([[ContactList sharedContacts]totalPhoneNumberArray].count !=0) {
-        NSLog(@"Fetched Contact Details : %@",[[ContactList sharedContacts]totalPhoneNumberArray]);
+       // NSLog(@"Fetched Contact Details : %@",[[ContactList sharedContacts]totalPhoneNumberArray]);
     }
     
     suggestionData = [[NSMutableArray alloc]init];
     for (int i = 0; i<[[[ContactList sharedContacts]totalPhoneNumberArray] count]; i++) {
         NSString *subText;
-        if (![[[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"number"]  isEqual: @""]) {
-            subText = [[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"number"];
+        if (![[[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"email"]  isEqual: @""]) {
+            subText = [[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"email"];
+            
+            [suggestionData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"name"], @"DisplayText", subText, @"DisplaySubText",            [[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i],@"CustomObject", nil]]; }
+    }
+    
+    for (int i = 0; i<[obj.googleContacts count]; i++) {
+        NSString *Title;
+        if ([[obj.googleContacts objectAtIndex:i] objectForKey:@"name"]  != nil) {
+            Title = [[obj.googleContacts objectAtIndex:i] objectForKey:@"name"];
         }
         else{
-            subText = [[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"email"];
+           Title = [[obj.googleContacts objectAtIndex:i] objectForKey:@"email"];
         }
-        [suggestionData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[[[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i] objectForKey:@"name"], @"DisplayText", subText, @"DisplaySubText",            [[[ContactList sharedContacts]totalPhoneNumberArray] objectAtIndex:i],@"CustomObject", nil]];
+        [suggestionData addObject:[NSDictionary dictionaryWithObjectsAndKeys:Title, @"DisplayText", [[obj.googleContacts objectAtIndex:i] objectForKey:@"email"], @"DisplaySubText",[obj.googleContacts objectAtIndex:i],@"CustomObject", nil]];
     }
+
 }
 
 -(void)tokenView{
@@ -276,17 +407,28 @@
     self.list1.delegate = self;
     self.list1.dataSource = self;
     table1List = [[NSArray alloc]initWithObjects:@"On time",@"10 minutes before",@"30 minutes before",@"1 hour before",@"2 hours before", nil];
-    table2 = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 44*4)];
+    table2 = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 44*5)];
     table2.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     self.list2.delegate = self;
     self.list2.dataSource = self;
-    table2List = [[NSArray alloc]initWithObjects:@"On time",@"10 minutes before",@"30 minutes before",@"1 hour before", nil];
+    table2List = [[NSArray alloc]initWithObjects:@"On time",@"10 minutes before",@"30 minutes before",@"1 hour before",@"Custom time", nil];
     table3 = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 44*7)];
     table3.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     self.list3.delegate = self;
     self.list3.dataSource = self;
     table3List = [[NSArray alloc]initWithObjects:@"Never",@"Everyday",@"Weekly",@"Bi-weekly",@"Monthly",@"Quarterly",@"Yearly", nil];
     remindMinutes = [[NSArray alloc]initWithObjects:@"0",@"10",@"30",@"60",@"120", nil];
+}
+
+-(void)prefInit{
+    
+    table1State = [[NSMutableArray alloc]initWithObjects:@"YES",@"NO",@"NO",@"NO",@"NO", nil];
+    table2State = [[NSMutableArray alloc]initWithObjects:@"YES",@"NO",@"NO",@"NO",@"NO", nil];
+    table3State = [[NSMutableArray alloc]initWithObjects:@"YES",@"NO",@"NO",@"NO",@"NO",@"NO",@"NO", nil];
+    ETDRemind = @"0";
+    eventRemind = @"0";
+    repeatTime = @"";
+    
 }
 
 
@@ -296,7 +438,7 @@
     [self.view endEditing:YES];
     NSLog(@"SELECTED ADDRESS :%@",responseDict);
     lattitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.latitude];
-    lattitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.longitude];
+    longitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.longitude];
     
     for (int i=0;i<[[responseDict addressComponents] count];i++) {
         if ([[[[responseDict addressComponents] objectAtIndex:i] valueForKey:@"type"] isEqualToString:@"country"]) {
@@ -366,6 +508,10 @@
             [cell addSubview:_pickerView3];
             [cell addSubview:toolBar3];
         }
+        if (indexPath.row == 1) {
+            [cell addSubview:_pickerView4];
+            [cell addSubview:toolBar4];
+        }
     }
     return cell;
     
@@ -399,7 +545,7 @@
             tHeight2 = 44;
         }
         if (indexPath.row == 1) {
-            tHeight2 = 220;
+            tHeight2 = 264;
             tHeight1 = 44;
         }
         if (indexPath.row == 2) {
@@ -412,6 +558,8 @@
     }
     [tableView beginUpdates];
     [tableView endUpdates];
+    [[self view] endEditing:YES];
+    [self resignFirstResponder];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -560,6 +708,13 @@
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
 }
+
+-(void)cancel4{
+    
+    tHeight2 = 264;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
 -(void)done{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -580,7 +735,7 @@
     _height = 44;
     _height2 = 44;
     
-    [dateFormatter setDateFormat:@"YYYY-MM-d"];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked]);
     NSString *hour;
     hour = hourPicked;
@@ -593,9 +748,14 @@
 
     NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked]);
     startTime = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked]];
+    if(self.eventSwitch.on){
+        self.endDate.text = self.startDate.text;
+        self.endTime.text = @"";
+        self.startTime.text = @"";
+    }
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
-
+    [self refreshDates];
 }
 -(void)done2{
     
@@ -618,7 +778,7 @@
     _height = 44;
     _height2 = 44;
     
-    [dateFormatter setDateFormat:@"YYYY-MM-d"];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked2]);
     NSString *hour;
     hour = hourPicked2;
@@ -631,6 +791,12 @@
 
     NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked2]);
     endTime = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked2],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked2]];
+    
+    if(self.eventSwitch.on){
+        self.endDate.text = self.startDate.text;
+        self.endTime.text = @"";
+        self.startTime.text = @"";
+    }
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
 
@@ -667,6 +833,47 @@
     [self.tableView endUpdates];
     
 }
+
+-(void)done4{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    NSString *timeSuffix;
+    if ([dayTimePicked4 isEqual: @"AM"]) {
+        timeSuffix = @"a.m.";
+    }
+    else if ([dayTimePicked4  isEqual: @"PM"]){
+        timeSuffix = @"p.m.";
+    }
+    if ([dayTimePicked4  isEqual: @"AM"] & [hourPicked4  isEqual: @"12"]) {
+        
+        hourPicked4 = @"00";
+    }
+    //_endTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked4,minutePicked4,timeSuffix];
+
+    tHeight2 = 264;
+    
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked4]);
+    NSString *hour;
+    hour = hourPicked4;
+    if ([dayTimePicked4 isEqual: @"PM"]) {
+        hour = [NSString stringWithFormat:@"%d",[hourPicked4 intValue]+12];
+        if ([hour  isEqual: @"24"]) {
+            hour = @"12";
+        }
+    }
+    
+    NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]);
+    _EventRemindLabel.text = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
+    eventRemind = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
+    
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    
+}
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if (pickerView == _pickerView) {
@@ -695,6 +902,20 @@
         }
         if (component == 3) {
             dayTimePicked2 = _day[row];
+        }
+    }
+    if (pickerView == _pickerView4) {
+        if (component == 0) {
+            datePicked4 = selectedDates[row];
+        }
+        if (component == 1) {
+            hourPicked4 = _hours[row];
+        }
+        if (component == 2) {
+            minutePicked4 = _minutes[row];
+        }
+        if (component == 3) {
+            dayTimePicked4 = _day[row];
         }
     }
     if (pickerView == _pickerView3) {
@@ -766,6 +987,39 @@
     
     return tView;
     }
+    
+    
+    else if (pickerView == _pickerView4) {
+        UILabel* tView = (UILabel*)view;
+        if (!tView){
+            tView = [[UILabel alloc] init];
+            tView.font = [UIFont systemFontOfSize:19];
+            tView.textAlignment = NSTextAlignmentRight;
+        }
+        
+        if (component == 0) {
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"EEE MMM d"];
+            if (row == 0) {
+                tView.text =  @"Today";
+            }
+            tView.text = [dateFormatter stringFromDate:selectedDates[row]];
+        }
+        else if (component == 1) {
+            tView.text = self.hours[row];
+        }
+        else if (component == 2) {
+            tView.text = self.minutes[row];
+        }
+        else {
+            tView.text = self.day[row];
+        }
+        
+        
+        return tView;
+    }
+    
     else{
         
         UILabel* tView = (UILabel*)view;
@@ -791,7 +1045,7 @@
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    if (pickerView == _pickerView | pickerView == _pickerView2) {
+    if (pickerView == _pickerView | pickerView == _pickerView2 | pickerView == _pickerView4) {
         return 4;
     }
     return 3;
@@ -813,7 +1067,23 @@
         return self.day.count;
     }
     }
-    else{
+    else if(pickerView == _pickerView4){
+        
+        if (component == 0) {
+            return selectedDates.count;
+        }
+        else if (component == 1) {
+            return self.hours.count;
+        }
+        else if (component == 2) {
+            return self.minutes.count;
+        }
+        else {
+            return self.day.count;
+        }
+        
+    }
+        else {
         
         if (component == 0) {
             return self.hours.count;
@@ -829,7 +1099,7 @@
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     
-    if (pickerView == _pickerView | pickerView == _pickerView2) {
+    if (pickerView == _pickerView | pickerView == _pickerView2 | pickerView == _pickerView4) {
     if (component == 0) {
         return 130;
     }
@@ -904,15 +1174,13 @@
                                                                 longitude:newLocation.coordinate.longitude
                                                                      zoom:14.0];
         NSLog(@"location chnged");
-        
+        longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
+        lattitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
         [_mapView animateToCameraPosition:camera];
     }
     else if (locationChanged==YES){
         
-        
     }
-    
-    
 }
 
 -(void)autoCompleteSetup{
@@ -920,11 +1188,11 @@
 //    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 85, self.view.frame.size.width, 50)];
     
     // Configure your images
-    UIImage *backgroundImage = [UIImage imageNamed:@"white.png"];
-    UIImage *searchFieldImage = [[UIImage imageNamed:@"white.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+ //   UIImage *backgroundImage = [UIImage imageNamed:@"white.png"];
+ //   UIImage *searchFieldImage = [[UIImage imageNamed:@"white.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
     // Set it to your UISearchBar appearance
-    [[UISearchBar appearance] setBackgroundImage:backgroundImage];
-    [[UISearchBar appearance] setSearchFieldBackgroundImage:searchFieldImage forState:UIControlStateNormal];
+ //   [[UISearchBar appearance] setBackgroundImage:backgroundImage];
+ //   [[UISearchBar appearance] setSearchFieldBackgroundImage:searchFieldImage forState:UIControlStateNormal];
     
    // _searchBar.layer.borderColor = [UIColor lightGrayColor].CGColor;
    // _searchBar.layer.borderWidth = 1.0;
@@ -1096,6 +1364,9 @@ didFailAutocompleteWithError:(NSError *)error {
         UILabel *title = (UILabel *)[cell viewWithTag:11];
         title.textColor=[UIColor colorWithRed:28.0/255.0 green:87.0/255.0 blue:255.0/255.0 alpha:1.0];
         title.text = table1List[indexPath.row];
+        UIImageView *tick = (UIImageView *)[cell viewWithTag:12];
+       tick.image = [table1State[indexPath.row] boolValue] ? [UIImage imageNamed:@"tick.png"] : [UIImage imageNamed:@""];
+        
         return cell;
     }
     else if (collectionView == self.list2) {
@@ -1106,6 +1377,8 @@ didFailAutocompleteWithError:(NSError *)error {
         UILabel *title = (UILabel *)[cell viewWithTag:13];
         title.textColor=[UIColor colorWithRed:28.0/255.0 green:87.0/255.0 blue:255.0/255.0 alpha:1.0];
         title.text = table2List[indexPath.row];
+        UIImageView *tick = (UIImageView *)[cell viewWithTag:14];
+        tick.image = [table2State[indexPath.row] boolValue] ? [UIImage imageNamed:@"tick.png"] : [UIImage imageNamed:@""];
         return cell;
     }
 
@@ -1117,6 +1390,8 @@ didFailAutocompleteWithError:(NSError *)error {
         UILabel *title = (UILabel *)[cell viewWithTag:15];
         title.textColor=[UIColor colorWithRed:28.0/255.0 green:87.0/255.0 blue:255.0/255.0 alpha:1.0];
         title.text = table3List[indexPath.row];
+        UIImageView *tick = (UIImageView *)[cell viewWithTag:16];
+        tick.image = [table3State[indexPath.row] boolValue] ? [UIImage imageNamed:@"tick.png"] : [UIImage imageNamed:@""];
         return cell;
     }
 
@@ -1159,17 +1434,54 @@ didFailAutocompleteWithError:(NSError *)error {
     if (collectionView == _list1) {
         tHeight1 = 44;
         tHeight2 = 44;
+        ETDRemind = remindMinutes[indexPath.row];
+        _ETDRemindLabel.text = table1List[indexPath.row];
+        for (int i=0; i<table1State.count; i++) {
+            [table1State replaceObjectAtIndex:i withObject:@"NO"];
+        }
+        [table1State replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+        [_list1 reloadData];
+        
     }
     else if (collectionView == _list2) {
+        if (indexPath.row == 4) {
+            tHeight1 = 44;
+            tHeight2 = 264+215;
+            for (int i=0; i<table2State.count; i++) {
+                [table2State replaceObjectAtIndex:i withObject:@"NO"];
+            }
+            [table2State replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+            [_list2 reloadData];
+
+        }
+        else{
         tHeight1 = 44;
         tHeight2 = 44;
+        eventRemind = remindMinutes[indexPath.row];
+        _EventRemindLabel.text = table2List[indexPath.row];
+        for (int i=0; i<table2State.count; i++) {
+            [table2State replaceObjectAtIndex:i withObject:@"NO"];
+        }
+        [table2State replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+        [_list2 reloadData];
+        }
     }
     else if (collectionView == _list3) {
         tHeight3 = 44;
+        repeat = table3List[indexPath.row];
+        [_RemindDayLabel setTitle:table3List[indexPath.row] forState:UIControlStateNormal];
+        for (int i=0; i<table3State.count; i++) {
+            [table3State replaceObjectAtIndex:i withObject:@"NO"];
+        }
+        [table3State replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+        [_list3 reloadData];
     }
 
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
+    
+    [[self view] endEditing:YES];
+    [self resignFirstResponder];
 }
 
 - (IBAction)everyday:(id)sender {
@@ -1196,14 +1508,24 @@ didFailAutocompleteWithError:(NSError *)error {
 {
     return suggestionData;
 }
+
 - (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
 {
-
     NSLog(@"rsult : %@",result);
-    [self.invitees addObject:result[@"CustomObject"]];
-    [self.tokens addObject:result[@"DisplayText"]];
+    if(![result[@"CustomObject"]  isEqual: @"!NEW!"]){
+        
+        [self.invitees addObject:result[@"CustomObject"]];
+        [self.tokens addObject:result[@"DisplayText"]];
+    }
+
     [self.tokenField reloadData];
+    if (self.invitees.count >= 6) {
+    tHeight4 = 132+44+(self.invitees.count-6)*22;
+    }
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
     self.invitee.text = @"";
+    NSLog(@"invite list %@",self.invitees);
 }
 - (BOOL)textFieldShouldSelect:(MPGTextField *)textField
 {
@@ -1270,23 +1592,189 @@ didFailAutocompleteWithError:(NSError *)error {
 {
     return YES;
 }
-
-- (void) switchChanged:(id)sender {
-    UISwitch* switchControl = sender;
-    NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
-}
--(void)createEvent{
+- (void)tokenField:(ZFTokenField *)tokenField didTextChanged:(NSString *)text{
     
-    userID = [[NSUserDefaults standardUserDefaults] stringForKey:@"userId"];
-    email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
+    NSLog(@"fewefef");
+    NSString *textOld = tokenField.textField.text;
+    if (textOld.length > 0) {
+    tokenField.textField.text = [textOld substringToIndex:textOld.length-1];
+    [self.invitee becomeFirstResponder];
+    }
+}
+
+-(void)createEvent{
+    NSLog(@"check log");
+    
+    if (_invitees.count == 0) {
+        
+      //  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Invitee Selected" message:@"Please select atleast one invitee." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+      //  [alertView show];
+      //  return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+    [loadingView setHidden:NO];
+    });
+    dataclass *obj = [dataclass getInstance];
+    userID = [[NSUserDefaults standardUserDefaults] stringForKey:@"userID"];
+    email = obj.emailTitle;
     eventName = self.eventName.text;
+    if ([eventName  isEqual: @""]) {
+        eventName = @"No Title";
+    }
     allDay = self.eventSwitch.on ? @"1" : @"0";
-    priority = [self.prioritySegment titleForSegmentAtIndex:self.prioritySegment.selectedSegmentIndex];
+    priority = [NSString stringWithFormat:@"%ld",self.prioritySegment.selectedSegmentIndex];
     address1 = self.address1.text;
+    if ([address1  isEqual: @""]) {
+       // address1 = @"No Details Provided";
+    }
     address2 = self.address2.text;
+    if ([address2  isEqual: @""]) {
+       // address2 = @"No Details Provided";
+    }
     zipCode = self.zipcode.text;
+    if ([zipCode  isEqual: @""])
+    
+    {
+       // zipCode = @"0";
+    }
     country = self.country.text;
+    if ([country  isEqual: @""]) {
+        country = @"";
+    }
     notes = self.notes.text;
+    if (notes == NULL) {
+        notes = @" ";
+    }
+    
+    if(self.eventSwitch.on){
+        startTime = [startTime substringToIndex:10];
+        startTime = [startTime stringByAppendingString:@" "];
+        endTime = [startTime stringByAppendingString:@"23:59:59"];
+        startTime = [startTime stringByAppendingString:@"00:00:00"];
+    }
+
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_invitees
+                                                       options:0
+                                                         error:&error];
+    NSString *string = [[NSString alloc] initWithData:jsonData
+                                             encoding:NSUTF8StringEncoding];
+    string = [string stringByReplacingOccurrencesOfString:@"{" withString:@"["];
+    string = [string stringByReplacingOccurrencesOfString:@"}" withString:@"]"];
+    string = [string substringFromIndex:1];
+    string = [string substringToIndex:string.length - 1];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryEvent]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *userIDString = [NSString stringWithFormat:@"userID=%@",userID];
+    NSString *emailString = [NSString stringWithFormat:@"email=%@",email];
+    NSString *eventNameString = [NSString stringWithFormat:@"eventName=%@",eventName];
+    NSString *allDayString = [NSString stringWithFormat:@"allDay=%d",[allDay intValue]];
+    NSString *startTimeString = [NSString stringWithFormat:@"startTime=%@",startTime];
+    NSString *endTimeString = [NSString stringWithFormat:@"endTime=%@",endTime];
+    NSString *priorityString = [NSString stringWithFormat:@"priority=%d",[priority intValue]];
+    NSString *address1String = [NSString stringWithFormat:@"address1=%@",address1];
+    NSString *address2String = [NSString stringWithFormat:@"address2=%@",address2];
+    NSString *zipCodeString = [NSString stringWithFormat:@"zipCode=%d",[zipCode intValue]];
+
+    NSString *countryString = [NSString stringWithFormat:@"country=%@",country];
+    NSString *longitudeString = [NSString stringWithFormat:@"longitude=%@",longitude];
+    NSString *lattitudeString = [NSString stringWithFormat:@"latitude=%@",lattitude];
+    NSString *ETDRemindString = [NSString stringWithFormat:@"ETDRemind=%d",[ETDRemind intValue]];
+    if (ETDRemind.length > 4) {
+        ETDRemindString = [NSString stringWithFormat:@"ETDRemind=%@",ETDRemind];
+    }
+    NSString *eventRemindString = [NSString stringWithFormat:@"eventRemind=%d",[eventRemind intValue]];
+    NSString *repeatString = [NSString stringWithFormat:@"repeatType=%@",repeat];
+    NSString *repeatTimeString = [NSString stringWithFormat:@"repeatTime=%@",repeatTime];
+    NSString *notesString = [NSString stringWithFormat:@"notes=%@",notes];
+    NSString *inviteesString = [NSString stringWithFormat:@"invitees=%@",string];
+    NSString *name = [NSString stringWithFormat:@"name=%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"name"]];
+    NSString *timeZone = [NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]];
+    NSString *defaultEtdAlert = [NSString stringWithFormat:@"defaultEtdAlert=0"];
+    NSArray *values = [[NSArray alloc]initWithObjects:userIDString,emailString,eventNameString,allDayString,startTimeString,endTimeString,priorityString,address1String,address2String,zipCodeString,countryString,longitudeString,lattitudeString,ETDRemindString,eventRemindString,repeatString,repeatTimeString,notesString,inviteesString,name,timeZone,defaultEtdAlert, nil];
+    NSString *postString = [values componentsJoinedByString:@"&"];
+    NSLog(@"strin is %@",postString);
+
+    NSData *parameterData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    [request setHTTPBody:parameterData];
+    [request setHTTPMethod:@"POST"];
+    [request addValue: @"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if( connection )
+    {
+        mutableData = [NSMutableData new];
+        [loadingView setHidden:YES];
+    }
+    
+}
+
+#pragma mark NSURLConnection delegates
+
+-(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *)response
+{
+    [mutableData setLength:0];
+    NSLog(@"response %@",response);
+}
+
+-(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [mutableData appendData:data];
+    NSLog(@"dara got");
+}
+
+-(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    //serverResponse.text = NO_CONNECTION;
+    NSLog(@"45455 %@",error);
+    return;
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{   
+    NSString *responseStringWithEncoded = [[NSString alloc] initWithData: mutableData encoding:NSUTF8StringEncoding];
+    NSError* error;
+    NSArray *json = [NSJSONSerialization
+                          JSONObjectWithData:mutableData
+                          options:kNilOptions
+                          error:&error];
+    
+    NSLog(@"Response from Server : %@", json);
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+-(void)loadingView{
+    
+    loadingView = [[UIView alloc]initWithFrame:CGRectMake(100, 400, 80, 80)];
+    loadingView.center = self.view.center;
+    loadingView.backgroundColor = [UIColor colorWithWhite:0. alpha:0.85];
+    loadingView.layer.cornerRadius = 5;
+    
+    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.center = CGPointMake(loadingView.frame.size.width / 2.0, 35);
+    [activityView startAnimating];
+    activityView.tag = 100;
+    [loadingView addSubview:activityView];
+    
+    UILabel* lblLoading = [[UILabel alloc]initWithFrame:CGRectMake(0, 48, 80, 30)];
+    lblLoading.text = @"Loading...";
+    lblLoading.textColor = [UIColor whiteColor];
+    lblLoading.font = [UIFont fontWithName:lblLoading.font.fontName size:15];
+    lblLoading.textAlignment = NSTextAlignmentCenter;
+    [loadingView addSubview:lblLoading];
+    
+    [self.view addSubview:loadingView];
+    [loadingView setHidden:YES];
+    
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [[self view] endEditing:YES];
+    [self resignFirstResponder];
 }
 
 @end

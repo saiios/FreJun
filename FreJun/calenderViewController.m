@@ -60,8 +60,9 @@
                 @"Priority":@"0",
                 @"State":@"1" },
                 nil];
-    
+    dataclass *obj = [dataclass getInstance];
     self.navigationItem.title = @"demo1@gmail.com";
+    self.navigationItem.title = obj.emailTitle;
     _tableView.dataSource=self;
     _tableView.delegate=self;
     
@@ -125,38 +126,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-        return sortedEvents.count;
+        dataclass *obj = [dataclass getInstance];
+        return obj.events.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-/*
-    static NSString *cellid=@"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
-    if (cell==nil) {
-        NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"cell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
-    
-    UILabel *allday = (UILabel *)[cell viewWithTag:1];
-    allday.textAlignment = NSTextAlignmentRight;
-    allday.text = [sortedEvents[indexPath.row] objectForKey:@"allday"];
-
-    UILabel *title = (UILabel *)[cell viewWithTag:5];
-    title.text = [sortedEvents[indexPath.row] objectForKey:@"Title"];
-//    title.frame = CGRectMake(title.frame.origin.x, 0, [[sortedEvents[indexPath.row] objectForKey:@"Title"] sizeWithFont:cell.textLabel.font constrainedToSize:CGSizeMake(MAXFLOAT, cell.frame.size.height)].width, cell.frame.size.height);
-    title.center = cell.contentView.center;
-
-    UILabel *priority = (UILabel *)[cell viewWithTag:6];
-    priority.text = [sortedEvents[indexPath.row] objectForKey:@"Priority"];
-
-    cell.accessoryType = [[sortedEvents[indexPath.row] objectForKey:@"state"] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    
-    return cell;
- */
-    
+    dataclass *obj = [dataclass getInstance];
     static NSString *cellid=@"calenderTableViewCell";
     calenderTableViewCell *cell = (calenderTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell==nil) {
@@ -164,23 +141,59 @@
         cell = [nib objectAtIndex:0];
     }
     
-    cell.allDayLabel.text = [sortedEvents[indexPath.row] objectForKey:@"allday"];
+    int all = [[obj.events[indexPath.row] objectForKey:@"allDay"] intValue];
+    if (all == 1) {
+        cell.allDayLabel.text = @"all-Day";
+    }
+    else{
+        cell.allDayLabel.text = @"";
+    }
+    
     cell.allDayLabel.textAlignment = NSTextAlignmentRight;
     
-    cell.title.text = [events[indexPath.row] objectForKey:@"Title"];
-    cell.title.frame = CGRectMake(cell.title.frame.origin.x, 0, [[sortedEvents[indexPath.row] objectForKey:@"Title"] sizeWithFont:cell.textLabel.font constrainedToSize:CGSizeMake(MAXFLOAT, cell.frame.size.height)].width, cell.frame.size.height);
+    cell.time1.text = [[obj.events[indexPath.row] objectForKey:@"startTime"] substringFromIndex:[[obj.events[indexPath.row] objectForKey:@"startTime"] length] - 8];
+    if (all != 1) {
+        cell.time2.text = [[obj.events[indexPath.row] objectForKey:@"endTime"] substringFromIndex:[[obj.events[indexPath.row] objectForKey:@"endTime"] length] - 8];
+    }
+
+    if (all == 1) {
+        cell.time1.text = @"";
+        cell.time2.text = @"";
+    }
+    cell.title.text = [obj.events[indexPath.row] objectForKey:@"eventName"];
+    cell.title.frame = CGRectMake(cell.title.frame.origin.x, 0, [[obj.events[indexPath.row] objectForKey:@"eventName"] sizeWithFont:cell.textLabel.font constrainedToSize:CGSizeMake(MAXFLOAT, cell.frame.size.height)].width, cell.frame.size.height);
     //cell.title.backgroundColor = [UIColor yellowColor];
     
-    cell.priorityLabel.text = [sortedEvents[indexPath.row] objectForKey:@"Priority"];
+    int priorityLevel = [[obj.events[indexPath.row] objectForKey:@"priority"] intValue];
+    switch(priorityLevel)
+    {
+        case 0 :
+            cell.priorityLabel.text = @"";
+            break;
+        case 1 :
+            cell.priorityLabel.text = @"!";
+            break;
+        case 2 :
+            cell.priorityLabel.text = @"!!";
+            break;
+        case 3 :
+            cell.priorityLabel.text = @"!!!";
+            break;
+        default :
+            cell.priorityLabel.text = @"";
+    }
+
     cell.priorityLabel.frame = CGRectMake(cell.title.frame.origin.x + cell.title.frame.size.width, 0, 35, cell.frame.size.height);
     
-    cell.accessoryType = [[sortedEvents[indexPath.row] objectForKey:@"state"] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    //cell.accessoryType = [[obj.events[indexPath.row] objectForKey:@"allDay"] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+   
+    dataclass *obj = [dataclass getInstance];
+    obj.selectedEvent = obj.events[indexPath.row];
     eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
     [self.navigationController pushViewController:infoController animated:YES];
     
@@ -208,7 +221,8 @@
     UILabel *date = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 280,35)];
     date.font = [UIFont systemFontOfSize:10];
     date.textColor = [UIColor lightGrayColor];
-    date.text = @"Monday, May 30th, 2016";
+    dataclass *obj = [dataclass getInstance];
+    date.text = obj.selectedDate;
     [sectionView addSubview:date];
     return  sectionView;
     

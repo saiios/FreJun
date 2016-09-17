@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -15,13 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XdC-0X-Ik8">
-                        <rect key="frame" x="15" y="15" width="14" height="14"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="14" id="J5b-dU-JFy"/>
-                            <constraint firstAttribute="width" constant="14" id="QI6-Cn-XoD"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alert Sounds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W73-E8-OH6">
                         <rect key="frame" x="47" y="11" width="238" height="21"/>
                         <constraints>
@@ -31,17 +23,25 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctd-zG-4K7">
+                        <rect key="frame" x="15" y="14" width="14" height="14"/>
+                        <color key="backgroundColor" red="0.43537297200000002" green="0.9405248397" blue="0.44687885420000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="14" id="Tzs-md-y5W"/>
+                            <constraint firstAttribute="height" constant="14" id="stg-1I-CFk"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Ctd-zG-4K7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="9b1-vz-fmB"/>
                     <constraint firstAttribute="trailingMargin" secondItem="W73-E8-OH6" secondAttribute="trailing" constant="27" id="EQf-dV-gBL"/>
                     <constraint firstItem="W73-E8-OH6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="O9p-iq-Bxg"/>
-                    <constraint firstItem="XdC-0X-Ik8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="eAa-gX-diX"/>
-                    <constraint firstItem="W73-E8-OH6" firstAttribute="leading" secondItem="XdC-0X-Ik8" secondAttribute="trailing" constant="18" id="fBr-Ow-b3K"/>
-                    <constraint firstItem="XdC-0X-Ik8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mwh-e5-DR5"/>
+                    <constraint firstItem="Ctd-zG-4K7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="W8J-5R-BOg"/>
+                    <constraint firstItem="W73-E8-OH6" firstAttribute="leading" secondItem="Ctd-zG-4K7" secondAttribute="trailing" constant="18" id="aHR-JW-Ghf"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="dot" destination="XdC-0X-Ik8" id="ehI-0h-kvV"/>
+                <outlet property="color" destination="Ctd-zG-4K7" id="ATx-yF-4oP"/>
                 <outlet property="title" destination="W73-E8-OH6" id="Gkw-NP-7rN"/>
             </connections>
         </tableViewCell>

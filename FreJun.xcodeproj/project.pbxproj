@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E6382F473EEE22DB6C3468 /* libPods.a */; };
+		B4004EA41D841DE6002384CF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4004EA21D841DE6002384CF /* Fabric.framework */; };
+		B4004EA51D841DE6002384CF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4004EA31D841DE6002384CF /* Crashlytics.framework */; };
 		B40537351D66F5BE0036FB02 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40537341D66F5BE0036FB02 /* SettingsTableViewController.m */; };
 		B40537391D66FC550036FB02 /* AccountsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40537381D66FC550036FB02 /* AccountsTableViewController.m */; };
+		B40DC1781D894B4600BA3788 /* EditEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40DC1771D894B4600BA3788 /* EditEventTableViewController.m */; };
 		B412D3981D6738A200EE09E0 /* NotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B412D3971D6738A200EE09E0 /* NotificationsTableViewController.m */; };
 		B41638DA1D696AD300B7F015 /* AddEventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41638D91D696AD300B7F015 /* AddEventTableViewController.m */; };
+		B424FEAD1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B424FEAC1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m */; };
 		B426D3241D708EA800624F5F /* dataclass.m in Sources */ = {isa = PBXBuildFile; fileRef = B426D3231D708EA800624F5F /* dataclass.m */; };
 		B426D32B1D70AE6A00624F5F /* color1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B426D3261D70AE6A00624F5F /* color1.jpg */; };
 		B426D32C1D70AE6A00624F5F /* color2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B426D3271D70AE6A00624F5F /* color2.jpg */; };
@@ -22,6 +26,15 @@
 		B426D3371D70B4AE00624F5F /* accountsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B426D3351D70B4AE00624F5F /* accountsTableViewCell.xib */; };
 		B426D33B1D71269B00624F5F /* mainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B426D3391D71269B00624F5F /* mainTableViewCell.m */; };
 		B426D33C1D71269B00624F5F /* mainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B426D33A1D71269B00624F5F /* mainTableViewCell.xib */; };
+		B4392C321D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C271D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m */; };
+		B4392C331D796B0900E86E56 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C291D796B0900E86E56 /* SWCellScrollView.m */; };
+		B4392C341D796B0900E86E56 /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C2B1D796B0900E86E56 /* SWLongPressGestureRecognizer.m */; };
+		B4392C351D796B0900E86E56 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C2D1D796B0900E86E56 /* SWTableViewCell.m */; };
+		B4392C361D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C2F1D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.m */; };
+		B4392C371D796B0900E86E56 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C311D796B0900E86E56 /* SWUtilityButtonView.m */; };
+		B4392C3B1D79747500E86E56 /* dust.png in Resources */ = {isa = PBXBuildFile; fileRef = B4392C381D79747500E86E56 /* dust.png */; };
+		B4392C3C1D79747500E86E56 /* penc.png in Resources */ = {isa = PBXBuildFile; fileRef = B4392C391D79747500E86E56 /* penc.png */; };
+		B4392C3D1D79747500E86E56 /* shar.png in Resources */ = {isa = PBXBuildFile; fileRef = B4392C3A1D79747500E86E56 /* shar.png */; };
 		B44024AB1D5C69B1002DB6DE /* login_back_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B44024AA1D5C69B1002DB6DE /* login_back_image.jpg */; };
 		B44211141D6B02A900CE82CD /* PreferencesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B44211131D6B02A900CE82CD /* PreferencesTableViewController.m */; };
 		B4527D6D1D685147006E6969 /* calenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4527D6C1D685147006E6969 /* calenderTableViewCell.xib */; };
@@ -40,7 +53,7 @@
 		B477ECE21D7149550088FF3B /* MVPlaceSearchTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B477ECDB1D7149550088FF3B /* MVPlaceSearchTextField.m */; };
 		B477ECE31D7149550088FF3B /* PlaceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = B477ECDD1D7149550088FF3B /* PlaceDetail.m */; };
 		B477ECE41D7149550088FF3B /* PlaceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B477ECDF1D7149550088FF3B /* PlaceObject.m */; };
-		B477ECEA1D7188E70088FF3B /* tick.PNG in Resources */ = {isa = PBXBuildFile; fileRef = B477ECE91D7188E70088FF3B /* tick.PNG */; };
+		B477ECEA1D7188E70088FF3B /* tick.png in Resources */ = {isa = PBXBuildFile; fileRef = B477ECE91D7188E70088FF3B /* tick.png */; };
 		B477ECEE1D71A54E0088FF3B /* ContactList.m in Sources */ = {isa = PBXBuildFile; fileRef = B477ECED1D71A54E0088FF3B /* ContactList.m */; };
 		B477ECF01D71A5A50088FF3B /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B477ECEF1D71A5A50088FF3B /* Contacts.framework */; };
 		B477ECF21D71A5AC0088FF3B /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B477ECF11D71A5AC0088FF3B /* AddressBook.framework */; };
@@ -59,9 +72,9 @@
 		B47EDD651D5A01A30003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
 		B47EDD661D5A01EC0003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
 		B47EDD671D5A01ED0003A602 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */; };
-		B48849F51D6A137700AC89FF /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = B48849F41D6A137700AC89FF /* white.png */; };
 		B4921E5B1D6361A700BE2C1F /* eventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4921E5A1D6361A700BE2C1F /* eventDetailsViewController.m */; };
 		B4921E5E1D639A8900BE2C1F /* eventRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4921E5D1D639A8900BE2C1F /* eventRequestViewController.m */; };
+		B4AA79FA1D7DE1BE005829DD /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AA79F91D7DE1BE005829DD /* SearchResultsViewController.m */; };
 		B4E664011D631C3B0034E7B9 /* calenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E664001D631C3B0034E7B9 /* calenderViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -84,14 +97,20 @@
 
 /* Begin PBXFileReference section */
 		45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B4004EA21D841DE6002384CF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		B4004EA31D841DE6002384CF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B40537331D66F5BE0036FB02 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		B40537341D66F5BE0036FB02 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		B40537371D66FC550036FB02 /* AccountsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsTableViewController.h; sourceTree = "<group>"; };
 		B40537381D66FC550036FB02 /* AccountsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsTableViewController.m; sourceTree = "<group>"; };
+		B40DC1761D894B4600BA3788 /* EditEventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEventTableViewController.h; sourceTree = "<group>"; };
+		B40DC1771D894B4600BA3788 /* EditEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEventTableViewController.m; sourceTree = "<group>"; };
 		B412D3961D6738A200EE09E0 /* NotificationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsTableViewController.h; sourceTree = "<group>"; };
 		B412D3971D6738A200EE09E0 /* NotificationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsTableViewController.m; sourceTree = "<group>"; };
 		B41638D81D696AD300B7F015 /* AddEventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventTableViewController.h; sourceTree = "<group>"; };
 		B41638D91D696AD300B7F015 /* AddEventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventTableViewController.m; sourceTree = "<group>"; };
+		B424FEAB1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPrefrencesTableViewController.h; sourceTree = "<group>"; };
+		B424FEAC1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPrefrencesTableViewController.m; sourceTree = "<group>"; };
 		B426D3211D708E1E00624F5F /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B426D3221D708EA800624F5F /* dataclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dataclass.h; sourceTree = "<group>"; };
 		B426D3231D708EA800624F5F /* dataclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dataclass.m; sourceTree = "<group>"; };
@@ -106,6 +125,21 @@
 		B426D3381D71269B00624F5F /* mainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainTableViewCell.h; sourceTree = "<group>"; };
 		B426D3391D71269B00624F5F /* mainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainTableViewCell.m; sourceTree = "<group>"; };
 		B426D33A1D71269B00624F5F /* mainTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainTableViewCell.xib; sourceTree = "<group>"; };
+		B4392C261D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		B4392C271D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		B4392C281D796B0900E86E56 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
+		B4392C291D796B0900E86E56 /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
+		B4392C2A1D796B0900E86E56 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		B4392C2B1D796B0900E86E56 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		B4392C2C1D796B0900E86E56 /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		B4392C2D1D796B0900E86E56 /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		B4392C2E1D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		B4392C2F1D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		B4392C301D796B0900E86E56 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
+		B4392C311D796B0900E86E56 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
+		B4392C381D79747500E86E56 /* dust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust.png; sourceTree = "<group>"; };
+		B4392C391D79747500E86E56 /* penc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = penc.png; sourceTree = "<group>"; };
+		B4392C3A1D79747500E86E56 /* shar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shar.png; sourceTree = "<group>"; };
 		B44024AA1D5C69B1002DB6DE /* login_back_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_back_image.jpg; sourceTree = "<group>"; };
 		B44211121D6B02A900CE82CD /* PreferencesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesTableViewController.h; sourceTree = "<group>"; };
 		B44211131D6B02A900CE82CD /* PreferencesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesTableViewController.m; sourceTree = "<group>"; };
@@ -141,7 +175,7 @@
 		B477ECDD1D7149550088FF3B /* PlaceDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetail.m; sourceTree = "<group>"; };
 		B477ECDE1D7149550088FF3B /* PlaceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceObject.h; sourceTree = "<group>"; };
 		B477ECDF1D7149550088FF3B /* PlaceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceObject.m; sourceTree = "<group>"; };
-		B477ECE91D7188E70088FF3B /* tick.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick.PNG; sourceTree = "<group>"; };
+		B477ECE91D7188E70088FF3B /* tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick.png; sourceTree = "<group>"; };
 		B477ECEC1D71A54E0088FF3B /* ContactList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactList.h; sourceTree = "<group>"; };
 		B477ECED1D71A54E0088FF3B /* ContactList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactList.m; sourceTree = "<group>"; };
 		B477ECEF1D71A5A50088FF3B /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
@@ -168,11 +202,12 @@
 		B47EDD561D5A00080003A602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B47EDD621D5A005E0003A602 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B47EDD641D5A01A30003A602 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B48849F41D6A137700AC89FF /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		B4921E591D6361A700BE2C1F /* eventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventDetailsViewController.h; sourceTree = "<group>"; };
 		B4921E5A1D6361A700BE2C1F /* eventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventDetailsViewController.m; sourceTree = "<group>"; };
 		B4921E5C1D639A8900BE2C1F /* eventRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventRequestViewController.h; sourceTree = "<group>"; };
 		B4921E5D1D639A8900BE2C1F /* eventRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventRequestViewController.m; sourceTree = "<group>"; };
+		B4AA79F81D7DE1BE005829DD /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
+		B4AA79F91D7DE1BE005829DD /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		B4E663FF1D631C3B0034E7B9 /* calenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calenderViewController.h; sourceTree = "<group>"; };
 		B4E664001D631C3B0034E7B9 /* calenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calenderViewController.m; sourceTree = "<group>"; };
 		B8E6382F473EEE22DB6C3468 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,8 +220,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B477ECF41D71A5B30088FF3B /* AddressBookUI.framework in Frameworks */,
+				B4004EA41D841DE6002384CF /* Fabric.framework in Frameworks */,
 				B477ECF21D71A5AC0088FF3B /* AddressBook.framework in Frameworks */,
 				B477ECF01D71A5A50088FF3B /* Contacts.framework in Frameworks */,
+				B4004EA51D841DE6002384CF /* Crashlytics.framework in Frameworks */,
 				181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,8 +288,10 @@
 			isa = PBXGroup;
 			children = (
 				B465CA321D5B05CA00E83C30 /* google-login-button.png */,
-				B48849F41D6A137700AC89FF /* white.png */,
-				B477ECE91D7188E70088FF3B /* tick.PNG */,
+				B4392C381D79747500E86E56 /* dust.png */,
+				B4392C391D79747500E86E56 /* penc.png */,
+				B4392C3A1D79747500E86E56 /* shar.png */,
+				B477ECE91D7188E70088FF3B /* tick.png */,
 				B465CA481D5B44E000E83C30 /* handle.png */,
 				B44024AA1D5C69B1002DB6DE /* login_back_image.jpg */,
 				B426D3261D70AE6A00624F5F /* color1.jpg */,
@@ -300,9 +339,31 @@
 			name = DataClass;
 			sourceTree = "<group>";
 		};
+		B4392C251D796B0900E86E56 /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B4392C261D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.h */,
+				B4392C271D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m */,
+				B4392C281D796B0900E86E56 /* SWCellScrollView.h */,
+				B4392C291D796B0900E86E56 /* SWCellScrollView.m */,
+				B4392C2A1D796B0900E86E56 /* SWLongPressGestureRecognizer.h */,
+				B4392C2B1D796B0900E86E56 /* SWLongPressGestureRecognizer.m */,
+				B4392C2C1D796B0900E86E56 /* SWTableViewCell.h */,
+				B4392C2D1D796B0900E86E56 /* SWTableViewCell.m */,
+				B4392C2E1D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.h */,
+				B4392C2F1D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.m */,
+				B4392C301D796B0900E86E56 /* SWUtilityButtonView.h */,
+				B4392C311D796B0900E86E56 /* SWUtilityButtonView.m */,
+			);
+			name = SWTableViewCell;
+			path = PodFiles;
+			sourceTree = "<group>";
+		};
 		B442110F1D6AFDC600CE82CD /* Main View */ = {
 			isa = PBXGroup;
 			children = (
+				B4AA79F81D7DE1BE005829DD /* SearchResultsViewController.h */,
+				B4AA79F91D7DE1BE005829DD /* SearchResultsViewController.m */,
 				B465CA341D5B092D00E83C30 /* mainViewController.h */,
 				B465CA351D5B092D00E83C30 /* mainViewController.m */,
 				B426D3381D71269B00624F5F /* mainTableViewCell.h */,
@@ -338,6 +399,8 @@
 			children = (
 				B44211121D6B02A900CE82CD /* PreferencesTableViewController.h */,
 				B44211131D6B02A900CE82CD /* PreferencesTableViewController.m */,
+				B424FEAB1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.h */,
+				B424FEAC1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m */,
 			);
 			name = "Pereferences Controller";
 			sourceTree = "<group>";
@@ -347,6 +410,8 @@
 			children = (
 				B41638D81D696AD300B7F015 /* AddEventTableViewController.h */,
 				B41638D91D696AD300B7F015 /* AddEventTableViewController.m */,
+				B40DC1761D894B4600BA3788 /* EditEventTableViewController.h */,
+				B40DC1771D894B4600BA3788 /* EditEventTableViewController.m */,
 			);
 			name = "Add Event Controller";
 			sourceTree = "<group>";
@@ -421,6 +486,8 @@
 				B47EDD481D5A00080003A602 /* FreJunTests */,
 				B47EDD531D5A00080003A602 /* FreJunUITests */,
 				B47EDD2A1D5A00080003A602 /* Products */,
+				B4004EA21D841DE6002384CF /* Fabric.framework */,
+				B4004EA31D841DE6002384CF /* Crashlytics.framework */,
 				49DB7F77058A39D41FD12A93 /* Pods */,
 				BE8D8C20676BCFF051BB8654 /* Frameworks */,
 			);
@@ -457,6 +524,7 @@
 				B47EDD351D5A00080003A602 /* Main.storyboard */,
 				B477ECD11D7149550088FF3B /* MVPlaceSearchTextField */,
 				B47EDD3B1D5A00080003A602 /* Assets.xcassets */,
+				B4392C251D796B0900E86E56 /* SWTableViewCell */,
 				B45F92091D71DBB500B69267 /* ZFTokenField.h */,
 				B45F920A1D71DBB500B69267 /* ZFTokenField.m */,
 				B45F920C1D71DBC200B69267 /* TokenView.xib */,
@@ -521,6 +589,7 @@
 				B47EDD271D5A00070003A602 /* Resources */,
 				D1E9C4E95C0FEC7BF579824A /* Embed Pods Frameworks */,
 				6F4E960B62F94FFAD8B6A562 /* Copy Pods Resources */,
+				B4004EA11D84147F002384CF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -578,6 +647,15 @@
 				TargetAttributes = {
 					B47EDD281D5A00070003A602 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 8C5P67PLD5;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					B47EDD441D5A00080003A602 = {
 						CreatedOnToolsVersion = 7.3;
@@ -621,10 +699,12 @@
 				B47EDD651D5A01A30003A602 /* GoogleService-Info.plist in Resources */,
 				B47EDD631D5A005E0003A602 /* Podfile in Resources */,
 				B426D33C1D71269B00624F5F /* mainTableViewCell.xib in Resources */,
-				B48849F51D6A137700AC89FF /* white.png in Resources */,
+				B4392C3D1D79747500E86E56 /* shar.png in Resources */,
 				B465CA491D5B44E000E83C30 /* handle.png in Resources */,
 				B426D32B1D70AE6A00624F5F /* color1.jpg in Resources */,
-				B477ECEA1D7188E70088FF3B /* tick.PNG in Resources */,
+				B477ECEA1D7188E70088FF3B /* tick.png in Resources */,
+				B4392C3C1D79747500E86E56 /* penc.png in Resources */,
+				B4392C3B1D79747500E86E56 /* dust.png in Resources */,
 				B465CA331D5B05CA00E83C30 /* google-login-button.png in Resources */,
 				B426D32F1D70AE6A00624F5F /* color5.jpg in Resources */,
 				B44024AB1D5C69B1002DB6DE /* login_back_image.jpg in Resources */,
@@ -685,6 +765,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B4004EA11D84147F002384CF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run acc787c3f3d88637aa3bc8aaaa5c11dd75ad072c 5defbf51f1317702d6b59a63c36e3ff4bd97fab32bcc5a7b399edb53ff17baa1";
+		};
 		D1E9C4E95C0FEC7BF579824A /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -709,15 +802,19 @@
 			files = (
 				B4E664011D631C3B0034E7B9 /* calenderViewController.m in Sources */,
 				B477ECE31D7149550088FF3B /* PlaceDetail.m in Sources */,
+				B4392C371D796B0900E86E56 /* SWUtilityButtonView.m in Sources */,
 				B477ECF81D71C8670088FF3B /* MPGTextField.m in Sources */,
 				B47EDD341D5A00080003A602 /* ViewController.m in Sources */,
 				B477ECE21D7149550088FF3B /* MVPlaceSearchTextField.m in Sources */,
 				B412D3981D6738A200EE09E0 /* NotificationsTableViewController.m in Sources */,
 				B426D3241D708EA800624F5F /* dataclass.m in Sources */,
 				B47EDD3A1D5A00080003A602 /* FreJun.xcdatamodeld in Sources */,
+				B4392C331D796B0900E86E56 /* SWCellScrollView.m in Sources */,
 				B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */,
 				B477ECE41D7149550088FF3B /* PlaceObject.m in Sources */,
+				B4AA79FA1D7DE1BE005829DD /* SearchResultsViewController.m in Sources */,
 				B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */,
+				B40DC1781D894B4600BA3788 /* EditEventTableViewController.m in Sources */,
 				B426D33B1D71269B00624F5F /* mainTableViewCell.m in Sources */,
 				B41638DA1D696AD300B7F015 /* AddEventTableViewController.m in Sources */,
 				B465CA421D5B0D7100E83C30 /* DMLazyScrollView.m in Sources */,
@@ -726,15 +823,20 @@
 				B465CA431D5B0D7100E83C30 /* SACalendar.m in Sources */,
 				B40537391D66FC550036FB02 /* AccountsTableViewController.m in Sources */,
 				B40537351D66F5BE0036FB02 /* SettingsTableViewController.m in Sources */,
+				B4392C351D796B0900E86E56 /* SWTableViewCell.m in Sources */,
 				B477ECEE1D71A54E0088FF3B /* ContactList.m in Sources */,
 				B47EDD311D5A00080003A602 /* AppDelegate.m in Sources */,
 				B4527D701D685212006E6969 /* calenderTableViewCell.m in Sources */,
+				B4392C341D796B0900E86E56 /* SWLongPressGestureRecognizer.m in Sources */,
 				B45F920B1D71DBB500B69267 /* ZFTokenField.m in Sources */,
 				B47EDD2E1D5A00080003A602 /* main.m in Sources */,
 				B4921E5B1D6361A700BE2C1F /* eventDetailsViewController.m in Sources */,
+				B424FEAD1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m in Sources */,
 				B426D3361D70B4AE00624F5F /* accountsTableViewCell.m in Sources */,
+				B4392C321D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				B477ECE01D7149550088FF3B /* MLPAutoCompleteTextField.m in Sources */,
 				B44211141D6B02A900CE82CD /* PreferencesTableViewController.m in Sources */,
+				B4392C361D796B0900E86E56 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				B4921E5E1D639A8900BE2C1F /* eventRequestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -879,12 +981,19 @@
 			baseConfigurationReference = DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = Frejun/PrefixHeader.pch;
 				INFOPLIST_FILE = FreJun/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1b294a06-c5a1-4b7c-9c94-14dfaf9df199";
 			};
 			name = Debug;
 		};
@@ -893,12 +1002,19 @@
 			baseConfigurationReference = 45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = Frejun/PrefixHeader.pch;
 				INFOPLIST_FILE = FreJun/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1b294a06-c5a1-4b7c-9c94-14dfaf9df199";
 			};
 			name = Release;
 		};

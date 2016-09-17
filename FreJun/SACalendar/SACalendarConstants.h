@@ -27,9 +27,9 @@
 #define calendarToHeaderRatio 7
 #define headerFontRatio 0.4
 
-#define cellFontRatio 0.4
-#define labelToCellRatio 0.7
-#define circleToCellRatio 0.8
+#define cellFontRatio 0.48
+#define labelToCellRatio 0.5
+#define circleToCellRatio 0.9
 
 /**
  * Calendar's color

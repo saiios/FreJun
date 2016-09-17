@@ -41,7 +41,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *list1;
 @property (weak, nonatomic) IBOutlet UICollectionView *list2;
 @property (weak, nonatomic) IBOutlet UICollectionView *list3;
-@property (weak, nonatomic) IBOutlet UIButton *timeButton;
+
 
 @property (weak, nonatomic) IBOutlet MPGTextField *invitee;
 @property (weak, nonatomic) IBOutlet UITextField *eventName;
@@ -49,5 +49,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *address2;
 @property (weak, nonatomic) IBOutlet UITextField *zipcode;
 @property (weak, nonatomic) IBOutlet UITextField *country;
+@property (weak, nonatomic) IBOutlet UITextField *etd;
+@property (weak, nonatomic) IBOutlet UITextField *eta;
+
+@property (weak, nonatomic) IBOutlet UILabel *ETDRemindLabel;
+@property (weak, nonatomic) IBOutlet UILabel *EventRemindLabel;
+@property (weak, nonatomic) IBOutlet UIButton *timeButton;
+@property (weak, nonatomic) IBOutlet UIButton *RemindDayLabel;
 
 @end

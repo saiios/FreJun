@@ -9,7 +9,14 @@
 #ifdef __OBJC__
 
 #import "dataclass.h"
-#define directory @"104.131.157.128:80"
+#define directory @"http://104.131.157.128:80/login"
+#define directoryEvent @"http://104.131.157.128:80/event"
+#define directoryNotifications @"http://104.131.157.128:80/nlist"
+#define directoryEventList @"http://104.131.157.128:80/getEvt"
+#define directoryDeleteEvent @"http://104.131.157.128:80/evtDel"
+#define directoryFetchPref @"http://104.131.157.128:80/FetchPref"
+#define directorypref @"http://104.131.157.128:80/pref"
+#import "dataclass.h"
 #define color1 [UIColor colorWithRed:243.0/255.0 green:63.0/255.0 blue:63.0/255.0 alpha:1]
 #define color2 [UIColor colorWithRed:75.0/255.0 green:224.0/255.0 blue:60.0/255.0 alpha:1]
 #define color3 [UIColor colorWithRed:249.0/255.0 green:228.0/255.0 blue:50.0/255.0 alpha:1]

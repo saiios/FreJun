@@ -15,6 +15,7 @@
 @synthesize allDayLabel = _allDayLabel;
 @synthesize title = _title;
 @synthesize priorityLabel = _priorityLabel;
+@synthesize colorView = _colorView;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -23,7 +24,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    _colorView.layer.cornerRadius = 6.5;
     // Configure the view for the selected state
 }
 

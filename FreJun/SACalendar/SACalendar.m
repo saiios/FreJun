@@ -69,8 +69,8 @@
         calendars = [NSMutableDictionary dictionary];
         monthLabels = [NSMutableDictionary dictionary];
         
-        daysInWeeks = [[NSArray alloc]initWithObjects:@"Sunday",@"Monday",@"Tuesday",
-                       @"Wednesday",@"Thursday",@"Friday",@"Saturday", nil];
+        daysInWeeks = [[NSArray alloc]initWithObjects:@"Monday",@"Tuesday",
+                       @"Wednesday",@"Thursday",@"Friday",@"Saturday",@"Sunday", nil];
         
         state = LOADSTATESTART;
         scroll_state = SCROLLSTATE_120;
@@ -203,7 +203,7 @@
         flowLayout.itemSize = newFrame.size;
         
         headerSize = self.frame.size.height / calendarToHeaderRatio;
-        NSLog(@"header %d",headerSize);
+        //NSLog(@"header %d",headerSize);
         
         CGRect rect = CGRectMake(0, headerSize*1.3, self.frame.size.width, (self.frame.size.height - headerSize));
         UICollectionView *calendar = [[UICollectionView alloc]initWithFrame:rect collectionViewLayout:flowLayout];
@@ -226,14 +226,14 @@
         monthLabel.text = [NSString stringWithFormat:@"%@ %04i",[DateUtil getMonthString:month],year];
         monthLabel.textColor = headerTextColor;
         
-        NSArray *days = [[NSArray alloc]initWithObjects:@"S",@"M",@"T",@"W",@"T",@"F",@"S", nil];
+        NSArray *days = [[NSArray alloc]initWithObjects:@"M",@"T",@"W",@"T",@"F",@"S",@"S", nil];
         UIView *daysView = [[UIView alloc]initWithFrame:CGRectMake(10, headerSize*0.9, contr.view.frame.size.width-20, headerSize*0.31)];
         daysView.clipsToBounds = YES;
         //daysView.backgroundColor = [UIColor clearColor];
         for (int i = 0; i < 7; i++) {
             
             UILabel *day = [[UILabel alloc]initWithFrame:CGRectMake(i*daysView.frame.size.width/7, 0, headerSize*0.63, headerSize*0.314)];
-            day.font = [UIFont systemFontOfSize: desiredFontSize * headerFontRatio * 0.6];
+            day.font = [UIFont systemFontOfSize: desiredFontSize * headerFontRatio * 0.8];
             day.textAlignment = NSTextAlignmentCenter;
             day.text = days[i];
             day.textColor = headerTextColor;
@@ -352,7 +352,7 @@
     
     // if cell is out of the month, do not show
     if (indexPath.row < firstDay || indexPath.row >= firstDay + daysInMonth) {
-        cell.topLineView.hidden = cell.dateLabel.hidden = cell.circleView.hidden = cell.selectedView.hidden = YES;
+        cell.topLineView.hidden = cell.dateLabel.hidden = cell.circleView.hidden = cell.selectedView.hidden = cell.eventSign.hidden = YES;
     }
     else{
         cell.topLineView.hidden = cell.dateLabel.hidden = NO;
@@ -403,6 +403,33 @@
         
         // set the appropriate date for the cell
         cell.dateLabel.text = [NSString stringWithFormat:@"%i",(int)indexPath.row - firstDay + 1];
+        
+        //set event marker
+        dataclass *obj = [dataclass getInstance];
+        for (int i = 0; i<obj.dates.count; i++) {
+            cell.eventSign.hidden = NO;
+            //NSLog(@"%@ %@ %@",[obj.dates[i] substringFromIndex:8],[obj.dates[i] substringFromIndex:5],[obj.dates[i] substringToIndex:4]);
+            NSString *dateS = [obj.dates[i] substringFromIndex:8];
+            NSString *monthS = [obj.dates[i] substringFromIndex:5];
+            monthS = [monthS substringToIndex:2];
+            NSString *yearS = [obj.dates[i] substringToIndex:4];
+        if (indexPath.row - firstDay + 1 == [dateS intValue]
+            && monthToLoad == [monthS intValue]
+            && yearToLoad == [yearS intValue]
+            && indexPath.row - firstDay + 1 < 32
+            && indexPath.row - firstDay + 1 > 0)
+        {
+            cell.eventSign.backgroundColor = [UIColor blackColor];
+            break;
+            //NSLog(@"we got it");
+        }
+        else{
+            cell.eventSign.backgroundColor = [UIColor clearColor];
+           // NSLog(@"we don't it");
+
+        }
+
+    }
     }
     
     return cell;

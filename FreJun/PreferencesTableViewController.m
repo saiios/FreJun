@@ -8,7 +8,12 @@
 
 #import "PreferencesTableViewController.h"
 
-@interface PreferencesTableViewController (){
+@interface PreferencesTableViewController ()<NSURLConnectionDelegate>{
+    
+    BOOL loading;
+    UIView *loadingView;
+    NSMutableData *mutableData;
+    NSDictionary *data;
     
     NSMutableArray *arrayForBool;
     NSArray *sectionTitleArray;
@@ -65,6 +70,31 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryFetchPref]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    
+    [request setHTTPMethod:@"POST"];
+    dataclass *obj = [dataclass getInstance];
+    
+    NSString *postString = [NSString stringWithFormat:@"email=%@&userID=%@",obj.emailTitle,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
+    NSData *parameterData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    [request setHTTPBody:parameterData];
+    [request setHTTPMethod:@"POST"];
+    [request addValue: @"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if( connection )
+    {
+        mutableData = [NSMutableData new];
+        [loadingView setHidden:YES];
+    }
+
+    
 }
 
 - (void) switchChanged:(id)sender {
@@ -140,6 +170,9 @@
     UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49, self.tableView.frame.size.width-15, 1)];
     separatorLineView.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1];
     [cell.contentView addSubview:separatorLineView];
+    
+    /*********** Tick *************/
+    
     
     return cell;
 }
@@ -255,5 +288,46 @@
     }
 }
 
+#pragma mark NSURLConnection delegates
 
+-(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *)response
+{
+    [mutableData setLength:0];
+    NSLog(@"response %@",response);
+}
+
+-(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [mutableData appendData:data];
+    NSLog(@"dara got");
+}
+
+-(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    //serverResponse.text = NO_CONNECTION;
+    NSLog(@"45455 %@",error);
+    return;
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [loadingView setHidden:YES];
+    });
+    NSString *responseStringWithEncoded = [[NSString alloc] initWithData: mutableData encoding:NSUTF8StringEncoding];
+    NSError* error;
+    NSDictionary *json = [NSJSONSerialization
+                     JSONObjectWithData:mutableData
+                     options:kNilOptions
+                     error:&error];
+    
+    NSLog(@"Response from Server : %@", responseStringWithEncoded);
+    if ([responseStringWithEncoded isEqualToString:@"No Preference Data"]) {
+    data = [[NSDictionary alloc]initWithObjectsAndKeys:@0,@"sound",@15,@"defaultEtdAlert",@0,@"timezone",@15,@"defaultEtaAlert",@30,@"defaultMeetDuration", nil];
+    }
+    else{
+        data = json;
+    }
+
+}
 @end

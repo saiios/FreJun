@@ -10,6 +10,6 @@
 
 @interface accountsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
-@property (weak, nonatomic) IBOutlet UIImageView *dot;
+@property (weak, nonatomic) IBOutlet UIView *color;
 
 @end

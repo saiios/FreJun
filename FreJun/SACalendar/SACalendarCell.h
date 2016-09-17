@@ -26,9 +26,12 @@
  */
 @property UIView *selectedView;
 
+
 /**
  *  the label showing the cell's date
  */
 @property UILabel *dateLabel;
+
+@property UIView *eventSign;
 
 @end

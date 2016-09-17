@@ -8,7 +8,8 @@
 #define leftMargin 15
 #define multiplier 0.8
 #import "eventDetailsViewController.h"
-
+#import "Amplitude.h"
+#import "EditEventTableViewController.h"
 @interface eventDetailsViewController ()
 
 @end
@@ -18,9 +19,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[Amplitude instance] logEvent:@"Event Details"];
+    dataclass *obj = [dataclass getInstance];
+    NSLog(@"hyee %@",obj.selectedEvent);
+    NSDictionary *selectedEvent = obj.selectedEvent;
+    
     self.navigationItem.title = @"Event Details";
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc]init];
     [editButton setTitle:@"Edit"];
+    [editButton setAction:@selector(edit)];
+    [editButton setTarget:self];
     self.navigationItem.rightBarButtonItem = editButton;
     CGFloat fullWidth = self.view.frame.size.width - leftMargin*2;
     NSArray *invitees = [[NSArray alloc]initWithObjects:
@@ -31,7 +39,21 @@
                          @{@"email":@"bcook@gmail.com",
                            @"status":@"0"},
                          nil];
+    //invitees = [selectedEvent objectForKey:@"invitees"];
+    NSError *error;
+    NSString *string = [[selectedEvent objectForKey:@"invitees"] stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"]" withString:@"}"];
+    string = [string stringByReplacingOccurrencesOfString:@"[" withString:@"{"];
+    string = [NSString stringWithFormat:@"[%@]",string];
+    NSLog(@"%@",string);
+    NSData* data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray *json = [NSJSONSerialization
+                     JSONObjectWithData:data
+                     options:kNilOptions
+                     error:&error];
     
+    NSLog(@"json = %@",json);
+    invitees = json;
     //Scroll View
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:self.view.frame];
     //scrollView.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
@@ -46,20 +68,20 @@
     //Event Name Label
     UILabel *eventName = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, 50*multiplier, fullWidth, 18*multiplier)];
     eventName.font = [eventName.font fontWithSize:17*multiplier];
-    eventName.text = @"Another One Event";
+    eventName.text = [selectedEvent objectForKey:@"eventName"];
     [scrollView addSubview:eventName];
     
     //Address 1 Label
     UILabel *address1 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, eventName.frame.origin.y+eventName.frame.size.height+9*multiplier, fullWidth, 15*multiplier)];
     address1.font = [address1.font fontWithSize:14*multiplier];
-    address1.text = @"Another One Event";
+    address1.text = [selectedEvent objectForKey:@"address1"];
     address1.textColor = [UIColor grayColor];
     [scrollView addSubview:address1];
     
     //Address 2 Label
     UILabel *address2 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, address1.frame.origin.y+address1.frame.size.height+7*multiplier, fullWidth, 15*multiplier)];
     address2.font = [address2.font fontWithSize:14*multiplier];
-    address2.text = @"Another One Event";
+    address2.text = [selectedEvent objectForKey:@"address2"];
     address2.textColor = [UIColor grayColor];
     [scrollView addSubview:address2];
     
@@ -67,6 +89,23 @@
     UILabel *day = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, address2.frame.origin.y+address2.frame.size.height+16*multiplier, fullWidth, 15*multiplier)];
     day.font = [day.font fontWithSize:14*multiplier];
     day.text = @"Another One Event";
+    day.text = [selectedEvent objectForKey:@"startTime"];
+    NSDate *dateFromString = [[NSDate alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    dateFromString = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime"] substringToIndex:10]];
+    [dateFormatter setDateFormat:@"EEEE,MMM d,yyyy"];
+    NSLog(@"%@",[dateFormatter stringFromDate:dateFromString]);
+    day.text = [dateFormatter stringFromDate:dateFromString];
+    
+    NSString *dateString = [[selectedEvent objectForKey:@"startTime"] substringToIndex:[[selectedEvent objectForKey:@"startTime"] length]-9];
+    NSLog(@"date is 2%@",dateString);
+    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //[dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //NSDate *dateFromString = [[NSDate alloc] init];
+    //dateFromString = [dateFormatter dateFromString:@"2016-09-04"];
+    //NSLog(@"date is %@",dateFromString);
+    
     day.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:day];
     
@@ -74,6 +113,18 @@
     UILabel *time1 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, day.frame.origin.y+day.frame.size.height+4*multiplier, fullWidth, 15*multiplier)];
     time1.font = [time1.font fontWithSize:14*multiplier];
     time1.text = @"Another One Event";
+    time1.text = [selectedEvent objectForKey:@"startTime"];
+    
+    NSDate *GMTDate = [[NSDate alloc] init];
+    NSDateFormatter *GMTdateFormatter = [[NSDateFormatter alloc] init];
+    [GMTdateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    GMTDate = [GMTdateFormatter dateFromString:[selectedEvent objectForKey:@"startTime"]];
+    GMTdateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:[[selectedEvent objectForKey:@"timeZone"] intValue]];
+    GMTdateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:3600];
+    NSLog(@"formatted %@",[GMTdateFormatter stringFromDate:GMTDate]);
+    
+
+    
     time1.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:time1];
     
@@ -81,6 +132,7 @@
     UILabel *time2 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, time1.frame.origin.y+time1.frame.size.height+4*multiplier, fullWidth, 15*multiplier)];
     time2.font = [time2.font fontWithSize:14*multiplier];
     time2.text = @"Another One Event";
+    time2.text = [selectedEvent objectForKey:@"startTime"];
     time2.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:time2];
     
@@ -99,7 +151,7 @@
     UILabel *calenderText = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin + calender.frame.size.width + 40*multiplier, separatorLineView.frame.origin.y+separatorLineView.frame.size.height+12*multiplier, fullWidth - calender.frame.size.width - 40*multiplier, 18*multiplier)];
     calenderText.font = [calenderText.font fontWithSize:17*multiplier];
     calenderText.textAlignment = NSTextAlignmentRight;
-    calenderText.text = @"demo@example.com";
+    calenderText.text = [selectedEvent objectForKey:@"email"];
     CGSize constraintSize = CGSizeMake(MAXFLOAT, calenderText.frame.size.height);
     CGSize labelSize = [calenderText.text sizeWithFont:calenderText.font constrainedToSize:constraintSize];
     if (labelSize.width > calenderText.frame.size.width) {
@@ -133,7 +185,29 @@
     ETDReminderText.font = [ETDReminderText.font fontWithSize:17*multiplier];
     ETDReminderText.textAlignment = NSTextAlignmentRight;
     ETDReminderText.adjustsFontSizeToFitWidth= YES;
-    ETDReminderText.text = @"45 min before";
+    int etd = [[selectedEvent valueForKey:@"ETDRemind"] intValue];
+    switch(etd)
+    {
+        case 0 :
+            ETDReminderText.text = @"On Time";
+            break;
+        case 10 :
+            ETDReminderText.text = @"10 min before";
+            break;
+        case 30 :
+            ETDReminderText.text = @"30 min before";
+            break;
+        case 60 :
+            ETDReminderText.text = @"1 hour before";
+            break;
+        case 120 :
+            ETDReminderText.text = @"2 hours before";
+            break;
+        default :
+            ETDReminderText.text = @"";
+    }
+    
+    //ETDReminderText.text = @"45 min before";
     ETDReminderText.textColor = [UIColor grayColor];
     [scrollView addSubview:ETDReminderText];
     
@@ -153,7 +227,25 @@
     eventReminderText.font = [eventReminder.font fontWithSize:17*multiplier];
     eventReminderText.textAlignment = NSTextAlignmentRight;
     eventReminderText.adjustsFontSizeToFitWidth= YES;
-    eventReminderText.text = @"30 min before";
+    int event = [[selectedEvent valueForKey:@"eventRemind"] intValue];
+    switch(event)
+    {
+        case 0 :
+            eventReminderText.text = @"On Time";
+            break;
+        case 10 :
+            eventReminderText.text = @"10 min before";
+            break;
+        case 30 :
+            eventReminderText.text = @"30 min before";
+            break;
+        case 60 :
+            eventReminderText.text = @"1 hour before";
+            break;
+        default :
+            eventReminderText.text = @"";
+    }
+    //eventReminderText.text = @"30 min before";
     eventReminderText.textColor = [UIColor grayColor];
     [scrollView addSubview:eventReminderText];
     
@@ -169,6 +261,8 @@
     [scrollView addSubview:inviteesLabel];
     
     //Invitess Email Labels
+    if (invitees != NULL) {
+
     for (int i=0; i<invitees.count; i++) {
         UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin+inviteesLabel.frame.size.width + 10*multiplier, separatorLineView4.frame.origin.y+separatorLineView4.frame.size.height+12*multiplier+i*(18*multiplier + 6*multiplier), fullWidth-inviteesLabel.frame.size.width - 10*multiplier, 23*multiplier)];
         if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"0"]) {
@@ -181,13 +275,26 @@
             emailLabel.textColor = [UIColor colorWithRed:232.0/255.0 green:83.0/255.0 blue:73.0/255.0 alpha:1];
         }
         emailLabel.text = [[invitees objectAtIndex:i] objectForKey:@"email"];
+        if ([emailLabel.text  isEqual: @""]) {
+           emailLabel.text = [[invitees objectAtIndex:i] objectForKey:@"number"]; 
+        }
         emailLabel.textAlignment = NSTextAlignmentRight;
         emailLabel.font = [emailLabel.font fontWithSize:17*multiplier];
         [scrollView addSubview:emailLabel];
     }
+    }
+    else{
+        
+//        UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin+inviteesLabel.frame.size.width + 10*multiplier, separatorLineView4.frame.origin.y+separatorLineView4.frame.size.height+12*multiplier+i*(18*multiplier + 6*multiplier), fullWidth-inviteesLabel.frame.size.width - 10*multiplier, 23*multiplier)];
+//        
+//        [scrollView addSubview:emailLabel];
+    }
     
     //line separator 5
     UIView* separatorLineView5 = [[UIView alloc]initWithFrame:CGRectMake(leftMargin, inviteesLabel.frame.origin.y+inviteesLabel.frame.size.height+24*multiplier+(invitees.count-1)*(18*multiplier + 6*multiplier), fullWidth+leftMargin, 1)];
+    if (invitees.count == 0) {
+        separatorLineView5 = [[UIView alloc]initWithFrame:CGRectMake(leftMargin, inviteesLabel.frame.origin.y+inviteesLabel.frame.size.height+24*multiplier, fullWidth+leftMargin, 1)];
+    }
     separatorLineView5.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1];
     [scrollView addSubview:separatorLineView5];
     
@@ -202,7 +309,7 @@
     notesText.font = [notesText.font fontWithSize:17*multiplier];
     notesText.textAlignment = NSTextAlignmentRight;
     notesText.numberOfLines = 0;
-    notesText.text = @"30 min before30 min before30 min before30 min before30 min before30 min before30 min before";
+    notesText.text = [selectedEvent objectForKey:@"notes"];
     notesText.textColor = [UIColor grayColor];
     CGSize constraintSize2 = CGSizeMake(notesText.frame.size.width, MAXFLOAT);
     CGSize labelSize2 = [notesText.text sizeWithFont:notesText.font constrainedToSize:constraintSize2];
@@ -223,7 +330,7 @@
     //name Label
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, editedBy.frame.origin.y+editedBy.frame.size.height+11*multiplier, fullWidth, 12*multiplier)];
     name.font = [name.font fontWithSize:12*multiplier];
-    name.text = @"Another One Event";
+    name.text = [selectedEvent objectForKey:@"name"];
     name.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:name];
     
@@ -231,13 +338,14 @@
     UILabel *time3 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, name.frame.origin.y+name.frame.size.height+3*multiplier, fullWidth, 12*multiplier)];
     time3.font = [time3.font fontWithSize:12*multiplier];
     time3.text = @"Another One Event";
+    time3.text = [selectedEvent objectForKey:@"timestamp"];
     time3.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:time3];
     
     //Adjusting the size of Scroll View
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width, time3.frame.origin.y + time3.frame.size.height + 20);
     if (scrollView.contentSize.height < scrollView.frame.size.height-self.navigationController.navigationBar.frame.size.height) {
-        scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, time3.frame.origin.y + time3.frame.size.height + 20);
+        scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, time3.frame.origin.y + time3.frame.size.height + 40 + self.navigationController.navigationBar.frame.size.height);
     }
 
     
@@ -248,5 +356,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)edit{
+    
+    EditEventTableViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"editevent"];
+    [self.navigationController pushViewController:infoController animated:YES];
+}
 
 @end

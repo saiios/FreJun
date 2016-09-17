@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *allDayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *priorityLabel;
+@property (weak, nonatomic) IBOutlet UIView *colorView;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "AccountsTableViewController.h"
 #import "accountsTableViewCell.h"
-
+#import "Amplitude.h"
 @interface AccountsTableViewController (){
     
     NSArray *accounts;
@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[Amplitude instance] logEvent:@"Accounts"];
     self.navigationItem.title = @"Accounts";
     accounts = [[NSArray alloc]init];
     accounts = @[@"demo1@gmail.com",@"demo2@gmail.com",@"demo3@gmail.com"];
@@ -48,7 +48,7 @@
         return 1;
     }
     else{
-    return 3;
+    return 1;
     }
 }
 
@@ -64,15 +64,9 @@
             NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"accountsTableViewCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
-        cell.dot.image = [UIImage imageNamed:colors[indexPath.row]];
-        cell.dot.layer.cornerRadius = 7;
-        cell.title.text = accounts[indexPath.row];
-//    cell.imageView.image = [UIImage imageNamed:colors[indexPath.row]];
-//    cell.imageView.frame = CGRectMake(12, 12, 10, 10);
-//    cell.imageView.layer.cornerRadius = 5;
-//    cell.textLabel.text = accounts[indexPath.row];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+        dataclass *obj = [dataclass getInstance];
+        cell.title.text = obj.emailTitle;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
      }
     else{

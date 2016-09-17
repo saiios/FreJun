@@ -30,6 +30,11 @@
         self.topLineView = [[UIView alloc]initWithFrame:CGRectMake(-1, 0, frame.size.width + 2, 1)];
         self.topLineView.backgroundColor = cellTopLineColor;
         
+        self.eventSign = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2 - 2.5, frame.size.width/2 - 5, 5, 5)];
+        self.eventSign.backgroundColor = [UIColor clearColor];
+        _eventSign.layer.cornerRadius = _eventSign.frame.size.width/2;
+        _eventSign.alpha = 0.5;
+        
         self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height * labelToCellRatio)];
         self.dateLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -63,6 +68,7 @@
         [self.viewForBaselineLayout addSubview:self.circleView];
         [self.viewForBaselineLayout addSubview:self.selectedView];
         [self.viewForBaselineLayout addSubview:self.dateLabel];
+        [self.viewForBaselineLayout addSubview:self.eventSign];
         
     }
     return self;

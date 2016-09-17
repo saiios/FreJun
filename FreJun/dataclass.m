@@ -10,7 +10,15 @@
 
 @implementation dataclass
 @synthesize NotificationCount;
-
+@synthesize emailTitle;
+@synthesize selectedEvent;
+@synthesize events;
+@synthesize sortedEvents;
+@synthesize selectedDate;
+@synthesize googleContacts;
+@synthesize dates;
+@synthesize GCMToken;
+@synthesize name;
 static dataclass *instance = nil;
 
 +(dataclass *)getInstance

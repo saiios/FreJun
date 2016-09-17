@@ -90,7 +90,7 @@ NSArray *data;
             else if (self.text.length > 0){
                 //Make sure that delegate method is not called if no text is present in the text field.
                 if ([[self delegate] respondsToSelector:@selector(textField:didEndEditingWithSelection:)]) {
-                    [[self delegate] textField:self didEndEditingWithSelection:[NSDictionary dictionaryWithObjectsAndKeys:self.text,@"DisplayText",@"NEW",@"CustomObject", nil]];
+                    [[self delegate] textField:self didEndEditingWithSelection:[NSDictionary dictionaryWithObjectsAndKeys:self.text,@"DisplayText",@"!NEW!",@"CustomObject", nil]];
                 }
                 else{
                     NSLog(@"<MPGTextField> WARNING: You have not implemented a method from MPGTextFieldDelegate that is called back when the user selects a search suggestion.");
@@ -182,7 +182,8 @@ NSArray *data;
         if (self.popoverSize.size.height == 0.0) {
             //PopoverSize frame has not been set. Use default parameters instead.
             CGRect frameForPresentation = [self frame];
-            frameForPresentation.origin.y += self.frame.size.height;
+            //frameForPresentation.origin.y += self.frame.size.height;
+            frameForPresentation.origin.y += 35;
             frameForPresentation.size.height = 200;
             [tableViewController.tableView setFrame:frameForPresentation];
         }

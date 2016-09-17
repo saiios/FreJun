@@ -87,6 +87,7 @@ static NSString *kDefaultAutoCompleteCellIdentifier = @"_DefaultAutoCompleteCell
 
 - (id)initWithFrame:(CGRect)frame
 {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize];
@@ -591,9 +592,11 @@ withAutoCompleteString:(NSString *)string
     [self.autoCompleteTableView.layer setCornerRadius:0];
     
     CGRect newAutoCompleteTableViewFrame = [self autoCompleteTableViewFrameForTextField:self forNumberOfRows:numberOfRows];
+    //CGRectMake(0, 0, 320, self.frame.size.height)
+    newAutoCompleteTableViewFrame.size.width = 280;
     [self.autoCompleteTableView setFrame:newAutoCompleteTableViewFrame];
     
-    [self.autoCompleteTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    //[self.autoCompleteTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self.autoCompleteTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
 
@@ -602,8 +605,10 @@ withAutoCompleteString:(NSString *)string
     [self.autoCompleteTableView.layer setCornerRadius:self.autoCompleteTableCornerRadius];
     
     CGRect newAutoCompleteTableViewFrame = [self autoCompleteTableViewFrameForTextField:self forNumberOfRows:numberOfRows];
-    
+    newAutoCompleteTableViewFrame.size.width = 280;
     [self.autoCompleteTableView setFrame:newAutoCompleteTableViewFrame];
+    
+    //[self.autoCompleteTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self.autoCompleteTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
 
