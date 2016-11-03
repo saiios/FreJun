@@ -107,6 +107,7 @@
 @property NSArray *minutes;
 @property NSArray *day;
 @property NSMutableArray *dates;
+@property NSMutableArray *dates2;
 @property (strong, nonatomic) UIPickerView *pickerView;
 @property (strong, nonatomic) UIPickerView *pickerView2;
 @property (strong, nonatomic) UIPickerView *pickerView3;
@@ -272,6 +273,7 @@
     self.minutes = [[NSArray alloc]initWithObjects:@"00",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",@"25",@"26",@"27",@"28",@"29",@"30",@"31",@"32",@"33",@"34",@"35",@"36",@"37",@"38",@"39",@"40",@"41",@"42",@"43",@"44",@"45",@"46",@"47",@"48",@"49",@"50",@"51",@"52",@"53",@"54",@"55",@"56",@"57",@"58",@"59", nil];
     self.day = [[NSArray alloc]initWithObjects:@"AM",@"PM", nil];
     self.dates = [[NSMutableArray alloc]init];
+    self.dates2 = [[NSMutableArray alloc]init];
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
     for (int i = 0; i<365; i++) {
         
@@ -279,6 +281,13 @@
         NSCalendar *theCalendar = [NSCalendar currentCalendar];
         NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
         [self.dates addObject:nextDate];
+    }
+    for (int i = 0; i<365; i++) {
+        
+        dayComponent.day = i;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+        [self.dates2 addObject:nextDate];
     }
     //Initial Dates
     NSDate *tomorrow = [NSDate dateWithTimeInterval:(24*60*60) sinceDate:[NSDate date]];
@@ -756,6 +765,19 @@
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     [self refreshDates];
+    
+    self.dates2 = [[NSMutableArray alloc]init];
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    for (int i = 0; i<365; i++) {
+        
+        dayComponent.day = i;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:datePicked options:0];
+        [self.dates2 addObject:nextDate];
+    }
+    _endTime.text = @"-";
+    _endDate.text = @"-";
+    [_pickerView2 reloadAllComponents];
 }
 -(void)done2{
     
@@ -892,7 +914,7 @@
     }
     if (pickerView == _pickerView2) {
         if (component == 0) {
-            datePicked2 = _dates[row];
+            datePicked2 = _dates2[row];
         }
         if (component == 1) {
             hourPicked2 = _hours[row];
@@ -972,7 +994,12 @@
         if (row == 0) {
             tView.text =  @"Today";
         }
+        if (pickerView == _pickerView){
         tView.text = [dateFormatter stringFromDate:self.dates[row]];
+        }
+        else if (pickerView == _pickerView2){
+            tView.text = [dateFormatter stringFromDate:self.dates2[row]];
+        }
     }
     else if (component == 1) {
         tView.text = self.hours[row];
@@ -1055,6 +1082,14 @@
 {
     if (pickerView == _pickerView | pickerView == _pickerView2) {
     if (component == 0) {
+        if (pickerView == _pickerView){
+            return self.dates.count;
+
+        }
+        else if (pickerView == _pickerView2){
+            return self.dates2.count;
+
+        }
         return self.dates.count;
     }
     else if (component == 1) {
@@ -1517,6 +1552,15 @@ didFailAutocompleteWithError:(NSError *)error {
         [self.invitees addObject:result[@"CustomObject"]];
         [self.tokens addObject:result[@"DisplayText"]];
     }
+    else{
+        
+        NSMutableDictionary *temp = [[NSMutableDictionary alloc]init];
+        [temp setValue:result[@"DisplayText"] forKey:@"email"];
+        [temp setValue:result[@"DisplayText"] forKey:@"name"];
+        
+        [self.invitees addObject:temp];
+        [self.tokens addObject:result[@"DisplayText"]];
+    }
 
     [self.tokenField reloadData];
     if (self.invitees.count >= 6) {
@@ -1605,6 +1649,14 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)createEvent{
     NSLog(@"check log");
     
+    if ([_endTime.text  isEqual: @"-"]) {
+        
+          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details Required!" message:@"Please select finish time for the event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+          [alertView show];
+          return;
+        
+    }
+    
     if (_invitees.count == 0) {
         
       //  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Invitee Selected" message:@"Please select atleast one invitee." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -1660,8 +1712,8 @@ didFailAutocompleteWithError:(NSError *)error {
                                                          error:&error];
     NSString *string = [[NSString alloc] initWithData:jsonData
                                              encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@"{" withString:@"["];
-    string = [string stringByReplacingOccurrencesOfString:@"}" withString:@"]"];
+    //string = [string stringByReplacingOccurrencesOfString:@"{" withString:@"["];
+    //string = [string stringByReplacingOccurrencesOfString:@"}" withString:@"]"];
     string = [string substringFromIndex:1];
     string = [string substringToIndex:string.length - 1];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryEvent]
@@ -1673,7 +1725,7 @@ didFailAutocompleteWithError:(NSError *)error {
     NSString *emailString = [NSString stringWithFormat:@"email=%@",email];
     NSString *eventNameString = [NSString stringWithFormat:@"eventName=%@",eventName];
     NSString *allDayString = [NSString stringWithFormat:@"allDay=%d",[allDay intValue]];
-    NSString *startTimeString = [NSString stringWithFormat:@"startTime=%@",startTime];
+    NSString *startTimeString = [NSString stringWithFormat:@"starttime=%@",startTime];
     NSString *endTimeString = [NSString stringWithFormat:@"endTime=%@",endTime];
     NSString *priorityString = [NSString stringWithFormat:@"priority=%d",[priority intValue]];
     NSString *address1String = [NSString stringWithFormat:@"address1=%@",address1];
@@ -1700,6 +1752,7 @@ didFailAutocompleteWithError:(NSError *)error {
     NSLog(@"strin is %@",postString);
 
     NSData *parameterData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    /*
     [request setHTTPBody:parameterData];
     [request setHTTPMethod:@"POST"];
     [request addValue: @"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -1708,7 +1761,59 @@ didFailAutocompleteWithError:(NSError *)error {
     {
         mutableData = [NSMutableData new];
         [loadingView setHidden:YES];
-    }
+    } */
+    [loadingView setHidden:NO];
+    NSString *url = [NSString stringWithFormat:@"%@?%@",directoryEvent,postString];
+    NSLog(@"%@",url);
+    url = [url stringByAddingPercentEscapesUsingEncoding:
+           NSUTF8StringEncoding];
+    //url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data);
+        NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+
+        if(data){
+            NSArray *json = [NSJSONSerialization
+                             JSONObjectWithData:data
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (1) {
+                    [loadingView setHidden:YES];
+                  // [self.navigationController popViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshData" object:self];
+                }
+                else{
+                    
+
+                    
+                }
+            });
+            
+        }
+        else{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                [loadingView setHidden:YES];
+              //  [self.navigationController popViewControllerAnimated:YES];
+                // loading = NO;
+                // [self alertStatus:@"There is an error editing the event." :@"Connection Failed!"];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Failed!" message:@"There is an error creating the event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alertView show];
+
+                
+            });}
+    });
+
     
 }
 

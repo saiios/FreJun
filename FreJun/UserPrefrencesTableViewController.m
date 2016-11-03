@@ -8,7 +8,7 @@
 
 #import "UserPrefrencesTableViewController.h"
 #import <AVFoundation/AVFoundation.h>
-@interface UserPrefrencesTableViewController ()<NSURLConnectionDelegate>{
+@interface UserPrefrencesTableViewController ()<NSURLConnectionDelegate,AVAudioPlayerDelegate>{
     
     BOOL loading;
     UIView *loadingView;
@@ -24,12 +24,16 @@
     NSArray *ETDAlert;
     NSArray *ETAAlert;
     NSArray *alertsSounds;
+    NSArray *alertsSoundsCaf;
     NSArray *defaults;
     
     NSArray *preferences;
     NSArray *widths;
     
     int check;
+    AVAudioPlayer* player;
+    BOOL playing;
+    NSString *sound;
 }
 
 @end
@@ -62,6 +66,7 @@
     ETDAlert = [[NSArray alloc]initWithObjects:@"5 min before departure",@"10 minutes before departure",@"15 minutes before departure",@"30 minutes before departure",@"1 hour before departure",@"2 hours before departure",@"1 day before departure", nil];
     ETAAlert = [[NSArray alloc]initWithObjects:@"5 min before appointment",@"10 minutes before appointment",@"15 minutes before appointment",@"30 minutes before appointment",@"1 hour before appointment",@"2 hours before appointment",@"1 day before appointment", nil];
     alertsSounds = [[NSArray alloc]initWithObjects:@"Sound 1",@"Sound 2",@"Sound 3",@"Always vibrate", nil];
+    alertsSoundsCaf = [[NSArray alloc]initWithObjects:@"sound1.caf",@"sound2.caf",@"sound3.caf",@"none", nil];
     defaults = [[NSArray alloc]initWithObjects:@"Default", nil];
     preferences = [[NSArray alloc]initWithObjects:timeZone,defaultMeetingDuration,ETDAlert,ETAAlert,alertsSounds,defaults, nil];
     
@@ -93,6 +98,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    /*
     check = 0;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryFetchPref]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -111,7 +117,144 @@
     {
         mutableData = [NSMutableData new];
         [loadingView setHidden:YES];
-    }
+    } */
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&userID=%@",directoryFetchPref,obj.emailTitle,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+        if(data2){
+            NSArray *json = [NSJSONSerialization
+                                  JSONObjectWithData:data2
+                                  options:kNilOptions
+                                  error:&error];
+            NSLog(@"%@",json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (1) {
+                    [loadingView setHidden:YES];
+                    if ([newStr isEqualToString:@"no data"]) {
+                        data = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@0,@"sound",@15,@"defaultEtdAlert",@0,@"timezone",@15,@"defaultEtaAlert",@30,@"defaultMeetDuration", nil];
+                    }
+
+                    else{
+                        data = [[NSMutableDictionary alloc]initWithDictionary:[json objectAtIndex:0]];
+                    }
+                    
+                    int first = [[data objectForKey:@"defaultMeetDuration"] intValue];
+                    int index1;
+                    switch(first)
+                    {
+                        case 15 :
+                            index1 = 0;
+                            break;
+                        case 30 :
+                            index1 = 1;
+                            break;
+                        case 45 :
+                            index1 = 2;
+                            break;
+                        case 60 :
+                            index1 = 3;
+                            break;
+                        case 90 :
+                            index1 = 4;
+                            break;
+                        case 120 :
+                            index1 = 5;
+                            break;
+                        case 180 :
+                            index1 = 6;
+                            break;
+                        default :
+                            index1 = 0;
+                    }
+                    
+                    int second = [[data objectForKey:@"defaultEtdAlert"] intValue];
+                    int index2;
+                    switch(second)
+                    {
+                        case 5 :
+                            index2 = 0;
+                            break;
+                        case 10 :
+                            index2 = 1;
+                            break;
+                        case 15 :
+                            index2 = 2;
+                            break;
+                        case 30 :
+                            index2 = 3;
+                            break;
+                        case 60 :
+                            index2 = 4;
+                            break;
+                        case 120 :
+                            index2 = 5;
+                            break;
+                        case 1440 :
+                            index2 = 6;
+                            break;
+                        default :
+                            index2 = 0;
+                    }
+                    
+                    int third = [[data objectForKey:@"defaultEtaAlert"] intValue];
+                    int index3;
+                    switch(third)
+                    {
+                        case 5 :
+                            index3 = 0;
+                            break;
+                        case 10 :
+                            index3 = 1;
+                            break;
+                        case 15 :
+                            index3 = 2;
+                            break;
+                        case 30 :
+                            index3 = 3;
+                            break;
+                        case 60 :
+                            index3 = 4;
+                            break;
+                        case 120 :
+                            index3 = 5;
+                            break;
+                        case 1440 :
+                            index3 = 6;
+                            break;
+                        default :
+                            index3 = 0;
+                    }
+                    [selectedOptions addObject:@""];
+                    [selectedOptions addObject:[NSString stringWithFormat:@"%d",index1]];
+                    [selectedOptions addObject:[NSString stringWithFormat:@"%d",index2]];
+                    [selectedOptions addObject:[NSString stringWithFormat:@"%d",index3]];
+                    [selectedOptions addObject:[NSString stringWithFormat:@"%@",[data objectForKey:@"sound"]]];
+                    [self.tableView reloadData];
+
+                }
+            });
+            
+        }
+        else{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [loadingView setHidden:YES];
+                // loading = NO;
+                // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
+
+            });}
+    });
+
     
     
 }
@@ -325,15 +468,21 @@
         
     [data setObject:[NSString stringWithFormat:@"%ld",indexPath.row] forKey:@"sound"];
         if (indexPath.row == 0) {
-            AudioServicesPlaySystemSound(1004);
+            //AudioServicesPlaySystemSound(1004);
+            sound = @"sound1.mp3";
+            [self playSound];
         }
         else if (indexPath.row == 1){
             
-            AudioServicesPlaySystemSound(1008);
+            //AudioServicesPlaySystemSound(1008);
+            sound = @"sound2.mp3";
+            [self playSound];
         }
         else if (indexPath.row == 2){
             
-            AudioServicesPlaySystemSound(1009);
+            //AudioServicesPlaySystemSound(1009);
+            sound = @"sound3.mp3";
+            [self playSound];
         }
         else{
             
@@ -698,6 +847,9 @@
 
 -(void)done{
     check = 1;
+    
+    /*
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directorypref]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
@@ -721,7 +873,68 @@
     {
         //mutableData = [NSMutableData new];
         [loadingView setHidden:YES];
-    }
+    } */
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *email = obj.emailTitle;
+    NSString *userID = [[NSUserDefaults standardUserDefaults] stringForKey:@"userID"];
+    NSString *defaultEtaAlert = [data objectForKey:@"defaultEtaAlert"];
+    NSString *defaultEtdAlert = [data objectForKey:@"defaultEtdAlert"];
+    NSString *defaultMeetDuration = [data objectForKey:@"defaultMeetDuration"];
+    NSString *sound = [data objectForKey:@"sound"];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&userID=%@&defaultEtaAlert=%@&defaultEtdAlert=%@&defaultMeetDuration=%@&sound=%@&timezone=0&defaultNotify=0",directorypref,email,userID,defaultEtaAlert,defaultEtdAlert,defaultMeetDuration,sound];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data);
+        NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+        if(data){
+          NSDictionary *json = [NSJSONSerialization
+                    JSONObjectWithData:data
+                    options:kNilOptions
+                    error:&error];
+            NSLog(@"%@",json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (1) {
+                    [loadingView setHidden:YES];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            });
+            
+        }
+        else{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [loadingView setHidden:YES];
+                // loading = NO;
+                // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
+                
+            });}
+    });
+
 
 }
+
+-(void)playSound{
+    
+    
+    if (playing) {
+        [player stop];
+    }
+    playing = YES;
+    // Construct URL to sound file
+    NSString *path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath],sound];
+    NSURL *soundUrl = [NSURL fileURLWithPath:path];
+    
+    // Create audio player object and initialize with URL to sound
+    player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
+    [player play];
+
+}
+
 @end

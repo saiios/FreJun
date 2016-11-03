@@ -7,8 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WEPopoverController.h"
 
-@interface mainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface mainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,WEPopoverControllerDelegate, UIPopoverControllerDelegate>{
+    WEPopoverController *popoverController;
+    NSInteger currentPopoverCellIndex;
+    Class popoverClass;
+}
+
+@property (nonatomic, strong) WEPopoverController *popoverController;
+
+- (IBAction)showPopover:(id)sender;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *notificationsCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *calendarBackGroundView;

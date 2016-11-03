@@ -205,13 +205,14 @@
         headerSize = self.frame.size.height / calendarToHeaderRatio;
         //NSLog(@"header %d",headerSize);
         
-        CGRect rect = CGRectMake(0, headerSize*1.3, self.frame.size.width, (self.frame.size.height - headerSize));
+        CGRect rect = CGRectMake(0, headerSize*1.4, self.frame.size.width, (self.frame.size.height - headerSize));
         UICollectionView *calendar = [[UICollectionView alloc]initWithFrame:rect collectionViewLayout:flowLayout];
         calendar.dataSource = self;
         calendar.delegate = self;
         calendar.scrollEnabled = NO;
         [calendar registerClass:[SACalendarCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
         [calendar setBackgroundColor:calendarBackgroundColor];
+        calendar.clipsToBounds = NO;
         calendar.tag = index;
         
         NSString *string = @"STRING";

@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[[GIDSignIn sharedInstance] signOut];
     [[Amplitude instance] logEvent:@"Login"];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -36,11 +37,19 @@
                                                object:nil];
     
     [self loadingView];
+    
     [GIDSignIn sharedInstance].uiDelegate = self;
     [GIDSignIn sharedInstance].delegate = self;
     [GIDSignIn sharedInstance].shouldFetchBasicProfile = YES;
     [GIDSignIn sharedInstance].scopes = [[GIDSignIn sharedInstance].scopes arrayByAddingObject:@"https://www.google.com/m8/feeds/contacts/default/full"];
+    [GIDSignIn sharedInstance].scopes = [[GIDSignIn sharedInstance].scopes arrayByAddingObject:@"https://www.googleapis.com/auth/calendar"];
+        [GIDSignIn sharedInstance].scopes = [[GIDSignIn sharedInstance].scopes arrayByAddingObject:@"https://www.googleapis.com/auth/userinfo.profile"];
+
     //[GIDSignIn sharedInstance].scopes = [[GIDSignIn sharedInstance].scopes arrayByAddingObject:@"profile"];
+    
+    [GIDSignIn sharedInstance].clientID = @"303546570344-03b32b71knftdq2fqccj0aq073a7ah24.apps.googleusercontent.com";
+    [GIDSignIn sharedInstance].serverClientID = @"303546570344-ttv0ingquts4thesu9ub93l2473f6ras.apps.googleusercontent.com";
+    
     // Uncomment to automatically sign in the user.
     if ([GIDSignIn sharedInstance].hasAuthInKeychain) {
     [[GIDSignIn sharedInstance] signInSilently];
@@ -98,6 +107,12 @@
 
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user
      withError:(NSError *)error {
+    
+    if (error) {
+        NSLog(@"Error is : %@",error);
+        return;
+    }
+    
     //user signed in
     dispatch_async(dispatch_get_main_queue(), ^{
         [loadingView setHidden:NO];
@@ -109,6 +124,7 @@
     NSString *familyName = user.profile.familyName;
     NSString *email = user.profile.email;
     NSLog(@"ppp %@",user.authentication.accessToken);
+    NSLog(@"ggg %@",user.authentication.refreshToken);
     [self getGoogleContacts:user.authentication.accessToken];
   //  NSLog(@"{userId : %@},{idToken : %@},{fullName : %@},{givenName : %@},{familyName : %@},{email : %@}",userId,idToken,fullName,givenName,familyName,email);
     NSLog(@"auth code = %@",user.serverAuthCode);
@@ -118,29 +134,95 @@
     [[NSUserDefaults standardUserDefaults] setObject:user.profile.name forKey:@"name"];
     obj.name = user.profile.name;
     [[NSUserDefaults standardUserDefaults] synchronize];
+    /*
 //    [[NSUserDefaults standardUserDefaults] setObject:user.profile.email forKey:@"email"];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directory]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
     
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"GET"];
     NSString *postString = [NSString stringWithFormat:@"idToken=%@&deviceId=%@&email=%@&fullName=%@&givenName=%@&familyName=%@&timeZone=%@&gcmToken=%@&authCode=%@",user.authentication.idToken,obj.GCMToken,user.profile.email,user.profile.name,user.profile.givenName,user.profile.familyName,[NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]],obj.GCMToken,user.authentication.accessToken];
     NSLog(@"%@",postString);
     NSData *parameterData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     [request setHTTPBody:parameterData];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"GET"];
     [request addValue: @"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if( connection )
     {
         mutableData = [NSMutableData new];
         [loadingView setHidden:YES];
-    }
+    } */
 
+    NSString *url = [NSString stringWithFormat:@"%@?idToken=%@&deviceId=%@&email=%@&fullName=%@&givenName=%@&familyName=%@&timeZone=%@&gcmToken=%@&authCode=%@&refresh_token=%@&server_authcode=%@",directory,user.authentication.idToken,obj.GCMToken,user.profile.email,user.profile.name,user.profile.givenName,user.profile.familyName,[NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]],obj.GCMToken,user.authentication.accessToken,user.authentication.refreshToken,user.serverAuthCode];
     
+    
+    NSLog(@"%@",url);
+    
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data);
+        NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+        if(data){
+            NSArray *json = [NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  options:kNilOptions
+                                  error:&error];
+            NSLog(@"%@",json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+            if (1) {
+                
+                [[NSUserDefaults standardUserDefaults] setObject:[json objectAtIndex:0] forKey:@"userID"];
+                dataclass *obj = [dataclass getInstance];
+                obj.emailTitle = [[NSUserDefaults standardUserDefaults] stringForKey:@"email1"];
+                obj.NotificationCount = [NSString stringWithFormat:@"%@",[json objectAtIndex:2]];
+                [[NSUserDefaults standardUserDefaults] setObject:[json objectAtIndex:2] forKey:@"notificationCount"];
+                NSArray *email = [[NSArray alloc] initWithObjects:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"], nil];
+                [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"accounts"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSMutableArray *dates = [[NSMutableArray alloc]init];
+                NSArray *dates2 = [[NSMutableArray alloc]init];
+                for (int i = 0; i < [json[1] count] ; i++) {
+                    NSString *date = [[[[json objectAtIndex:1] objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:10];
+                    [dates addObject:date]; }
+                dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
+                obj.dates = dates2;
+                
+                NSString * storyboardName = @"Main";
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+                UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"main"];
+                [self presentViewController:vc animated:NO completion:nil];
+            }
+            else{
+                
+                loadingView.hidden = YES;
+                loading = NO;
+                [[GIDSignIn sharedInstance] signOut];
+                
+            }
+            });
+            
+        }
+        else{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [loadingView setHidden:YES];
+                // loading = NO;
+               // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
+                
+            });}
+    });
     
 }
+
 
 -(void)getGoogleContacts:(NSString *)token{
     
@@ -266,19 +348,19 @@
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *)response
 {
     [mutableData setLength:0];
-  //  NSLog(@"response %@",response);
+    NSLog(@"response %@",response);
 }
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [mutableData appendData:data];
-   // NSLog(@"dara got");
+    NSLog(@"dara got");
 }
 
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     //serverResponse.text = NO_CONNECTION;
-   // NSLog(@"45455 %@",error);
+    NSLog(@"45455 %@",error);
     return;
 }
 

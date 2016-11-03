@@ -16,8 +16,11 @@
 #import <Crashlytics/Crashlytics.h>
 #import "Hotline.h"
 #import "Amplitude.h"
+#import "dataclass.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate>
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSDate *lastTimestamp;
 
 @property(nonatomic, strong) void (^registrationHandler)
 (NSString *registrationToken, NSError *error);
@@ -31,10 +34,67 @@ NSString *const SubscriptionTopic = @"/topics/global";
 
 @implementation AppDelegate
 
++ (instancetype)sharedInstance
+{
+    static id sharedInstance = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+        AppDelegate *instance = sharedInstance;
+        instance.locationManager = [CLLocationManager new];
+        instance.locationManager.delegate = instance;
+        instance.locationManager.desiredAccuracy = kCLLocationAccuracyBest; // you can use kCLLocationAccuracyHundredMeters to get better battery life
+        instance.locationManager.pausesLocationUpdatesAutomatically = NO; // this is important
+    });
+    
+    return sharedInstance;
+}
+
+- (void)startUpdatingLocation
+{
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    
+    if (status == kCLAuthorizationStatusDenied)
+    {
+        NSLog(@"Location services are disabled in settings.");
+    }
+    else
+    {
+        // for iOS 8
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+        {
+            [self.locationManager requestAlwaysAuthorization];
+        }
+        // for iOS 9
+        if ([self.locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
+        {
+            [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+        }
+        
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *mostRecentLocation = locations.lastObject;
+   // NSLog(@"Current location: %@ %@", @(mostRecentLocation.coordinate.latitude), @(mostRecentLocation.coordinate.longitude));
+    
+    NSDate *now = [NSDate date];
+    NSTimeInterval interval = self.lastTimestamp ? [now timeIntervalSinceDate:self.lastTimestamp] : 0;
+    
+    if (!self.lastTimestamp || interval >= 5 * 60)
+    {
+        self.lastTimestamp = now;
+        NSLog(@"Sending current location to web service.");
+    }
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [[AppDelegate sharedInstance] startUpdatingLocation];
     //Amplitude
     [[Amplitude instance] initializeApiKey:@"78d9e06ace591d133cb55bc87a52721c"];
     
@@ -145,8 +205,67 @@ NSString *const SubscriptionTopic = @"/topics/global";
         }
     };
     
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *viewController;
+    dataclass *obj = [dataclass getInstance];
+    
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]) {
+       
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"main"];
+            obj.emailTitle = [[NSUserDefaults standardUserDefaults] stringForKey:@"email1"];
+        [self getGoogleContacts];
+    }
+    else{
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
+    }
+    self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
+
+    
     return YES;
 }
+
+-(void)getGoogleContacts{
+    
+    NSString *url = [NSString stringWithFormat:@"http://104.131.31.146/contacts.php?email=%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]];
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        if(data){
+            
+            NSDictionary *json=[[NSDictionary alloc]init];
+            json = [NSJSONSerialization
+                    JSONObjectWithData:data
+                    options:kNilOptions
+                    error:&error];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSMutableArray *gmailContacts = [[NSMutableArray alloc]init];
+                
+                for (int i=0; i<[json[@"feed"][@"entry"] count]; i++) {
+                    NSDictionary *tempDict = json[@"feed"][@"entry"][i];
+                    NSMutableDictionary *contact = [[NSMutableDictionary alloc]init];
+                    if ([tempDict objectForKey:@"gd$email"] != nil) {
+                        [contact setValue:[[[tempDict objectForKey:@"gd$name"] objectForKey:@"gd$fullName"] objectForKey:@"$t"] forKey:@"name"];
+                        [contact setValue:[[[tempDict objectForKey:@"gd$email"] objectAtIndex:0] objectForKey:@"address"] forKey:@"email"];
+                        [gmailContacts addObject:contact];
+                    }
+                    
+                }
+                NSLog(@"Gmail Contacts are : %@",gmailContacts);
+                dataclass *obj = [dataclass getInstance];
+                obj.googleContacts = gmailContacts;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContacts" object:self];
+            });
+            
+        }});
+}
+
 
 - (void)subscribeToTopic {
     // If the app has a registration token and is connected to GCM, proceed to subscribe to the
@@ -243,6 +362,8 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
                                                         object:nil
                                                       userInfo:userInfo];
     // [END_EXCLUDE]
+    
+    
 }
 
 - (void)application:(UIApplication *)application
@@ -261,13 +382,86 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
     // [END_EXCLUDE]
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"app is currently active");
+        if ([userInfo[@"gcm.notification.message"]  isEqual: @"invite"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invite"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"etd"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"eta"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"delay"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"eta_response"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"reminder"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reminder"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
     }
     else if (application.applicationState == UIApplicationStateBackground){
         NSLog(@"app is in background");
     }
     else if (application.applicationState == UIApplicationStateInactive){
         NSLog(@"Notification tapped");
+        if ([userInfo[@"gcm.notification.message"]  isEqual: @"invite"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invite"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"etd"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"eta"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"delay"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"eta_response"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"gcm.notification.message"]  isEqual: @"reminder"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reminder"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
     }
+
 }
 // [END ack_message_reception]
 

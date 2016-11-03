@@ -149,6 +149,8 @@ NSArray *data;
 
 - (NSArray *)applyFilterWithSearchQuery:(NSString *)filter
 {
+    NSLog(@"filter : %@",filter);
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"DisplayText BEGINSWITH[cd] %@", filter];
     NSArray *filteredGoods = [NSArray arrayWithArray:[data filteredArrayUsingPredicate:predicate]];
     return filteredGoods;

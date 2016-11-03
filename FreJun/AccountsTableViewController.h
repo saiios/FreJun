@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Google/SignIn.h>
 
-@interface AccountsTableViewController : UITableViewController
+@interface AccountsTableViewController : UITableViewController<GIDSignInUIDelegate,GIDSignInDelegate>
 
 @end

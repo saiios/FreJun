@@ -29,7 +29,7 @@
 
 #define cellFontRatio 0.48
 #define labelToCellRatio 0.5
-#define circleToCellRatio 0.9
+#define circleToCellRatio 1.3
 
 /**
  * Calendar's color

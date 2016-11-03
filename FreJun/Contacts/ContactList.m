@@ -114,7 +114,19 @@
             number = @"";
         }
         if ([[contact.emailAddresses valueForKey:@"value"] count] >= 1) {
-            email = [[contact.emailAddresses valueForKey:@"value"] objectAtIndex:0];
+            
+            for (int i = 0; i<[[contact.emailAddresses valueForKey:@"value"] count]; i++) {
+                
+                email = [[contact.emailAddresses valueForKey:@"value"] objectAtIndex:i];
+                peopleDic = @{@"name":contact.givenName,
+                              /*  @"image":contact.thumbnailImageData != nil ? contact.thumbnailImageData:@"", */
+                              @"number":number,
+                              @"email":email
+                              };
+                
+                [phoneNumberArray addObject:peopleDic]; //add object of people info to array
+            }
+            
         }
         else{
             email = @"";
@@ -122,13 +134,13 @@
         //   [phoneNumberArray addObjectsFromArray:thisOne];
         //  NSLog(@"contact identifier: %@",contact.identifier);
         
-        peopleDic = @{@"name":contact.givenName,
-                    /*  @"image":contact.thumbnailImageData != nil ? contact.thumbnailImageData:@"", */
-                      @"number":number,
-                      @"email":email
-                      };
-        
-        [phoneNumberArray addObject:peopleDic]; //add object of people info to array
+//        peopleDic = @{@"name":contact.givenName,
+//                    /*  @"image":contact.thumbnailImageData != nil ? contact.thumbnailImageData:@"", */
+//                      @"number":number,
+//                      @"email":email
+//                      };
+//        
+//        [phoneNumberArray addObject:peopleDic]; //add object of people info to array
     }
     
     totalPhoneNumberArray = [phoneNumberArray mutableCopy]; //get a copy of all contacts list to array.

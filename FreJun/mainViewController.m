@@ -18,6 +18,10 @@
 #import "SWTableViewCell.h"
 #import "SearchResultsViewController.h"
 #import "Amplitude.h"
+#import "EditEventTableViewController.h"
+#import "dataclass.h"
+#import "UIBarButtonItem+WEPopover.h"
+#import "Classes/WEPopoverContentViewController.h"
 CGFloat kResizeThumbSize = 45.0f;
 @interface mainViewController ()<NSURLConnectionDelegate,SWTableViewCellDelegate,UISearchResultsUpdating, UISearchControllerDelegate>
 {
@@ -152,10 +156,26 @@ CGFloat kResizeThumbSize = 45.0f;
     
 }
 
+-(void)loda{
+    
+    //
+    
+    NSString *url = @"http://104.131.31.146/getevt.php?userID=1476508608739";
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data);
+        NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+    });
+}
+
 -(void)loadData{
     deleteStatus = 0;
     json = [[NSArray alloc]init];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryEventList]
+/*    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryEventList]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
     
@@ -171,6 +191,83 @@ CGFloat kResizeThumbSize = 45.0f;
         mutableData = [NSMutableData new];
         //[loadingView setHidden:YES];
     }
+ */
+    
+    
+    
+    NSString *url = [NSString stringWithFormat:@"%@?userID=%@",directoryEventList,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    NSLog(@"%@",queryUrl);
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data4 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data4);
+        NSString* newStr = [[NSString alloc] initWithData:data4 encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+        if(data4){
+            json = [NSJSONSerialization
+                             JSONObjectWithData:data4
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (1) {
+                    [loadingView setHidden:YES];
+                    dataclass *obj = [dataclass getInstance];
+                    finalData = [[NSMutableArray alloc]init];
+                    NSMutableArray *dates = [[NSMutableArray alloc]init];
+                    NSArray *dates2 = [[NSMutableArray alloc]init];
+                    int check;
+                    
+                    for (int i = 0; i < json.count ; i++) {
+                        NSString *date = [[[json objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:10];
+                        [dates addObject:date]; }
+                    dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
+                    obj.dates = dates2;
+                    for (int i = 0; i < dates2.count; i++) {
+                        
+                        NSString *date = dates2[i];
+                        NSMutableArray *temp = [[NSMutableArray alloc]init];
+                        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
+                        
+                        for (int j = 0; j < json.count; j++) {
+                            
+                            NSString *dateSelected = [[[json objectAtIndex:j] objectForKey:@"startTime"] substringToIndex:10];
+                            
+                            if ([date isEqualToString:dateSelected]) {
+                                [temp addObject:[json objectAtIndex:j]];
+                                NSLog(@"efewf");
+                            }
+                        }
+                        
+                        [tempDict setObject:date forKey:@"date"];
+                        [tempDict setObject:temp forKey:@"events"];
+                        [finalData addObject:tempDict];
+                    }
+                    NSLog(@"final data is %@",finalData);
+                    obj.events = json;
+                    obj.sortedEvents = finalData;
+                    [self.tableView reloadData];
+
+                    
+                }
+            });
+            
+        }
+        else{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [loadingView setHidden:YES];
+                // loading = NO;
+                // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
+                
+            });}
+    });
+
 
 }
 
@@ -229,7 +326,15 @@ CGFloat kResizeThumbSize = 45.0f;
     
     SearchResultsViewController *searchResults = (SearchResultsViewController *)self.controller.searchResultsController;
     [self addObserver:searchResults forKeyPath:@"results" options:NSKeyValueObservingOptionNew context:nil];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:@"refreshData" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTitle) name:@"refreshTitle" object:nil];
+    
+    UIButton *titleLabelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [titleLabelButton setTitle:@"" forState:UIControlStateNormal];
+    //titleLabelButton.frame = CGRectMake(25, 0, self.view.frame.size.width - 120 , 44);
+    [titleLabelButton addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = titleLabelButton;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -245,6 +350,11 @@ CGFloat kResizeThumbSize = 45.0f;
     number.adjustsFontSizeToFitWidth = YES;
     [numberBadge addSubview:number];
     [self.navigationController.navigationBar addSubview:numberBadge];
+    
+    popoverClass = [WEPopoverController class];
+    currentPopoverCellIndex = -1;
+    
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -260,6 +370,17 @@ CGFloat kResizeThumbSize = 45.0f;
     [super viewWillAppear:animated];
     [[self navigationController] setNavigationBarHidden:NO];
     [self loadData];
+}
+
+-(void)refreshData{
+    
+    [self loadData];
+}
+
+-(void)refreshTitle{
+    
+    dataclass *obj = [dataclass getInstance];
+    self.navigationItem.title = obj.emailTitle;
 }
 
 -(void)viewDidLayoutSubviews{
@@ -282,6 +403,135 @@ CGFloat kResizeThumbSize = 45.0f;
     [_calendarBackGroundView addGestureRecognizer:swipeleft];
     [self blackBar];
 
+}
+
+- (WEPopoverContainerViewProperties *)improvedContainerViewProperties {
+    
+    WEPopoverContainerViewProperties *props = [[WEPopoverContainerViewProperties alloc] init];
+    NSString *bgImageName = nil;
+    CGFloat bgMargin = 0.0;
+    CGFloat bgCapSize = 0.0;
+    CGFloat contentMargin = 4.0;
+    
+    bgImageName = @"popoverBg.png";
+    
+    // These constants are determined by the popoverBg.png image file and are image dependent
+    bgMargin = 13; // margin width of 13 pixels on all sides popoverBg.png (62 pixels wide - 36 pixel background) / 2 == 26 / 2 == 13
+    bgCapSize = 31; // ImageSize/2  == 62 / 2 == 31 pixels
+    
+    props.backgroundMargins = UIEdgeInsetsMake(bgMargin, bgMargin, bgMargin, bgMargin);
+    props.leftBgCapSize = bgCapSize;
+    props.topBgCapSize = bgCapSize;
+    props.bgImageName = bgImageName;
+    
+    props.contentMargins = UIEdgeInsetsMake(contentMargin, contentMargin, contentMargin, contentMargin - 1);
+    
+    props.arrowMargin = 4.0;
+    
+    props.upArrowImageName = @"popoverArrowUp.png";
+    props.downArrowImageName = @"popoverArrowDown.png";
+    props.leftArrowImageName = @"popoverArrowLeft.png";
+    props.rightArrowImageName = @"popoverArrowRight.png";
+    return props;	
+}
+
+- (IBAction)showPopover:(id)sender {
+    
+    if (!self.popoverController) {
+        
+        UIViewController *contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+        self.popoverController = [[popoverClass alloc] initWithContentViewController:contentViewController];
+        self.popoverController.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
+        self.popoverController.delegate = self;
+        self.popoverController.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
+        
+        [self.popoverController presentPopoverFromBarButtonItem:sender
+                                       permittedArrowDirections:(UIPopoverArrowDirectionUp)
+                                                       animated:YES];
+        
+    } else {
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+    }
+}
+
+#pragma mark -
+#pragma mark WEPopoverControllerDelegate implementation
+
+- (void)popoverControllerDidDismissPopover:(WEPopoverController *)thePopoverController {
+    //Safe to release the popover here
+    self.popoverController = nil;
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)thePopoverController {
+    //The popover is automatically dismissed if you click outside it, unless you return NO here
+    return YES;
+}
+
+
+-(void)NotificationInit{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inviteCall:)
+                                                 name:@"invite"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(etdCall:)
+                                                 name:@"etd"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(etaCall:)
+                                                 name:@"eta"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(delayCall:)
+                                                 name:@"delay"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eta_responseCall:)
+                                                 name:@"eta_response"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reminderCall:)
+                                                 name:@"reminder"
+                                               object:nil];
+}
+
+-(void)inviteCall:(NSNotification *) notification{
+    
+    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+-(void)etdCall:(NSNotification *) notification{
+    
+    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+-(void)etaCall:(NSNotification *) notification{
+    
+    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+-(void)delayCall:(NSNotification *) notification{
+    
+    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+-(void)eta_responseCall:(NSNotification *) notification{
+    
+    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+-(void)reminderCall:(NSNotification *) notification{
+    
+    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
 }
 
 -(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
@@ -573,8 +823,20 @@ CGFloat kResizeThumbSize = 45.0f;
         }
         case 1:
         {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            dataclass *obj = [dataclass getInstance];
+            if ([[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"email"] isEqualToString: obj.emailTitle]) {
+                
+                obj.selectedEvent = [finalData[indexPath.section] objectForKey:@"events"][indexPath.row];
+                EditEventTableViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"editevent"];
+                [self.navigationController pushViewController:infoController animated:YES];
+                
+            }
+            else{
+            
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Permissions" message:@"You are not authorised to edit this Event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
+            }
             break;
         }
         case 2:
@@ -583,6 +845,7 @@ CGFloat kResizeThumbSize = 45.0f;
                 [loadingView setHidden:NO];
             });
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            /*
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryDeleteEvent]
                                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                                timeoutInterval:60.0];
@@ -597,7 +860,42 @@ CGFloat kResizeThumbSize = 45.0f;
             if( connection )
             {
                 deleteStatus = 1;
-            }
+            } */
+            
+            NSString *url = [NSString stringWithFormat:@"%@?id=%@",directoryDeleteEvent,[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"eventID"]];
+            NSLog(@"%@",url);
+            url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+            NSURL *queryUrl = [NSURL URLWithString:url];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+                NSError* error;
+                NSLog(@"bholi %@",data);
+                NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"string is : %@",newStr);
+                if(data){
+                    json = [NSJSONSerialization
+                            JSONObjectWithData:data
+                            options:kNilOptions
+                            error:&error];
+                    NSLog(@"%@",json);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (1) {
+                            [loadingView setHidden:YES];
+                            [self loadData];
+                        }
+                    });
+                    
+                }
+                else{
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [loadingView setHidden:YES];
+                        // loading = NO;
+                        // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
+                        
+                    });}
+            });
 
             break;
         }
