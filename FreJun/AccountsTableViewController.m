@@ -34,8 +34,8 @@
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
     //self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
-    colors = [[NSArray alloc]initWithObjects:@"color1.jpg",@"color2.jpg",@"color3.jpg",@"color4.jpg",@"color5.jpg", nil];
-    
+    colors = [[NSArray alloc]init];
+    colors = @[color1,color2,color3,color4,color5];
     [self loadingView];
 }
 
@@ -73,6 +73,7 @@
         }
         dataclass *obj = [dataclass getInstance];
         cell.title.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:indexPath.row];
+        cell.color.backgroundColor = colors[indexPath.row];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
      }
@@ -197,7 +198,7 @@
     obj.name = user.profile.name;
     [[NSUserDefaults standardUserDefaults] synchronize];
 
-    NSString *url = [NSString stringWithFormat:@"%@?userID=%@&idToken=%@&deviceId=%@&email=%@&fullName=%@&givenName=%@&familyName=%@&timeZone=%@&gcmToken=%@&authCode=%@&refresh_token=%@&server_authcode=%@",directoryAccount,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"],user.authentication.idToken,obj.GCMToken,user.profile.email,user.profile.name,user.profile.givenName,user.profile.familyName,[NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]],obj.GCMToken,user.authentication.accessToken,user.authentication.refreshToken,user.serverAuthCode];
+    NSString *url = [NSString stringWithFormat:@"%@?userID=%@&idToken=%@&deviceID=%@&email=%@&fullName=%@&givenName=%@&familyName=%@&timeZone=%@&gcmToken=%@&authCode=%@&refresh_token=%@&server_authcode=%@",directoryAccount,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"],user.authentication.idToken,obj.GCMToken,user.profile.email,user.profile.name,user.profile.givenName,user.profile.familyName,[NSString stringWithFormat:@"%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]],obj.GCMToken,user.authentication.accessToken,user.authentication.refreshToken,user.serverAuthCode];
     
     
     NSLog(@"%@",url);
@@ -220,21 +221,9 @@
             NSLog(@"%@",json);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (1) {
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:[json objectAtIndex:0] forKey:@"userID"];
+
                     dataclass *obj = [dataclass getInstance];
                     obj.emailTitle = [[NSUserDefaults standardUserDefaults] stringForKey:@"email1"];
-                    obj.NotificationCount = [NSString stringWithFormat:@"%@",[json objectAtIndex:2]];
-                    [[NSUserDefaults standardUserDefaults] setObject:[json objectAtIndex:2] forKey:@"notificationCount"];
-                    
-                    NSMutableArray *dates = [[NSMutableArray alloc]init];
-                    NSArray *dates2 = [[NSMutableArray alloc]init];
-                    for (int i = 0; i < [json[1] count] ; i++) {
-                        NSString *date = [[[[json objectAtIndex:1] objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:10];
-                        [dates addObject:date]; }
-                    dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
-                    obj.dates = dates2;
-                    
                     NSMutableArray *emails = [[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"]];
                     BOOL repeat;
                     repeat = NO;
@@ -253,19 +242,9 @@
                     loading = NO;
                     [self.tableView reloadData];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTitle" object:self];
-                    
-//                    NSString * storyboardName = @"Main";
-//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-//                    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"main"];
-//                    [self presentViewController:vc animated:NO completion:nil];
+
                 }
-                else{
-                    
-                    loadingView.hidden = YES;
-                    loading = NO;
-                    [[GIDSignIn sharedInstance] signOut];
-                    
-                }
+
             });
             
         }

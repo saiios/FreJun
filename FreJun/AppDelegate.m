@@ -382,37 +382,37 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
     // [END_EXCLUDE]
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"app is currently active");
-        if ([userInfo[@"gcm.notification.message"]  isEqual: @"invite"]) {
+        if ([userInfo[@"message"]  isEqual: @"invite"]) {
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"invite"
                                                                 object:nil
                                                               userInfo:userInfo];
         }
-        else if([userInfo[@"gcm.notification.message"]  isEqual: @"etd"]){
+        else if([userInfo[@"message"]  isEqual: @"etd"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
                                                                 object:nil
                                                               userInfo:userInfo];
         }
-        else if([userInfo[@"gcm.notification.message"]  isEqual: @"eta"]){
+        else if([userInfo[@"message"]  isEqual: @"eta"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
                                                                 object:nil
                                                               userInfo:userInfo];
         }
-        else if([userInfo[@"gcm.notification.message"]  isEqual: @"delay"]){
+        else if([userInfo[@"message"]  isEqual: @"delay"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
                                                                 object:nil
                                                               userInfo:userInfo];
         }
-        else if([userInfo[@"gcm.notification.message"]  isEqual: @"eta_response"]){
+        else if([userInfo[@"message"]  isEqual: @"eta_response"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
                                                                 object:nil
                                                               userInfo:userInfo];
         }
-        else if([userInfo[@"gcm.notification.message"]  isEqual: @"reminder"]){
+        else if([userInfo[@"message"]  isEqual: @"reminder"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reminder"
                                                                 object:nil

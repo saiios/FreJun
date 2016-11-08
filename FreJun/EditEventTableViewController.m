@@ -333,8 +333,8 @@
     
     eventRemind = [obj.selectedEvent objectForKey:@"eventRemind"];
     ETDRemind = [obj.selectedEvent objectForKey:@"ETDRemind"];
-    endTime = [obj.selectedEvent objectForKey:@"endTime"];
-    startTime = [obj.selectedEvent objectForKey:@"startTime"];
+    endTime = [obj.selectedEvent objectForKey:@"endTime_real"];
+    startTime = [obj.selectedEvent objectForKey:@"startTime_real"];
     repeat = [obj.selectedEvent objectForKey:@"repeatType"];
     repeatTime = [obj.selectedEvent objectForKey:@"repeatTime"];
     eventID = [obj.selectedEvent objectForKey:@"eventID"];
@@ -414,26 +414,26 @@
         
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *formattedDate = [dateFormatter dateFromString:[[obj.selectedEvent objectForKey:@"startTime"] substringToIndex:10]];
+    NSDate *formattedDate = [dateFormatter dateFromString:[[obj.selectedEvent objectForKey:@"startTime_real"] substringToIndex:10]];
     NSLog(@"forrr %@",formattedDate);
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     _startDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:formattedDate]];
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    formattedDate = [dateFormatter dateFromString:[[[obj.selectedEvent objectForKey:@"startTime"] substringFromIndex:11] substringToIndex:8]];
+    formattedDate = [dateFormatter dateFromString:[[[obj.selectedEvent objectForKey:@"startTime_real"] substringFromIndex:11] substringToIndex:8]];
     [dateFormatter setDateFormat:@"HH:mm a"];
      _startTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:formattedDate]];
     
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    formattedDate = [dateFormatter dateFromString:[[obj.selectedEvent objectForKey:@"endTime"] substringToIndex:10]];
+    formattedDate = [dateFormatter dateFromString:[[obj.selectedEvent objectForKey:@"endTime_real"] substringToIndex:10]];
     NSLog(@"forrr %@",formattedDate);
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     _endDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:formattedDate]];
     
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    formattedDate = [dateFormatter dateFromString:[[[obj.selectedEvent objectForKey:@"endTime"] substringFromIndex:11] substringToIndex:8]];
+    formattedDate = [dateFormatter dateFromString:[[[obj.selectedEvent objectForKey:@"endTime_real"] substringFromIndex:11] substringToIndex:8]];
     [dateFormatter setDateFormat:@"HH:mm a"];
     _endTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:formattedDate]];
     
@@ -957,6 +957,9 @@
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked]);
     NSString *hour;
     hour = hourPicked;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked  isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -986,6 +989,27 @@
     }
     _endTime.text = @"-";
     _endDate.text = @"-";
+    
+    dataclass *obj = [dataclass getInstance];
+    if ([[obj.pref objectForKey:@"defaultEtaAlert"] intValue]) {
+        
+        dayComponent.minute = -[[obj.pref objectForKey:@"defaultEtaAlert"] intValue];
+    }
+    else{
+        dayComponent.minute = -5;
+    }
+    dayComponent.day = 0;
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSCalendar *theCalendar = [NSCalendar currentCalendar];
+    NSDate *ETADate = [theCalendar dateByAddingComponents:dayComponent toDate:[dateFormatter dateFromString:startTime] options:0];
+    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDateFormat:@"MMM-d, YYYY"];
+    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    self.etd.text = [dateFormatter stringFromDate:ETADate];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    self.eta.text = [NSString stringWithFormat:@"ETA  %@",[dateFormatter stringFromDate:ETADate]];
+    
     [_pickerView2 reloadAllComponents];
 }
 -(void)done2{
@@ -1013,6 +1037,9 @@
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked2]);
     NSString *hour;
     hour = hourPicked2;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked2 isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked2 intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -1051,6 +1078,9 @@
     
     NSString *hour;
     hour = hourPicked3;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked3 isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked3 intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -1089,6 +1119,9 @@
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked4]);
     NSString *hour;
     hour = hourPicked4;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked4 isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked4 intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -1888,11 +1921,11 @@ didFailAutocompleteWithError:(NSError *)error {
     priority = [NSString stringWithFormat:@"%ld",self.prioritySegment.selectedSegmentIndex];
     address1 = self.address1.text;
     if ([address1  isEqual: @""]) {
-        address1 = @"No Details Provided";
+        address1 = @"";
     }
     address2 = self.address2.text;
     if ([address2  isEqual: @""]) {
-        address2 = @"No Details Provided";
+        address2 = @"";
     }
     zipCode = self.zipcode.text;
     if ([zipCode  isEqual: @""])

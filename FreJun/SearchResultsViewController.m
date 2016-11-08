@@ -45,8 +45,8 @@
     cell.title.frame = CGRectMake(cell.title.frame.origin.x, 0, [title sizeWithFont:cell.textLabel.font constrainedToSize:CGSizeMake(MAXFLOAT, cell.frame.size.height)].width, cell.frame.size.height);
     
     
-   // int priorityLevel = [[[self.searchResults[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"priority"] intValue];
-    int priorityLevel = 2;
+    int priorityLevel = [[[self.searchResults[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"priority"] intValue];
+    //int priorityLevel = 2;
     switch(priorityLevel)
     {
         case 0 :

@@ -87,6 +87,8 @@
     NSString *country;
     NSString *longitude;
     NSString *lattitude;
+    NSString *present_longitude;
+    NSString *present_lattitude;
     NSString *ETDRemind;
     NSString *eventRemind;
     NSString *repeat;
@@ -748,6 +750,11 @@
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked]);
     NSString *hour;
     hour = hourPicked;
+    
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
+    
     if ([dayTimePicked  isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -777,7 +784,95 @@
     }
     _endTime.text = @"-";
     _endDate.text = @"-";
+    
+    dataclass *obj = [dataclass getInstance];
+    if ([[obj.pref objectForKey:@"defaultEtaAlert"] intValue]) {
+        
+        dayComponent.minute = -[[obj.pref objectForKey:@"defaultEtaAlert"] intValue];
+    }
+    else{
+        dayComponent.minute = -5;
+    }
+    dayComponent.day = 0;
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSCalendar *theCalendar = [NSCalendar currentCalendar];
+    NSDate *ETADate = [theCalendar dateByAddingComponents:dayComponent toDate:[dateFormatter dateFromString:startTime] options:0];
+    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDateFormat:@"MMM-d, YYYY"];
+    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    self.etd.text = [dateFormatter stringFromDate:ETADate];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    self.eta.text = [NSString stringWithFormat:@"ETA  %@",[dateFormatter stringFromDate:ETADate]];
+    //[self ETDCalculation];
     [_pickerView2 reloadAllComponents];
+}
+
+
+
+-(void)ETDCalculation{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%@,%@&destination=%@,%@&key=AIzaSyB9z3WcvJB3Mjh5f8Cg7iqTqkToiLKOWTI",present_lattitude,present_longitude,lattitude,longitude];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+        if(data2){
+            NSDictionary *time = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",time);
+            int timeValue = [time[@"routes"][0][@"legs"][0][@"duration"][@"value"]intValue];
+            NSLog(@"time taken : %d",timeValue);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                dataclass *obj = [dataclass getInstance];
+                int offset = 0;
+                if ([[obj.pref objectForKey:@"defaultEtdAlert"] intValue]) {
+                    
+                    offset = offset + [[obj.pref objectForKey:@"defaultEtdAlert"] intValue];
+                }
+                else{
+                    offset = offset + 5;
+                }
+                
+                if ([[obj.pref objectForKey:@"defaultEtaAlert"] intValue]) {
+                    
+                    offset = offset + [[obj.pref objectForKey:@"defaultEtaAlert"] intValue];
+
+                }
+                else{
+                    
+                    offset = offset + 5;
+                }
+                
+                dayComponent.day = 0;
+                [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                NSCalendar *theCalendar = [NSCalendar currentCalendar];
+                NSDate *ETADate = [theCalendar dateByAddingComponents:dayComponent toDate:[dateFormatter dateFromString:startTime] options:0];
+                //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+                //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+                [dateFormatter setDateFormat:@"MMM d HH:mm"];
+                //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+                self.eta.text = [dateFormatter stringFromDate:ETADate];
+
+
+            });
+        }
+    });
+    
+    
+
+    
 }
 -(void)done2{
     
@@ -804,6 +899,9 @@
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked2]);
     NSString *hour;
     hour = hourPicked2;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked2 isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked2 intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -842,6 +940,9 @@
     
     NSString *hour;
     hour = hourPicked3;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked3 isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked3 intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -880,6 +981,9 @@
     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked4]);
     NSString *hour;
     hour = hourPicked4;
+    if (hour.length == 1) {
+        hour = [NSString stringWithFormat:@"0%@",hour];
+    }
     if ([dayTimePicked4 isEqual: @"PM"]) {
         hour = [NSString stringWithFormat:@"%d",[hourPicked4 intValue]+12];
         if ([hour  isEqual: @"24"]) {
@@ -1211,6 +1315,10 @@
         NSLog(@"location chnged");
         longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
         lattitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
+        
+        present_longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
+        present_lattitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
+        
         [_mapView animateToCameraPosition:camera];
     }
     else if (locationChanged==YES){

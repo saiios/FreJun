@@ -125,7 +125,7 @@ Vivamus adipiscing fermentum.</string>
                                     <action selector="addEvent:" destination="zJM-Mj-ics" id="EYm-0W-vbP"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Select" id="pD6-jF-ddg">
+                            <barButtonItem image="down_Arrow" id="pD6-jF-ddg">
                                 <connections>
                                     <action selector="showPopover:" destination="zJM-Mj-ics" id="qQB-7P-QCR"/>
                                 </connections>
@@ -432,7 +432,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ETD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lL0-Sz-uga">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ETA" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lL0-Sz-uga">
                                                     <rect key="frame" x="41" y="176" width="122" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -444,12 +444,8 @@ Vivamus adipiscing fermentum.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eta" translatesAutoresizingMaskIntoConstraints="NO" id="mNE-1e-Dgf">
-                                                    <rect key="frame" x="15" y="190" width="20" height="14"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eta" translatesAutoresizingMaskIntoConstraints="NO" id="uJR-n7-eMR">
-                                                    <rect key="frame" x="15" y="234" width="20" height="14"/>
+                                                    <rect key="frame" x="15" y="213" width="20" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SNs-f2-4xc">
@@ -473,7 +469,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RGY-g7-BEV">
-                                                    <rect key="frame" x="12" y="220" width="153" height="1"/>
+                                                    <rect key="frame" x="50" y="220" width="120" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
@@ -1303,7 +1299,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ETD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i2h-wD-19Y">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ETA" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i2h-wD-19Y">
                                                     <rect key="frame" x="41" y="176" width="122" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1316,11 +1312,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eta" translatesAutoresizingMaskIntoConstraints="NO" id="zbc-7x-A1Q">
-                                                    <rect key="frame" x="15" y="190" width="20" height="14"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eta" translatesAutoresizingMaskIntoConstraints="NO" id="KV4-Fl-1Ox">
-                                                    <rect key="frame" x="15" y="234" width="20" height="14"/>
+                                                    <rect key="frame" x="15" y="213" width="20" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wag-QY-OxL">
@@ -1344,7 +1336,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ohG-7N-W7G">
-                                                    <rect key="frame" x="12" y="220" width="153" height="1"/>
+                                                    <rect key="frame" x="50" y="220" width="120" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.93591746789999997" green="0.93591746789999997" blue="0.93591746789999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
@@ -1725,6 +1717,7 @@ Vivamus adipiscing fermentum.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="down_Arrow" width="24" height="24"/>
         <image name="eta" width="48" height="34"/>
         <image name="google-login-button.png" width="1200" height="200"/>
         <image name="handle.png" width="300" height="158"/>

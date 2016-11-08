@@ -18,6 +18,7 @@ NSArray *data;
 
 - (id)initWithFrame:(CGRect)frame
 {
+    CGRect frame2 = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - 500);
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -186,7 +187,7 @@ NSArray *data;
             CGRect frameForPresentation = [self frame];
             //frameForPresentation.origin.y += self.frame.size.height;
             frameForPresentation.origin.y += 35;
-            frameForPresentation.size.height = 200;
+            frameForPresentation.size.height = 132;
             [tableViewController.tableView setFrame:frameForPresentation];
         }
         else{

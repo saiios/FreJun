@@ -194,7 +194,7 @@ CGFloat kResizeThumbSize = 45.0f;
  */
     
     
-    
+    dataclass *obj = [dataclass getInstance];
     NSString *url = [NSString stringWithFormat:@"%@?userID=%@",directoryEventList,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
     NSLog(@"%@",url);
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
@@ -212,11 +212,11 @@ CGFloat kResizeThumbSize = 45.0f;
                              JSONObjectWithData:data4
                              options:kNilOptions
                              error:&error];
-            NSLog(@"%@",json);
+            NSLog(@"my value is%@",json);
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (1) {
+                if (json) {
                     [loadingView setHidden:YES];
-                    dataclass *obj = [dataclass getInstance];
+                    
                     finalData = [[NSMutableArray alloc]init];
                     NSMutableArray *dates = [[NSMutableArray alloc]init];
                     NSArray *dates2 = [[NSMutableArray alloc]init];
@@ -250,11 +250,27 @@ CGFloat kResizeThumbSize = 45.0f;
                     NSLog(@"final data is %@",finalData);
                     obj.events = json;
                     obj.sortedEvents = finalData;
+                    [[NSUserDefaults standardUserDefaults] setObject:finalData forKey:@"offlineData"];
+                    [[NSUserDefaults standardUserDefaults] setObject:json forKey:@"offlineEvents"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     [self.tableView reloadData];
-
-                    
+                    NSLog(@"choolaaaaa");
                 }
+                
+                else{
+                        NSLog(@"choolaaaaa 2");
+                        [loadingView setHidden:YES];
+                        obj.sortedEvents = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineData"];
+                        obj.events = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineEvents"];
+                        finalData = [[NSMutableArray alloc]initWithArray: obj.sortedEvents];
+                        json = obj.events;
+                        [self.tableView reloadData];
+                        // loading = NO;
+                        // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
+                    }
+
             });
+            
             
         }
         else{
@@ -262,14 +278,59 @@ CGFloat kResizeThumbSize = 45.0f;
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [loadingView setHidden:YES];
+                obj.sortedEvents = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineData"];
+                obj.events = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineEvents"];
+                finalData = [[NSMutableArray alloc]initWithArray: obj.sortedEvents];
+                json = obj.events;
+                [self.tableView reloadData];
                 // loading = NO;
-                // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
-                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Failed!" message:@"Please check your Internet Connection." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alertView show];
+
+                NSLog(@"poopo");
             });}
     });
 
 
 }
+
+-(void)fetchPref{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&userID=%@",directoryFetchPref,obj.emailTitle,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        NSLog(@"string is : %@",newStr);
+        if(data2){
+            NSArray *pref = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",pref);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                    [loadingView setHidden:YES];
+                    if ([newStr isEqualToString:@"no data"]) {
+                        obj.pref = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@0,@"sound",@15,@"defaultEtdAlert",@0,@"timezone",@15,@"defaultEtaAlert",@30,@"defaultMeetDuration", nil];
+                    }
+                    else{
+                        
+                        obj.pref = [[NSMutableDictionary alloc]initWithDictionary:[pref objectAtIndex:0]];
+                        
+                    }
+            });
+        }
+    });
+
+    
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -330,15 +391,12 @@ CGFloat kResizeThumbSize = 45.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:@"refreshData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTitle) name:@"refreshTitle" object:nil];
     
-    UIButton *titleLabelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [titleLabelButton setTitle:@"" forState:UIControlStateNormal];
-    //titleLabelButton.frame = CGRectMake(25, 0, self.view.frame.size.width - 120 , 44);
-    [titleLabelButton addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = titleLabelButton;
+    [self NotificationInit];
+    
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    numberBadge = [[UIView alloc]initWithFrame:CGRectMake(18, 10, 22, 22)];
+    numberBadge = [[UIView alloc]initWithFrame:CGRectMake(14, 10, 22, 22)];
     numberBadge.backgroundColor = [UIColor redColor];
     numberBadge.layer.cornerRadius = numberBadge.frame.size.width/2;
     UILabel *number = [[UILabel alloc]initWithFrame:CGRectMake(0.5, 0.5, numberBadge.frame.size.width-1, numberBadge.frame.size.height-1)];
@@ -362,7 +420,6 @@ CGFloat kResizeThumbSize = 45.0f;
     });
     [super viewWillDisappear:animated];
     [numberBadge removeFromSuperview];
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -370,6 +427,7 @@ CGFloat kResizeThumbSize = 45.0f;
     [super viewWillAppear:animated];
     [[self navigationController] setNavigationBarHidden:NO];
     [self loadData];
+    [self fetchPref];
 }
 
 -(void)refreshData{
@@ -500,37 +558,37 @@ CGFloat kResizeThumbSize = 45.0f;
 -(void)inviteCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 -(void)etdCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 -(void)etaCall:(NSNotification *) notification{
     
-    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    NSLog(@"cholla %@",notification.userInfo[@"aps"][@"alert"]);
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 -(void)delayCall:(NSNotification *) notification{
     
-    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    NSLog(@"cholla %@",notification.userInfo[@"aps"][@"alert"]);
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 -(void)eta_responseCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 -(void)reminderCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"gcm.notification.message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 

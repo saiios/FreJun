@@ -167,6 +167,16 @@
     UIView* dotView = [[UIView alloc]initWithFrame:CGRectMake(calenderText.frame.origin.x - 20, calenderText.center.y-4, 10, 10)];
     dotView.layer.cornerRadius = dotView.frame.size.height/2;
     dotView.backgroundColor = [UIColor colorWithRed:100.0/255.0 green:218.0/255.0 blue:54.0/255.0 alpha:1];
+    NSArray * temp = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+    int index = 0;
+    for (int i = 0; i < temp.count; i++) {
+        if ([[selectedEvent objectForKey:@"email"] isEqualToString:temp[i]]) {
+            index = i;
+        }
+    }
+    NSArray *colors = [[NSArray alloc]init];
+    colors = @[color1,color2,color3,color4,color5];
+    dotView.backgroundColor = colors[index];
     [scrollView addSubview:dotView];
     
     //line separator 2

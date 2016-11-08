@@ -19,6 +19,7 @@
 @synthesize dates;
 @synthesize GCMToken;
 @synthesize name;
+@synthesize pref;
 static dataclass *instance = nil;
 
 +(dataclass *)getInstance

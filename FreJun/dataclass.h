@@ -20,6 +20,8 @@
 @property(nonatomic,retain)NSArray *dates;
 @property(nonatomic,retain)NSArray *googleContacts;
 
+@property(nonatomic,retain)NSDictionary *pref;
+
 @property(nonatomic,retain)NSString *GCMToken;
 +(dataclass*)getInstance;
 

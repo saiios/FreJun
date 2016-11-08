@@ -164,6 +164,17 @@
     cell.title.frame = CGRectMake(cell.title.frame.origin.x, 0, [[obj.events[indexPath.row] objectForKey:@"eventName"] sizeWithFont:cell.textLabel.font constrainedToSize:CGSizeMake(MAXFLOAT, cell.frame.size.height)].width, cell.frame.size.height);
     //cell.title.backgroundColor = [UIColor yellowColor];
     
+    NSArray * temp = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+    int index = 0;
+    for (int i = 0; i < temp.count; i++) {
+        if ([[obj.events[indexPath.row] objectForKey:@"email"] isEqualToString:temp[i]]) {
+            index = i;
+        }
+    }
+    NSArray *colors = [[NSArray alloc]init];
+    colors = @[color1,color2,color3,color4,color5];
+    cell.colorView.backgroundColor = colors[index];
+    
     int priorityLevel = [[obj.events[indexPath.row] objectForKey:@"priority"] intValue];
     switch(priorityLevel)
     {
