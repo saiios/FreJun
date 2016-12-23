@@ -30,10 +30,30 @@
         self.topLineView = [[UIView alloc]initWithFrame:CGRectMake(-1, 0, frame.size.width + 2, 1)];
         self.topLineView.backgroundColor = cellTopLineColor;
         
-        self.eventSign = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2 - 2.5, frame.size.width/2 - 5, 5, 5)];
+        self.eventSign = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2 - 10, frame.size.width/2 - 5, 3, 3)];
         self.eventSign.backgroundColor = [UIColor clearColor];
         _eventSign.layer.cornerRadius = _eventSign.frame.size.width/2;
-        _eventSign.alpha = 0.5;
+        _eventSign.alpha = 1;
+        
+        self.eventSign2 = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2 - 5, frame.size.width/2 - 5, 3, 3)];
+        self.eventSign2.backgroundColor = [UIColor clearColor];
+        _eventSign2.layer.cornerRadius = _eventSign2.frame.size.width/2;
+        _eventSign2.alpha = 1;
+        
+        self.eventSign3 = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2, frame.size.width/2 - 5, 3, 3)];
+        self.eventSign3.backgroundColor = [UIColor clearColor];
+        _eventSign3.layer.cornerRadius = _eventSign3.frame.size.width/2;
+        _eventSign3.alpha = 1;
+        
+        self.eventSign4 = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2  + 5, frame.size.width/2 - 5, 3, 3)];
+        self.eventSign4.backgroundColor = [UIColor clearColor];
+        _eventSign4.layer.cornerRadius = _eventSign4.frame.size.width/2;
+        _eventSign4.alpha = 1;
+        
+        self.eventSign5 = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/2 + 10, frame.size.width/2 - 5, 3, 3)];
+        self.eventSign5.backgroundColor = [UIColor clearColor];
+        _eventSign5.layer.cornerRadius = _eventSign5.frame.size.width/2;
+        _eventSign5.alpha = 1;
         
         self.dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height * labelToCellRatio)];
         self.dateLabel.textAlignment = NSTextAlignmentCenter;
@@ -69,6 +89,10 @@
         [self.viewForBaselineLayout addSubview:self.selectedView];
         [self.viewForBaselineLayout addSubview:self.dateLabel];
         [self.viewForBaselineLayout addSubview:self.eventSign];
+        [self.viewForBaselineLayout addSubview:self.eventSign2];
+        [self.viewForBaselineLayout addSubview:self.eventSign3];
+        [self.viewForBaselineLayout addSubview:self.eventSign4];
+        [self.viewForBaselineLayout addSubview:self.eventSign5];
         
     }
     return self;

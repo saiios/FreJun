@@ -9,7 +9,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
+		<key>GTMOAuth2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-FreJun.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>05143EAE1F9D6DF88618E0080ADEFBFC</key>
+		<key>025AC0066DC478B9EA49EDCAFDAE4867</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>85023A962AF8D81C32563C62F5597009</key>
+		<key>58885A79D8F2FE6A57DF1D65A1A33E7E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6BFF0A4219FEEF40270DE982E0C1F50F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C1B1BF4248A9F4A9415024F12345297C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EAE45C123C22F83F258F201FDFBA835E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

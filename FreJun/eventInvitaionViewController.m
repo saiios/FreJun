@@ -1,21 +1,21 @@
 //
-//  eventDetailsViewController.m
+//  eventInvitaionViewController.m
 //  FreJun
 //
-//  Created by GOTESO on 16/08/16.
+//  Created by GOTESO on 03/12/16.
 //  Copyright © 2016 GOTESO. All rights reserved.
 //
 #define leftMargin 15
 #define multiplier 0.8
-#import "eventDetailsViewController.h"
 #import "Amplitude.h"
 #import "EditEventTableViewController.h"
-@interface eventDetailsViewController ()
+#import "eventInvitaionViewController.h"
+
+@interface eventInvitaionViewController ()
 
 @end
 
-@implementation eventDetailsViewController
-
+@implementation eventInvitaionViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -106,24 +106,6 @@
     //dateFromString = [dateFormatter dateFromString:@"2016-09-04"];
     //NSLog(@"date is %@",dateFromString);
     
-    NSDate *startDate = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    startDate = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime"] substringToIndex:10]];
-    
-    NSDate *endDate = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    endDate = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime"] substringToIndex:10]];
-    
-    NSDate *startDate_real = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    startDate_real = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime_real"] substringToIndex:10]];
-    
-    NSDate *endDate_real = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    endDate_real = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime_real"] substringToIndex:10]];
-    
-    [dateFormatter setDateFormat:@"MMM d"];
-    
     day.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:day];
     
@@ -132,7 +114,6 @@
     time1.font = [time1.font fontWithSize:14*multiplier];
     time1.text = @"Another One Event";
     time1.text = [selectedEvent objectForKey:@"startTime"];
-    time1.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ )",[[[selectedEvent objectForKey:@"startTime_real"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate_real],[[[selectedEvent objectForKey:@"endTime_real"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate_real]] ;
     
     NSDate *GMTDate = [[NSDate alloc] init];
     NSDateFormatter *GMTdateFormatter = [[NSDateFormatter alloc] init];
@@ -142,7 +123,7 @@
     GMTdateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:3600];
     NSLog(@"formatted %@",[GMTdateFormatter stringFromDate:GMTDate]);
     
-
+    
     
     time1.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:time1];
@@ -152,7 +133,6 @@
     time2.font = [time2.font fontWithSize:14*multiplier];
     time2.text = @"Another One Event";
     time2.text = [selectedEvent objectForKey:@"startTime"];
-    time2.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ ) (UTC)",[[[selectedEvent objectForKey:@"startTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate],[[[selectedEvent objectForKey:@"endTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate]] ;
     time2.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:time2];
     
@@ -292,32 +272,32 @@
     
     //Invitess Email Labels
     if (invitees != NULL) {
-
-    for (int i=0; i<invitees.count; i++) {
-        UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin+inviteesLabel.frame.size.width + 10*multiplier, separatorLineView4.frame.origin.y+separatorLineView4.frame.size.height+12*multiplier+i*(18*multiplier + 6*multiplier), fullWidth-inviteesLabel.frame.size.width - 10*multiplier, 23*multiplier)];
-        if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"0"]) {
-            emailLabel.textColor = [UIColor grayColor];
+        
+        for (int i=0; i<invitees.count; i++) {
+            UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin+inviteesLabel.frame.size.width + 10*multiplier, separatorLineView4.frame.origin.y+separatorLineView4.frame.size.height+12*multiplier+i*(18*multiplier + 6*multiplier), fullWidth-inviteesLabel.frame.size.width - 10*multiplier, 23*multiplier)];
+            if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"0"]) {
+                emailLabel.textColor = [UIColor grayColor];
+            }
+            else if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"1"]) {
+                emailLabel.textColor = [UIColor colorWithRed:0.0/255.0 green:172.0/255.0 blue:72.0/255.0 alpha:1];
+            }
+            else if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"2"]) {
+                emailLabel.textColor = [UIColor colorWithRed:232.0/255.0 green:83.0/255.0 blue:73.0/255.0 alpha:1];
+            }
+            emailLabel.text = [[invitees objectAtIndex:i] objectForKey:@"email"];
+            if ([emailLabel.text  isEqual: @""]) {
+                emailLabel.text = [[invitees objectAtIndex:i] objectForKey:@"number"];
+            }
+            emailLabel.textAlignment = NSTextAlignmentRight;
+            emailLabel.font = [emailLabel.font fontWithSize:17*multiplier];
+            [scrollView addSubview:emailLabel];
         }
-        else if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"1"]) {
-            emailLabel.textColor = [UIColor colorWithRed:0.0/255.0 green:172.0/255.0 blue:72.0/255.0 alpha:1];
-        }
-        else if ([[[invitees objectAtIndex:i] objectForKey:@"status"]  isEqual: @"2"]) {
-            emailLabel.textColor = [UIColor colorWithRed:232.0/255.0 green:83.0/255.0 blue:73.0/255.0 alpha:1];
-        }
-        emailLabel.text = [[invitees objectAtIndex:i] objectForKey:@"email"];
-        if ([emailLabel.text  isEqual: @""]) {
-           emailLabel.text = [[invitees objectAtIndex:i] objectForKey:@"number"]; 
-        }
-        emailLabel.textAlignment = NSTextAlignmentRight;
-        emailLabel.font = [emailLabel.font fontWithSize:17*multiplier];
-        [scrollView addSubview:emailLabel];
-    }
     }
     else{
         
-//        UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin+inviteesLabel.frame.size.width + 10*multiplier, separatorLineView4.frame.origin.y+separatorLineView4.frame.size.height+12*multiplier+i*(18*multiplier + 6*multiplier), fullWidth-inviteesLabel.frame.size.width - 10*multiplier, 23*multiplier)];
-//        
-//        [scrollView addSubview:emailLabel];
+        //        UILabel *emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin+inviteesLabel.frame.size.width + 10*multiplier, separatorLineView4.frame.origin.y+separatorLineView4.frame.size.height+12*multiplier+i*(18*multiplier + 6*multiplier), fullWidth-inviteesLabel.frame.size.width - 10*multiplier, 23*multiplier)];
+        //
+        //        [scrollView addSubview:emailLabel];
     }
     
     //line separator 5
@@ -377,14 +357,138 @@
     if (scrollView.contentSize.height < scrollView.frame.size.height-self.navigationController.navigationBar.frame.size.height) {
         scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, time3.frame.origin.y + time3.frame.size.height + 40 + self.navigationController.navigationBar.frame.size.height);
     }
-
     
+    UIButton *accept = [[UIButton alloc]initWithFrame:CGRectMake(20, 10, (self.view.frame.size.width-40-80)/3, 40)];
+    [accept setTitle:@"Accept" forState:UIControlStateNormal];
+    [accept addTarget:self action:@selector(accept) forControlEvents:UIControlEventTouchUpInside];
+    [accept setBackgroundColor:[UIColor colorWithRed:39.0/255.0 green:82.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    accept.layer.cornerRadius = 10;
+    accept.clipsToBounds = YES;
+    
+    UIButton *maybe = [[UIButton alloc]initWithFrame:CGRectMake(60+(self.view.frame.size.width-40-80)/3, 10, (self.view.frame.size.width-40-80)/3, 40)];
+    [maybe setTitle:@"Maybe" forState:UIControlStateNormal];
+    [maybe addTarget:self action:@selector(maybe) forControlEvents:UIControlEventTouchUpInside];
+    [maybe setBackgroundColor:[UIColor colorWithRed:39.0/255.0 green:82.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    maybe.layer.cornerRadius = 10;
+    maybe.clipsToBounds = YES;
+    
+    UIButton *reject = [[UIButton alloc]initWithFrame:CGRectMake(100+2*(self.view.frame.size.width-40-80)/3, 10, (self.view.frame.size.width-40-80)/3, 40)];
+    [reject setTitle:@"Reject" forState:UIControlStateNormal];
+    [reject addTarget:self action:@selector(rejected) forControlEvents:UIControlEventTouchUpInside];
+    [reject setBackgroundColor:[UIColor colorWithRed:39.0/255.0 green:82.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    reject.layer.cornerRadius = 10;
+    reject.clipsToBounds = YES;
+    
+    UIView *bottom = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 60, self.view.frame.size.width, 60)];
+    [self.view addSubview:bottom];
+    bottom.backgroundColor = [UIColor whiteColor];
+    
+    [bottom addSubview:accept];
+    [bottom addSubview:maybe];
+    [bottom addSubview:reject];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)accept{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=accepted&eventid=%@",directoryaccept,obj.emailTitle,[obj.selectedEvent objectForKey:@"eventID"]];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        //NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        //NSLog(@"string is : %@",newStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES]; });
+        if(data2){
+            NSDictionary *pref = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",pref);
+            dispatch_async(dispatch_get_main_queue(), ^{
+               [self.navigationController popViewControllerAnimated:YES]; });
+        }
+    });
+    
+    
+}
+
+-(void)maybe{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=tentative&eventid=%@",directoryaccept,obj.emailTitle,[obj.selectedEvent objectForKey:@"eventID"]];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        //NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        //NSLog(@"string is : %@",newStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES]; });
+        if(data2){
+            NSArray *pref = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",pref);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //  [loadingView setHidden:YES];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            });
+        }
+    });
+    
+    
+}
+
+
+-(void)rejected{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=rejected&eventid=%@",directoryaccept,obj.emailTitle,[obj.selectedEvent objectForKey:@"eventID"]];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        //NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        //NSLog(@"string is : %@",newStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES]; });
+        if(data2){
+            NSArray *pref = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",pref);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //  [loadingView setHidden:YES];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            });
+        }
+    });
+    
+    
+}
+
 
 -(void)edit{
     

@@ -353,7 +353,8 @@
     
     // if cell is out of the month, do not show
     if (indexPath.row < firstDay || indexPath.row >= firstDay + daysInMonth) {
-        cell.topLineView.hidden = cell.dateLabel.hidden = cell.circleView.hidden = cell.selectedView.hidden = cell.eventSign.hidden = YES;
+        cell.topLineView.hidden = cell.dateLabel.hidden = cell.circleView.hidden = cell.selectedView.hidden = cell.eventSign.hidden = cell.eventSign2.hidden = cell.eventSign3.hidden = cell.eventSign4.hidden = cell.eventSign5.hidden = YES;
+
     }
     else{
         cell.topLineView.hidden = cell.dateLabel.hidden = NO;
@@ -407,7 +408,7 @@
         
         //set event marker
         dataclass *obj = [dataclass getInstance];
-        for (int i = 0; i<obj.dates.count; i++) {
+ /*       for (int i = 0; i<obj.dates.count; i++) {
             cell.eventSign.hidden = NO;
             //NSLog(@"%@ %@ %@",[obj.dates[i] substringFromIndex:8],[obj.dates[i] substringFromIndex:5],[obj.dates[i] substringToIndex:4]);
             NSString *dateS = [obj.dates[i] substringFromIndex:8];
@@ -430,7 +431,115 @@
 
         }
 
-    }
+    } */
+        BOOL sign1 = NO;
+        BOOL sign2 = NO;
+        BOOL sign3 = NO;
+        BOOL sign4 = NO;
+        BOOL sign5 = NO;
+        cell.eventSign.hidden = YES;
+        cell.eventSign2.hidden = YES;
+        cell.eventSign3.hidden = YES;
+        cell.eventSign4.hidden = YES;
+        cell.eventSign5.hidden = YES;
+        for (int i = 0; i<obj.eventsforCalendar.count; i++) {
+
+            //NSLog(@"%@ %@ %@",[obj.dates[i] substringFromIndex:8],[obj.dates[i] substringFromIndex:5],[obj.dates[i] substringToIndex:4]);
+           // [[[json objectAtIndex:j] objectForKey:@"startTime"] length]
+            if([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] length] > 12){
+            NSString *dateS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringFromIndex:8];
+            NSString *monthS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringFromIndex:5];
+            monthS = [monthS substringToIndex:2];
+            NSString *yearS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:4];
+            if (indexPath.row - firstDay + 1 == [dateS intValue]
+                && monthToLoad == [monthS intValue]
+                && yearToLoad == [yearS intValue]
+                && indexPath.row - firstDay + 1 < 32
+                && indexPath.row - firstDay + 1 > 0)
+            {
+                if ([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"email"] isEqualToString: [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:0]]) {
+                    sign1 = YES;
+                    cell.eventSign.backgroundColor = color1;
+                    cell.eventSign.hidden = NO;
+                    
+                }
+                
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count] > 1) {
+                if ([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"email"] isEqualToString: [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:1]]) {
+                    sign2 = YES;
+                    cell.eventSign2.backgroundColor = color2;
+                    cell.eventSign2.hidden = NO;
+                    
+                }}
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count] > 2) {
+                if ([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"email"] isEqualToString: [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:2]]) {
+                    sign3 = YES;
+                    cell.eventSign3.backgroundColor = color3;
+                    cell.eventSign3.hidden = NO;
+                    
+                }}
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count] > 3) {
+                if ([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"email"] isEqualToString: [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:3]]) {
+                    sign4 = YES;
+                    cell.eventSign4.backgroundColor = color4;
+                    cell.eventSign4.hidden = NO;
+                    
+                }}
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count] > 4) {
+                if ([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"email"] isEqualToString: [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:4]]) {
+                    sign5 = YES;
+                    cell.eventSign5.backgroundColor = color5;
+                    cell.eventSign5.hidden = NO;
+                    
+                }}
+                
+               // cell.eventSign.backgroundColor = [UIColor blackColor];
+              //  cell.eventSign.hidden = NO;
+              //  break;
+                //NSLog(@"we got it");
+            }
+            else{
+                if (sign1 == NO) {
+                   cell.eventSign.hidden = YES;
+                    cell.eventSign.backgroundColor = [UIColor clearColor];
+                }
+                if (sign2 == NO) {
+                    cell.eventSign2.hidden = YES;
+                    cell.eventSign2.backgroundColor = [UIColor clearColor];
+
+                }
+                if (sign3 == NO) {
+                    cell.eventSign3.hidden = YES;
+                    cell.eventSign3.backgroundColor = [UIColor clearColor];
+                    
+                }
+                if (sign4 == NO) {
+                    cell.eventSign4.hidden = YES;
+                    cell.eventSign4.backgroundColor = [UIColor clearColor];
+                    
+                }
+                if (sign5 == NO) {
+                    cell.eventSign5.hidden = YES;
+                    cell.eventSign5.backgroundColor = [UIColor clearColor];
+                    
+                }
+             //   cell.eventSign.hidden = YES;
+              //  cell.eventSign2.hidden = YES;
+             //   cell.eventSign3.hidden = YES;
+             //   cell.eventSign4.hidden = YES;
+            ///    cell.eventSign5.hidden = YES;
+            //    cell.eventSign.backgroundColor = [UIColor clearColor];
+             //  cell.eventSign2.backgroundColor = [UIColor clearColor];
+            //    cell.eventSign3.backgroundColor = [UIColor clearColor];
+           //     cell.eventSign4.backgroundColor = [UIColor clearColor];
+            //    cell.eventSign5.backgroundColor = [UIColor clearColor];
+                // NSLog(@"we don't it");
+                
+            }}
+            
+        }
+        
+        
     }
     
     return cell;

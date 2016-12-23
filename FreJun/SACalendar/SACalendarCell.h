@@ -33,5 +33,9 @@
 @property UILabel *dateLabel;
 
 @property UIView *eventSign;
+@property UIView *eventSign2;
+@property UIView *eventSign3;
+@property UIView *eventSign4;
+@property UIView *eventSign5;
 
 @end

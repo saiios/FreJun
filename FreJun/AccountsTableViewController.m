@@ -152,6 +152,32 @@
     
 }
 
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        if (indexPath.section == 1) {
+            if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count] > 1) {
+
+        NSMutableArray *accountsData = [[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"]];
+        [accountsData removeObjectAtIndex:indexPath.row];
+        [[NSUserDefaults standardUserDefaults] setObject:accountsData forKey:@"accounts"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            else{
+                
+                
+            }
+        }
+    }
+    else{
+        
+    }
+    
+    
+}
+
 # pragma mark - Google SignIn Delegate
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
     

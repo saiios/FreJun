@@ -121,7 +121,8 @@
                 peopleDic = @{@"name":contact.givenName,
                               /*  @"image":contact.thumbnailImageData != nil ? contact.thumbnailImageData:@"", */
                               @"number":number,
-                              @"email":email
+                              @"email":email,
+                              @"responseStatus":@"needsAction"
                               };
                 
                 [phoneNumberArray addObject:peopleDic]; //add object of people info to array

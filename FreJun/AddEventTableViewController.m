@@ -94,6 +94,8 @@
     NSString *repeat;
     NSString *repeatTime;
     NSString *notes;
+    
+    BOOL googlePlace;
 }
 
 @property (weak, nonatomic) IBOutlet ZFTokenField *tokenField;
@@ -130,6 +132,12 @@
     [super viewDidLoad];
     [self loadingView];
     [[Amplitude instance] logEvent:@"Add Event"];
+    
+    
+    longitude = @"";
+    lattitude = @"";
+    
+    googlePlace = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"refreshContacts" object:nil];
     _invitees = [[NSMutableArray alloc]init];
     repeat = @"Never";
@@ -448,6 +456,7 @@
 -(void)placeSearch:(MVPlaceSearchTextField*)textField ResponseForSelectedPlace:(GMSPlace*)responseDict{
     [self.view endEditing:YES];
     NSLog(@"SELECTED ADDRESS :%@",responseDict);
+    googlePlace = YES;
     lattitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.latitude];
     longitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.longitude];
     
@@ -994,7 +1003,7 @@
     NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]);
     _EventRemindLabel.text = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
     eventRemind = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
-    
+    NSLog(@"remind time is : %@", eventRemind);
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     
@@ -1313,8 +1322,8 @@
                                                                 longitude:newLocation.coordinate.longitude
                                                                      zoom:14.0];
         NSLog(@"location chnged");
-        longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
-        lattitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
+      //  longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
+      //  lattitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
         
         present_longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
         present_lattitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
@@ -1665,7 +1674,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSMutableDictionary *temp = [[NSMutableDictionary alloc]init];
         [temp setValue:result[@"DisplayText"] forKey:@"email"];
         [temp setValue:result[@"DisplayText"] forKey:@"name"];
-        
+        [temp setValue:@"needsAction" forKey:@"responseStatus"];
         [self.invitees addObject:temp];
         [self.tokens addObject:result[@"DisplayText"]];
     }
@@ -1757,6 +1766,16 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)createEvent{
     NSLog(@"check log");
     
+    if (self.address1.text.length<2 || googlePlace == NO) {
+        
+        if (self.address1.text.length > 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details Required!" message:@"Please type in address again, we are not able to recognize the address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+        return;
+        }
+        
+    }
+    
     if ([_endTime.text  isEqual: @"-"]) {
         
           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details Required!" message:@"Please select finish time for the event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -1847,8 +1866,14 @@ didFailAutocompleteWithError:(NSError *)error {
     if (ETDRemind.length > 4) {
         ETDRemindString = [NSString stringWithFormat:@"ETDRemind=%@",ETDRemind];
     }
-    NSString *eventRemindString = [NSString stringWithFormat:@"eventRemind=%d",[eventRemind intValue]];
-    NSString *repeatString = [NSString stringWithFormat:@"repeatType=%@",repeat];
+    NSString *eventRemindString;
+    if (eventRemind.length > 3) {
+        eventRemindString = [NSString stringWithFormat:@"eventRemind=%@",eventRemind];
+    }
+    else{
+        eventRemindString = [NSString stringWithFormat:@"eventRemind=%d",[eventRemind intValue]];
+    }
+        NSString *repeatString = [NSString stringWithFormat:@"repeatType=%@",repeat];
     NSString *repeatTimeString = [NSString stringWithFormat:@"repeatTime=%@",repeatTime];
     NSString *notesString = [NSString stringWithFormat:@"notes=%@",notes];
     NSString *inviteesString = [NSString stringWithFormat:@"invitees=%@",string];

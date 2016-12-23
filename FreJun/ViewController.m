@@ -10,7 +10,7 @@
 #import <Google/SignIn.h>
 #import "AppDelegate.h"
 #import "Amplitude.h"
-
+@import Firebase;
 @interface ViewController ()<NSURLConnectionDelegate>{
     
     BOOL loading;
@@ -24,9 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[[GIDSignIn sharedInstance] signOut];
+    [[GIDSignIn sharedInstance] signOut];
     [[Amplitude instance] logEvent:@"Login"];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateRegistrationStatus:)
                                                  name:appDelegate.registrationKey
@@ -34,7 +35,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showReceivedMessage:)
                                                  name:appDelegate.messageKey
-                                               object:nil];
+                                               object:nil]; */
     
     [self loadingView];
     
@@ -54,6 +55,11 @@
     if ([GIDSignIn sharedInstance].hasAuthInKeychain) {
     [[GIDSignIn sharedInstance] signInSilently];
     }
+    
+    NSLog(@"cholla %@",[[FIRInstanceID instanceID] token]);
+    dataclass *obj = [dataclass getInstance];
+    obj.gcmToken = [[FIRInstanceID instanceID] token];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -155,7 +161,7 @@
         [loadingView setHidden:YES];
     } */
 
-    NSString *url = [NSString stringWithFormat:@"%@?idToken=%@&deviceId=%@&email=%@&fullName=%@&givenName=%@&familyName=%@&timeZone=%@&gcmToken=%@&authCode=%@&refresh_token=%@&server_authcode=%@",directory,user.authentication.idToken,obj.GCMToken,user.profile.email,user.profile.name,user.profile.givenName,user.profile.familyName,[NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]],obj.GCMToken,user.authentication.accessToken,user.authentication.refreshToken,user.serverAuthCode];
+    NSString *url = [NSString stringWithFormat:@"%@?idToken=%@&deviceId=%@&email=%@&fullName=%@&givenName=%@&familyName=%@&timeZone=%@&gcmToken=%@&authCode=%@&refresh_token=%@&server_authcode=%@&latitude=%@&longitude=%@",directory,user.authentication.idToken,obj.gcmToken,user.profile.email,user.profile.name,user.profile.givenName,user.profile.familyName,[NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]],obj.gcmToken,user.authentication.accessToken,user.authentication.refreshToken,user.serverAuthCode,obj.lat,obj.lng];
     
     
     NSLog(@"%@",url);
@@ -190,8 +196,11 @@
                 NSMutableArray *dates = [[NSMutableArray alloc]init];
                 NSArray *dates2 = [[NSMutableArray alloc]init];
                 for (int i = 0; i < [json[1] count] ; i++) {
+                    if ([[[[json objectAtIndex:1] objectAtIndex:i] objectForKey:@"startTime"] length] > 10) {
+                        
                     NSString *date = [[[[json objectAtIndex:1] objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:10];
-                    [dates addObject:date]; }
+                    [dates addObject:date];
+                    }}
                 dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
                 obj.dates = dates2;
                 
@@ -253,6 +262,7 @@
                     if ([tempDict objectForKey:@"gd$email"] != nil) {
                         [contact setValue:[[[tempDict objectForKey:@"gd$name"] objectForKey:@"gd$fullName"] objectForKey:@"$t"] forKey:@"name"];
                         [contact setValue:[[[tempDict objectForKey:@"gd$email"] objectAtIndex:0] objectForKey:@"address"] forKey:@"email"];
+                        [contact setValue:@"needsAction" forKey:@"responseStatus"];
                         [gmailContacts addObject:contact];
                     }
                     

@@ -16,13 +16,17 @@
 @property(nonatomic,retain)NSDictionary *selectedEvent;
 @property(nonatomic,retain)NSString *selectedDate;
 @property(nonatomic,retain)NSArray *events;
+@property(nonatomic,retain)NSArray *eventsforCalendar;
 @property(nonatomic,retain)NSArray *sortedEvents;
 @property(nonatomic,retain)NSArray *dates;
 @property(nonatomic,retain)NSArray *googleContacts;
-
+@property(nonatomic,retain)NSString *gcmToken;
 @property(nonatomic,retain)NSDictionary *pref;
-
 @property(nonatomic,retain)NSString *GCMToken;
+
+@property(nonatomic,retain)NSString *lat;
+@property(nonatomic,retain)NSString *lng;
+
 +(dataclass*)getInstance;
 
 @end

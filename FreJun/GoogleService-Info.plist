@@ -2,12 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>TRACKING_ID</key>
-	<string>UA-77251368-1</string>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
 	<string>303546570344-03b32b71knftdq2fqccj0aq073a7ah24.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.303546570344-03b32b71knftdq2fqccj0aq073a7ah24</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB826Hu6Gh3iwEnHLoDr-ZjUEBzA516N2Y</string>
 	<key>GCM_SENDER_ID</key>
 	<string>303546570344</string>
 	<key>PLIST_VERSION</key>
@@ -16,10 +20,12 @@
 	<string>goteso.FreJun</string>
 	<key>PROJECT_ID</key>
 	<string>frejun-8869d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>frejun-8869d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
-	<key>IS_ANALYTICS_ENABLED</key>
 	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
 	<false/>
 	<key>IS_GCM_ENABLED</key>
@@ -28,9 +34,7 @@
 	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:303546570344:ios:359b8dcf607c46c3</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string></string>
-	</array>
+	<key>DATABASE_URL</key>
+	<string>https://frejun-8869d.firebaseio.com</string>
 </dict>
 </plist>

@@ -26,7 +26,7 @@
     [[Amplitude instance] logEvent:@"Settings"];
     self.navigationItem.title = @"Settings";
     buttons = [[NSArray alloc]init];
-    buttons = @[@"Accounts",@"Preferences",@"Chat with us"];
+    buttons = @[@"Add your new account here",@"Preferences",@"Chat with us for instant support"];
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(back)];

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E6382F473EEE22DB6C3468 /* libPods.a */; };
+		A11A199D85580B7FF9FECF1C /* libPods-FreJun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6258D8E464508862D16B6A1F /* libPods-FreJun.a */; };
 		B4004EA41D841DE6002384CF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4004EA21D841DE6002384CF /* Fabric.framework */; };
 		B4004EA51D841DE6002384CF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4004EA31D841DE6002384CF /* Crashlytics.framework */; };
 		B40537351D66F5BE0036FB02 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40537341D66F5BE0036FB02 /* SettingsTableViewController.m */; };
@@ -32,6 +32,7 @@
 		B426D3371D70B4AE00624F5F /* accountsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B426D3351D70B4AE00624F5F /* accountsTableViewCell.xib */; };
 		B426D33B1D71269B00624F5F /* mainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B426D3391D71269B00624F5F /* mainTableViewCell.m */; };
 		B426D33C1D71269B00624F5F /* mainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B426D33A1D71269B00624F5F /* mainTableViewCell.xib */; };
+		B42D7FA01DF2D95C00B87DFD /* eventInvitaionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B42D7F9F1DF2D95C00B87DFD /* eventInvitaionViewController.m */; };
 		B4392C321D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C271D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m */; };
 		B4392C331D796B0900E86E56 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C291D796B0900E86E56 /* SWCellScrollView.m */; };
 		B4392C341D796B0900E86E56 /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B4392C2B1D796B0900E86E56 /* SWLongPressGestureRecognizer.m */; };
@@ -139,7 +140,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		128183CD1CB3BCDF1BE642AA /* Pods-FreJun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FreJun.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FreJun/Pods-FreJun.debug.xcconfig"; sourceTree = "<group>"; };
+		1BE849068AA2C4578A9AB8C1 /* Pods-FreJun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FreJun.release.xcconfig"; path = "Pods/Target Support Files/Pods-FreJun/Pods-FreJun.release.xcconfig"; sourceTree = "<group>"; };
+		6258D8E464508862D16B6A1F /* libPods-FreJun.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FreJun.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4004EA21D841DE6002384CF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B4004EA31D841DE6002384CF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B40537331D66F5BE0036FB02 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 		B426D3381D71269B00624F5F /* mainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainTableViewCell.h; sourceTree = "<group>"; };
 		B426D3391D71269B00624F5F /* mainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainTableViewCell.m; sourceTree = "<group>"; };
 		B426D33A1D71269B00624F5F /* mainTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainTableViewCell.xib; sourceTree = "<group>"; };
+		B42D7F9E1DF2D95C00B87DFD /* eventInvitaionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventInvitaionViewController.h; sourceTree = "<group>"; };
+		B42D7F9F1DF2D95C00B87DFD /* eventInvitaionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventInvitaionViewController.m; sourceTree = "<group>"; };
 		B4392C261D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		B4392C271D796B0900E86E56 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		B4392C281D796B0900E86E56 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
@@ -312,8 +317,6 @@
 		B4AA79F91D7DE1BE005829DD /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		B4E663FF1D631C3B0034E7B9 /* calenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calenderViewController.h; sourceTree = "<group>"; };
 		B4E664001D631C3B0034E7B9 /* calenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calenderViewController.m; sourceTree = "<group>"; };
-		B8E6382F473EEE22DB6C3468 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,7 +329,7 @@
 				B477ECF21D71A5AC0088FF3B /* AddressBook.framework in Frameworks */,
 				B477ECF01D71A5A50088FF3B /* Contacts.framework in Frameworks */,
 				B4004EA51D841DE6002384CF /* Crashlytics.framework in Frameworks */,
-				181C71983EC8C1F12A687D90 /* libPods.a in Frameworks */,
+				A11A199D85580B7FF9FECF1C /* libPods-FreJun.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,11 +350,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		49DB7F77058A39D41FD12A93 /* Pods */ = {
+		83C63CBBA882A281B4494712 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */,
-				45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */,
+				128183CD1CB3BCDF1BE642AA /* Pods-FreJun.debug.xcconfig */,
+				1BE849068AA2C4578A9AB8C1 /* Pods-FreJun.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -419,6 +422,8 @@
 			children = (
 				B4921E591D6361A700BE2C1F /* eventDetailsViewController.h */,
 				B4921E5A1D6361A700BE2C1F /* eventDetailsViewController.m */,
+				B42D7F9E1DF2D95C00B87DFD /* eventInvitaionViewController.h */,
+				B42D7F9F1DF2D95C00B87DFD /* eventInvitaionViewController.m */,
 			);
 			name = "Event Details";
 			sourceTree = "<group>";
@@ -680,8 +685,8 @@
 				B47EDD2A1D5A00080003A602 /* Products */,
 				B4004EA21D841DE6002384CF /* Fabric.framework */,
 				B4004EA31D841DE6002384CF /* Crashlytics.framework */,
-				49DB7F77058A39D41FD12A93 /* Pods */,
 				BE8D8C20676BCFF051BB8654 /* Frameworks */,
+				83C63CBBA882A281B4494712 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -772,7 +777,7 @@
 				B477ECF31D71A5B30088FF3B /* AddressBookUI.framework */,
 				B477ECF11D71A5AC0088FF3B /* AddressBook.framework */,
 				B477ECEF1D71A5A50088FF3B /* Contacts.framework */,
-				B8E6382F473EEE22DB6C3468 /* libPods.a */,
+				6258D8E464508862D16B6A1F /* libPods-FreJun.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -784,13 +789,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B47EDD591D5A00080003A602 /* Build configuration list for PBXNativeTarget "FreJun" */;
 			buildPhases = (
-				2D2FBD9ABB06D5CFC21C0E43 /* Check Pods Manifest.lock */,
+				744802F4C6414E4C6CB9E7D6 /* [CP] Check Pods Manifest.lock */,
 				B47EDD251D5A00070003A602 /* Sources */,
 				B47EDD261D5A00070003A602 /* Frameworks */,
 				B47EDD271D5A00070003A602 /* Resources */,
-				D1E9C4E95C0FEC7BF579824A /* Embed Pods Frameworks */,
-				6F4E960B62F94FFAD8B6A562 /* Copy Pods Resources */,
 				B4004EA11D84147F002384CF /* ShellScript */,
+				AAEE99412B889ACB85D18B0D /* [CP] Embed Pods Frameworks */,
+				DB78291321D107BD0E853FB3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -965,34 +970,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2D2FBD9ABB06D5CFC21C0E43 /* Check Pods Manifest.lock */ = {
+		744802F4C6414E4C6CB9E7D6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6F4E960B62F94FFAD8B6A562 /* Copy Pods Resources */ = {
+		AAEE99412B889ACB85D18B0D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FreJun/Pods-FreJun-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4004EA11D84147F002384CF /* ShellScript */ = {
@@ -1008,19 +1013,19 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run acc787c3f3d88637aa3bc8aaaa5c11dd75ad072c 5defbf51f1317702d6b59a63c36e3ff4bd97fab32bcc5a7b399edb53ff17baa1";
 		};
-		D1E9C4E95C0FEC7BF579824A /* Embed Pods Frameworks */ = {
+		DB78291321D107BD0E853FB3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FreJun/Pods-FreJun-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1073,6 +1078,7 @@
 				B47EDD2E1D5A00080003A602 /* main.m in Sources */,
 				B477C5961DC28DA800E63411 /* WEPopoverController.m in Sources */,
 				B477C59B1DC28DA800E63411 /* WEPopoverAppDelegate.m in Sources */,
+				B42D7FA01DF2D95C00B87DFD /* eventInvitaionViewController.m in Sources */,
 				B477C59D1DC28DA800E63411 /* WEPopoverTableViewController.m in Sources */,
 				B4921E5B1D6361A700BE2C1F /* eventDetailsViewController.m in Sources */,
 				B424FEAD1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m in Sources */,
@@ -1222,7 +1228,7 @@
 		};
 		B47EDD5A1D5A00080003A602 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA0FE2EEA54A3F93DC4B5B64 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 128183CD1CB3BCDF1BE642AA /* Pods-FreJun.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FreJun/FreJun.entitlements;
@@ -1246,7 +1252,7 @@
 		};
 		B47EDD5B1D5A00080003A602 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45D789AEF6BF9500A7AB0FBF /* Pods.release.xcconfig */;
+			baseConfigurationReference = 1BE849068AA2C4578A9AB8C1 /* Pods-FreJun.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FreJun/FreJun.entitlements;

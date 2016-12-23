@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,22 +21,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_back_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="9Ol-cc-7HO">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_back_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="9Ol-cc-7HO">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="338"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9Ol-cc-7HO" secondAttribute="height" multiplier="160:169" id="Sfc-zx-MNP"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTi-bw-r9d">
-                                <rect key="frame" x="95" y="207" width="116" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTi-bw-r9d">
+                                <rect key="frame" x="102" y="207" width="116" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="LoO-xU-cth"/>
+                                    <constraint firstAttribute="width" constant="116" id="QvW-xZ-8RL"/>
+                                </constraints>
                                 <string key="text">Welcome
 To FreJun!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEr-xD-rIV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEr-xD-rIV">
                                 <rect key="frame" x="47" y="283" width="226" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="qrI-z8-wjz"/>
+                                </constraints>
                                 <string key="text">In hac habitasse platea dictumst.
 Vivamus adipiscing fermentum.</string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
@@ -44,6 +52,17 @@ Vivamus adipiscing fermentum.</string>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="MEr-xD-rIV" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="47" id="03C-h1-Qo8"/>
+                            <constraint firstItem="MEr-xD-rIV" firstAttribute="top" secondItem="iTi-bw-r9d" secondAttribute="bottom" constant="16" id="LbR-if-wEt"/>
+                            <constraint firstAttribute="trailing" secondItem="9Ol-cc-7HO" secondAttribute="trailing" id="QEx-FD-UJc"/>
+                            <constraint firstItem="MEr-xD-rIV" firstAttribute="top" secondItem="9Ol-cc-7HO" secondAttribute="bottom" constant="-55" id="VgJ-60-2fs"/>
+                            <constraint firstItem="iTi-bw-r9d" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gK5-oM-Qdi"/>
+                            <constraint firstItem="9Ol-cc-7HO" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="gfE-dg-Hb2"/>
+                            <constraint firstItem="9Ol-cc-7HO" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="i9Z-fV-ckU"/>
+                            <constraint firstAttribute="trailing" secondItem="MEr-xD-rIV" secondAttribute="trailing" constant="47" id="jeY-y0-iJf"/>
+                            <constraint firstItem="MEr-xD-rIV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mn0-X8-aW5"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

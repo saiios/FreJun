@@ -13,6 +13,7 @@
 @synthesize emailTitle;
 @synthesize selectedEvent;
 @synthesize events;
+@synthesize eventsforCalendar;
 @synthesize sortedEvents;
 @synthesize selectedDate;
 @synthesize googleContacts;
@@ -20,6 +21,9 @@
 @synthesize GCMToken;
 @synthesize name;
 @synthesize pref;
+@synthesize gcmToken;
+@synthesize lat;
+@synthesize lng;
 static dataclass *instance = nil;
 
 +(dataclass *)getInstance
