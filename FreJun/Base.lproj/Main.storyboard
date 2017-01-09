@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -113,7 +114,7 @@ Vivamus adipiscing fermentum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818" y="408"/>
+            <point key="canvasLocation" x="1939" y="408"/>
         </scene>
         <!--Title-->
         <scene sceneID="85f-PO-yKt">
@@ -178,7 +179,7 @@ Vivamus adipiscing fermentum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZoQ-mh-1Z9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1954" y="408"/>
+            <point key="canvasLocation" x="1939" y="1105"/>
         </scene>
         <!--Search Results View Controller-->
         <scene sceneID="sG3-V2-z0e">
@@ -206,7 +207,7 @@ Vivamus adipiscing fermentum.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bmt-iV-h0c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1591" y="1048"/>
+            <point key="canvasLocation" x="2580" y="1062"/>
         </scene>
         <!--Calender View Controller-->
         <scene sceneID="drS-85-RP7">
@@ -296,7 +297,7 @@ Vivamus adipiscing fermentum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaV-MJ-c9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2696" y="1085"/>
+            <point key="canvasLocation" x="3203" y="1062"/>
         </scene>
         <!--Edit Event Table View Controller-->
         <scene sceneID="Cjk-29-vUM">
@@ -452,7 +453,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.89559294869999995" green="0.89559294869999995" blue="0.89559294869999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOt-fn-k5H">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="STE/APT" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOt-fn-k5H">
                                                     <rect key="frame" x="15" y="44" width="146" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -848,7 +849,7 @@ Vivamus adipiscing fermentum.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oio-fw-Ctc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4119" y="437"/>
+            <point key="canvasLocation" x="4464" y="408"/>
         </scene>
         <!--User Prefrences Table View Controller-->
         <scene sceneID="zYE-pF-KUG">
@@ -1123,7 +1124,7 @@ Vivamus adipiscing fermentum.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baz-zA-6jP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4740" y="437"/>
+            <point key="canvasLocation" x="5085" y="408"/>
         </scene>
         <!--Event Details View Controller-->
         <scene sceneID="6JL-sQ-RSl">
@@ -1141,7 +1142,7 @@ Vivamus adipiscing fermentum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgJ-Ef-PJs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2876" y="437"/>
+            <point key="canvasLocation" x="3204" y="408"/>
         </scene>
         <!--Event Request View Controller-->
         <scene sceneID="wJe-U7-Vo9">
@@ -1159,7 +1160,7 @@ Vivamus adipiscing fermentum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yro-uU-4e2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2435" y="438"/>
+            <point key="canvasLocation" x="2580" y="408"/>
         </scene>
         <!--Add Event Table View Controller-->
         <scene sceneID="OS1-N8-f8o">
@@ -1319,7 +1320,7 @@ Vivamus adipiscing fermentum.</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.89559294869999995" green="0.89559294869999995" blue="0.89559294869999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hn0-0V-afV">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="STE/APT" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hn0-0V-afV">
                                                     <rect key="frame" x="15" y="44" width="146" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1405,9 +1406,11 @@ Vivamus adipiscing fermentum.</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HBj-o5-biQ">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HBj-o5-biQ">
                                                     <rect key="frame" x="0.0" y="44" width="320" height="220"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="220" id="QII-Y9-X22"/>
+                                                    </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rEy-vy-kwv">
                                                         <size key="itemSize" width="319" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1456,6 +1459,11 @@ Vivamus adipiscing fermentum.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="HBj-o5-biQ" secondAttribute="trailing" constant="-8" id="19m-JU-aWZ"/>
+                                                <constraint firstItem="HBj-o5-biQ" firstAttribute="top" secondItem="nJE-xy-J3h" secondAttribute="topMargin" constant="36" id="ZcC-c1-htw"/>
+                                                <constraint firstItem="HBj-o5-biQ" firstAttribute="leading" secondItem="nJE-xy-J3h" secondAttribute="leadingMargin" constant="-8" id="vo9-yS-sZ2"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="g2A-j7-s5l">
@@ -1465,9 +1473,11 @@ Vivamus adipiscing fermentum.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7T5-yY-1Yh">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7T5-yY-1Yh">
                                                     <rect key="frame" x="0.0" y="44" width="320" height="220"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="220" id="O9K-BQ-t78"/>
+                                                    </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HWQ-wZ-h6W">
                                                         <size key="itemSize" width="319" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1523,6 +1533,11 @@ Vivamus adipiscing fermentum.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7T5-yY-1Yh" firstAttribute="leading" secondItem="tln-Y1-PWn" secondAttribute="leadingMargin" constant="-8" id="3nn-Gz-sd5"/>
+                                                <constraint firstItem="7T5-yY-1Yh" firstAttribute="top" secondItem="tln-Y1-PWn" secondAttribute="topMargin" constant="36" id="ACm-dM-5g3"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="7T5-yY-1Yh" secondAttribute="trailing" constant="-8" id="Phe-po-I2s"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="rIR-3j-dBg">
@@ -1539,9 +1554,11 @@ Vivamus adipiscing fermentum.</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MsM-II-ZZT">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MsM-II-ZZT">
                                                     <rect key="frame" x="0.0" y="44" width="320" height="308"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="308" id="5f6-tH-a24"/>
+                                                    </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eSr-hI-bN1">
                                                         <size key="itemSize" width="319" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1605,6 +1622,11 @@ Vivamus adipiscing fermentum.</string>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MsM-II-ZZT" firstAttribute="leading" secondItem="p4N-5L-ZWU" secondAttribute="leadingMargin" constant="-8" id="59k-Zy-kWh"/>
+                                                <constraint firstItem="MsM-II-ZZT" firstAttribute="top" secondItem="p4N-5L-ZWU" secondAttribute="topMargin" constant="36" id="dPn-3l-WhI"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MsM-II-ZZT" secondAttribute="trailing" constant="-8" id="pDE-JL-BM8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="176" id="oeb-Tc-ww8">
@@ -1717,7 +1739,7 @@ Vivamus adipiscing fermentum.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wyU-tH-Wri" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3503" y="559"/>
+            <point key="canvasLocation" x="3834" y="530"/>
         </scene>
         <!--Event Invitaion View Controller-->
         <scene sceneID="2HL-gd-w02">
@@ -1735,14 +1757,14 @@ Vivamus adipiscing fermentum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7JX-jW-AfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4129" y="1133"/>
+            <point key="canvasLocation" x="4463" y="1062"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="25H-WR-vVg">
             <objects>
                 <navigationController restorationIdentifier="main" storyboardIdentifier="main" automaticallyAdjustsScrollViewInsets="NO" id="8RT-j9-rNs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bJx-CM-eyo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bJx-CM-eyo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1753,13 +1775,13 @@ Vivamus adipiscing fermentum.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AT-1a-YMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1442" y="408"/>
+            <point key="canvasLocation" x="1311" y="1105"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wpX-fo-Jm5">
             <objects>
                 <navigationController id="HZj-FJ-FNW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="AlC-TN-qrK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AlC-TN-qrK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1769,7 +1791,7 @@ Vivamus adipiscing fermentum.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RgR-bL-ndt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="193" y="408"/>
+            <point key="canvasLocation" x="1301" y="408"/>
         </scene>
     </scenes>
     <resources>

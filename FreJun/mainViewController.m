@@ -407,7 +407,10 @@ CGFloat kResizeThumbSize = 45.0f;
     
     [self NotificationInit];
     
+    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(refreshData) userInfo:nil repeats:YES];
+    
 }
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     numberBadge = [[UIView alloc]initWithFrame:CGRectMake(14, 10, 22, 22)];
@@ -425,8 +428,6 @@ CGFloat kResizeThumbSize = 45.0f;
     
     popoverClass = [WEPopoverController class];
     currentPopoverCellIndex = -1;
-    
-
 }
 -(void)viewWillDisappear:(BOOL)animated{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -616,6 +617,11 @@ CGFloat kResizeThumbSize = 45.0f;
                                              selector:@selector(notesCall:)
                                                  name:@"notes"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reminderScreenCall:)
+                                                 name:@"reminderScreen"
+                                               object:nil];
 }
 
 -(void)notesCall:(NSNotification *) notification{
@@ -699,9 +705,20 @@ CGFloat kResizeThumbSize = 45.0f;
 }
 -(void)reminderCall:(NSNotification *) notification{
     
-    NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+ //   NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
+    [self playNotificationSound];
+}
+-(void)reminderScreenCall:(NSNotification *) notification{
+    
+    //   NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
+    dataclass *obj = [dataclass getInstance];
+    obj.selectedEvent = notification.userInfo[@"custom"][@"a"][@"eventDetails"];
+    eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
+    [self.navigationController pushViewController:infoController animated:YES];
+   // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    //[alertView show];
     [self playNotificationSound];
 }
 -(void)travelCall:(NSNotification *) notification{
@@ -1278,8 +1295,39 @@ CGFloat kResizeThumbSize = 45.0f;
             }
             else{
                 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Permissions" message:@"You are not authorised to delete this event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alertView show];
+               // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Permissions" message:@"You are not authorised to delete this event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+               // [alertView show];
+                
+                NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=declined&eventid=%@",directoryaccept,[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"relatedEmail"],[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"eventID"]];
+                NSLog(@"%@",url);
+                url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+                NSURL *queryUrl = [NSURL URLWithString:url];
+                [[finalData[indexPath.section] objectForKey:@"events"] removeObjectAtIndex:indexPath.row];
+                [self.tableView reloadData];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+                    NSError* error;
+                    //NSLog(@"bholi %@",data2);
+                    NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+                    //NSLog(@"string is : %@",newStr);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.navigationController popViewControllerAnimated:YES]; });
+                    if(data2){
+                        NSArray *pref = [NSJSONSerialization
+                                         JSONObjectWithData:data2
+                                         options:kNilOptions
+                                         error:&error];
+                        NSLog(@"%@",pref);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //  [loadingView setHidden:YES];
+                            
+                          //  [self.navigationController popViewControllerAnimated:YES];
+                            
+                        });
+                    }
+                });
+
+                
             }
             break;
         }

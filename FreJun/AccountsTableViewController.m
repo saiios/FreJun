@@ -158,24 +158,41 @@
         
         if (indexPath.section == 1) {
             if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count] > 1) {
-
         NSMutableArray *accountsData = [[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"]];
+        [self deleteAccountAPICall:[accountsData objectAtIndex:indexPath.row]];
         [accountsData removeObjectAtIndex:indexPath.row];
         [[NSUserDefaults standardUserDefaults] setObject:accountsData forKey:@"accounts"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            }
-            else{
-                
-                
-            }
-        }
-    }
-    else{
-        
-    }
+        dataclass *obj = [dataclass getInstance];
+        obj.emailTitle = accountsData[0];
+        [[NSUserDefaults standardUserDefaults] setObject:accountsData[0] forKey:@"email1"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTitle" object:self];
+            } } }
+}
+
+-(void)deleteAccountAPICall:(NSString *)email{
     
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@",directoryDeleteAccount,email];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if(data){
+            NSArray *json = [NSJSONSerialization
+                    JSONObjectWithData:data
+                    options:kNilOptions
+                    error:&error];
+            NSLog(@"%@",json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+            });
+        } });
 }
 
 # pragma mark - Google SignIn Delegate

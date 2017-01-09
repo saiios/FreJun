@@ -136,31 +136,59 @@ NSString *const SubscriptionTopic = @"/topics/global";
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    
-//    UIDevice *device = [UIDevice currentDevice];
-//    NSString  *currentDeviceId = [[device identifierForVendor]UUIDString];
-//    NSData *deviceId = [NSData dataWithContentsOfFile:currentDeviceId];
     [[Hotline sharedInstance] updateDeviceToken:deviceToken];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //One Signal
-    [OneSignal initWithLaunchOptions:launchOptions appId:@"2898b157-f468-44ae-8756-fde887ac95ea"];
     
-    // Override point for customization after application launch.
+    dataclass *obj = [dataclass getInstance];
+    //One Signal
+    [OneSignal initWithLaunchOptions:launchOptions appId:@"2898b157-f468-44ae-8756-fde887ac95ea" handleNotificationReceived:^(OSNotification *notification) {
+        NSLog(@"Received Notification - %@", notification.payload.title);
+    } handleNotificationAction:^(OSNotificationOpenedResult *result) {
+        
+        // This block gets called when the user reacts to a notification received
+        OSNotificationPayload* payload = result.notification.payload;
+        
+        NSString* messageTitle = @"OneSignal Example";
+        NSString* fullMessage = [payload.body copy];
+        
+     /*   if (payload.additionalData) {
+            
+            if(payload.title)
+                messageTitle = payload.title;
+            
+            NSDictionary* additionalData = payload.additionalData;
+            
+            if (additionalData[@"actionSelected"])
+                fullMessage = [fullMessage stringByAppendingString:[NSString stringWithFormat:@"\nPressed ButtonId:%@", additionalData[@"actionSelected"]]];
+        }
+        
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:messageTitle
+                                                            message:fullMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Close22"
+                                                  otherButtonTitles:nil, nil];
+        [alertView show]; */
+        
+    } settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
+
+    [OneSignal IdsAvailable:^(NSString *userId, NSString *pushToken) {
+        NSLog(@"user ID : %@",userId);
+        obj.gcmToken = userId;
+        NSLog(@"Push Token : %@",pushToken);
+    }];
+    
     [[AppDelegate sharedInstance] startUpdatingLocation];
+    
     //Amplitude
     [[Amplitude instance] initializeApiKey:@"78d9e06ace591d133cb55bc87a52721c"];
     
     //Hotline
     /* Initialize Hotline*/
-    
     HotlineConfig *config = [[HotlineConfig alloc]initWithAppID:@"e3f8b80a-b615-4667-a77d-fa32938685cb"  andAppKey:@"20cc3da2-7cf3-4de1-8acc-9da9c93b6acf"];
-    
-    [[Hotline sharedInstance] initWithConfig:config];
-    
+    //[[Hotline sharedInstance] initWithConfig:config];
     /* Enable remote notifications */
-    
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
         UIUserNotificationSettings *settings =
         [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
@@ -171,21 +199,14 @@ NSString *const SubscriptionTopic = @"/topics/global";
     else{
         
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-        
     }
-    
     [self.window makeKeyAndVisible]; // or similar code to set a visible view
-    
     /*  Set your view before the following snippet executes */
-    
     /* Handle remote notifications */
     if ([[Hotline sharedInstance]isHotlineNotification:launchOptions]) {
         [[Hotline sharedInstance]handleRemoteNotification:launchOptions
                                               andAppstate:application.applicationState];
     }
-    
-    /* Any other code to be executed on app launch */
-    
     /* Reset badge app count if so desired */
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     //config.displayFAQsAsGrid = YES; // set to NO for List View
@@ -193,87 +214,24 @@ NSString *const SubscriptionTopic = @"/topics/global";
     config.pictureMessagingEnabled = YES; // set NO to disable picture messaging (pictures from gallery/new images from camera)
     config.cameraCaptureEnabled = YES; // set to NO for only pictures from the gallery (turn off the camera capture option)
     config.agentAvatarEnabled = YES; // set to NO to turn of showing an avatar for agents. to customize the avatar shown, use the theme file
-    config.showNotificationBanner = YES; // set to NO if you don't want to show the in-app notification banner upon receiving a new message while the app is open
-
+    config.showNotificationBanner = NO; // set to NO if you don't want to show the in-app notification banner upon receiving a new message while the app is open
     
     //Fabric
     [Fabric with:@[[Crashlytics class]]];
-
     [GIDSignIn sharedInstance].delegate = self;
-    
     [GMSServices provideAPIKey:@"AIzaSyBuc0DWd_Ebovu_mO-YJJP6A8DRf-Vl3cg"];
     [GMSPlacesClient provideAPIKey:@"AIzaSyBuc0DWd_Ebovu_mO-YJJP6A8DRf-Vl3cg"];
-    
-    //FCM SEtup
-    // Register for remote notifications
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-        // iOS 7.1 or earlier. Disable the deprecation warnings.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        UIRemoteNotificationType allNotificationTypes =
-        (UIRemoteNotificationTypeSound |
-         UIRemoteNotificationTypeAlert |
-         UIRemoteNotificationTypeBadge);
-        [application registerForRemoteNotificationTypes:allNotificationTypes];
-#pragma clang diagnostic pop
-    } else {
-        // iOS 8 or later
-        // [START register_for_notifications]
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max) {
-            UIUserNotificationType allNotificationTypes =
-            (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
-            UIUserNotificationSettings *settings =
-            [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        } else {
-            // iOS 10 or later
-#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-            UNAuthorizationOptions authOptions =
-            UNAuthorizationOptionAlert
-            | UNAuthorizationOptionSound
-            | UNAuthorizationOptionBadge;
-            [[UNUserNotificationCenter currentNotificationCenter]
-             requestAuthorizationWithOptions:authOptions
-             completionHandler:^(BOOL granted, NSError * _Nullable error) {
-             }
-             ];
-            
-            // For iOS 10 display notification (sent via APNS)
-            [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
-            // For iOS 10 data message (sent via FCM)
-            [[FIRMessaging messaging] setRemoteMessageDelegate:self];
-#endif
-        }
-        
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        // [END register_for_notifications]
-    }
-    
-    // [START configure_firebase]
-    [FIRApp configure];
-    // [END configure_firebase]
-    // Add observer for InstanceID token refresh callback.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshNotification:)
-                                                 name:kFIRInstanceIDTokenRefreshNotification object:nil];
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *viewController;
-    dataclass *obj = [dataclass getInstance];
-    
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]) {
-       
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"main"];
             obj.emailTitle = [[NSUserDefaults standardUserDefaults] stringForKey:@"email1"];
-        [self getGoogleContacts];
-    }
-    else{
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
-    }
+        [self getGoogleContacts]; }
+    else{ viewController = [storyboard instantiateViewControllerWithIdentifier:@"login"]; }
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
-
-    
     return YES;
 }
 
@@ -318,8 +276,6 @@ NSString *const SubscriptionTopic = @"/topics/global";
         }});
 }
 
-
-
 // [START receive_apns_token_error]
 - (void)application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -335,13 +291,13 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
-    NSLog(@"Notification received: %@", userInfo);
+   // NSLog(@"Notification received: %@", userInfo);
     // This works only if the app started the GCM service
     //[[GCMService sharedInstance] appDidReceiveMessage:userInfo];
     // Handle the received message
     // Invoke the completion handler passing the appropriate UIBackgroundFetchResult value
     // [START_EXCLUDE]
-    [[NSNotificationCenter defaultCenter] postNotificationName:_messageKey
+  /*  [[NSNotificationCenter defaultCenter] postNotificationName:_messageKey
                                                         object:nil
                                                       userInfo:userInfo];
     handler(UIBackgroundFetchResultNoData);
@@ -487,7 +443,221 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
                                                               userInfo:userInfo];
         }
     }
+*/
+    
+    NSLog(@"Notification received: %@", userInfo);
+    if (application.applicationState == UIApplicationStateActive) {
+        NSLog(@"app is currently active");
+        if ([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"invite"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invite"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"etd"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"] isEqual: @"eta"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"delay"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"eta_response"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"reminder"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reminderScreen"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel2"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel2"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel3"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"notes"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"notes"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+    }
+    else if (application.applicationState == UIApplicationStateInactive) {
+        
+        NSLog(@"app is currently active");
+        if ([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"invite"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invite"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"etd"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"] isEqual: @"eta"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"delay"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"eta_response"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"reminder"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reminderScreen"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel2"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel2"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel3"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"notes"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"notes"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+    }
+    else if (application.applicationState == UIApplicationStateBackground) {
+        
+        NSLog(@"app is currently active");
+        if ([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"invite"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invite"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"etd"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"] isEqual: @"eta"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"delay"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"eta_response"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"reminder"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reminderScreen"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel2"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel2"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel3"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"notes"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"notes"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+    }
 
+
+    
 }
 // [END ack_message_reception]
 
@@ -499,8 +669,6 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     // Print message ID.
     NSDictionary *userInfo = notification.request.content.userInfo;
-    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
-    
     // Pring full message.
     NSLog(@"%@", userInfo);
 }
@@ -513,53 +681,13 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
 #endif
 // [END ios_10_message_handling]
 
-// [START refresh_token]
-- (void)tokenRefreshNotification:(NSNotification *)notification {
-    // Note that this callback will be fired everytime a new token is generated, including the first
-    // time. So if you need to retrieve the token as soon as it is available this is where that
-    // should be done.
-    NSLog(@"ewelfewj fhw jefh wehf wehfkj wehf kwhf jkw");
-    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
-    NSLog(@"InstanceID token: %@", refreshedToken);
-    dataclass *obj = [dataclass getInstance];
-    obj.gcmToken = refreshedToken;
-    // Connect to FCM since connection may have failed when attempted before having a token.
-    [self connectToFcm];
-    
-    // TODO: If necessary send token to application server.
-}
-// [END refresh_token]
-
-// [START connect_to_fcm]
-- (void)connectToFcm {
-    [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Unable to connect to FCM. %@", error);
-        } else {
-            NSLog(@"Connected to FCM.");
-        }
-    }];
-}
-// [END connect_to_fcm]
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [self connectToFcm];
 }
-
-// [START disconnect_from_fcm]
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [[FIRMessaging messaging] disconnect];
-    NSLog(@"Disconnected from FCM");
 }
-// [END disconnect_from_fcm]
-
-// [END connect_to_fcm]
-
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url

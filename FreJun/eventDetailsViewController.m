@@ -154,7 +154,7 @@
     time2.text = [selectedEvent objectForKey:@"startTime"];
     time2.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ ) (UTC)",[[[selectedEvent objectForKey:@"startTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate],[[[selectedEvent objectForKey:@"endTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate]] ;
     time2.textColor = [UIColor lightGrayColor];
-    [scrollView addSubview:time2];
+    //[scrollView addSubview:time2];
     
     //line separator
     UIView* separatorLineView = [[UIView alloc]initWithFrame:CGRectMake(leftMargin, time2.frame.origin.y+time2.frame.size.height+18*multiplier, fullWidth+leftMargin, 1)];
@@ -172,6 +172,9 @@
     calenderText.font = [calenderText.font fontWithSize:17*multiplier];
     calenderText.textAlignment = NSTextAlignmentRight;
     calenderText.text = [selectedEvent objectForKey:@"email"];
+    if ([selectedEvent objectForKey:@"relatedEmail"]) {
+        calenderText.text = [selectedEvent objectForKey:@"relatedEmail"];
+    }
     CGSize constraintSize = CGSizeMake(MAXFLOAT, calenderText.frame.size.height);
     CGSize labelSize = [calenderText.text sizeWithFont:calenderText.font constrainedToSize:constraintSize];
     if (labelSize.width > calenderText.frame.size.width) {

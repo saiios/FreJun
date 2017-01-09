@@ -106,6 +106,25 @@
     //dateFromString = [dateFormatter dateFromString:@"2016-09-04"];
     //NSLog(@"date is %@",dateFromString);
     
+    NSDate *startDate = [[NSDate alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    startDate = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime"] substringToIndex:10]];
+    
+    NSDate *endDate = [[NSDate alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    endDate = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime"] substringToIndex:10]];
+    
+    NSDate *startDate_real = [[NSDate alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    startDate_real = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime_real"] substringToIndex:10]];
+    
+    NSDate *endDate_real = [[NSDate alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    endDate_real = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime_real"] substringToIndex:10]];
+    
+    [dateFormatter setDateFormat:@"MMM d"];
+    
+    
     day.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:day];
     
@@ -114,6 +133,7 @@
     time1.font = [time1.font fontWithSize:14*multiplier];
     time1.text = @"Another One Event";
     time1.text = [selectedEvent objectForKey:@"startTime"];
+    time1.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ )",[[[selectedEvent objectForKey:@"startTime_real"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate_real],[[[selectedEvent objectForKey:@"endTime_real"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate_real]] ;
     
     NSDate *GMTDate = [[NSDate alloc] init];
     NSDateFormatter *GMTdateFormatter = [[NSDateFormatter alloc] init];
@@ -133,8 +153,9 @@
     time2.font = [time2.font fontWithSize:14*multiplier];
     time2.text = @"Another One Event";
     time2.text = [selectedEvent objectForKey:@"startTime"];
+    time2.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ ) (UTC)",[[[selectedEvent objectForKey:@"startTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate],[[[selectedEvent objectForKey:@"endTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate]] ;
     time2.textColor = [UIColor lightGrayColor];
-    [scrollView addSubview:time2];
+    //[scrollView addSubview:time2];
     
     //line separator
     UIView* separatorLineView = [[UIView alloc]initWithFrame:CGRectMake(leftMargin, time2.frame.origin.y+time2.frame.size.height+18*multiplier, fullWidth+leftMargin, 1)];
@@ -152,6 +173,9 @@
     calenderText.font = [calenderText.font fontWithSize:17*multiplier];
     calenderText.textAlignment = NSTextAlignmentRight;
     calenderText.text = [selectedEvent objectForKey:@"email"];
+    if ([selectedEvent objectForKey:@"relatedEmail"]) {
+        calenderText.text = [selectedEvent objectForKey:@"relatedEmail"];
+    }
     CGSize constraintSize = CGSizeMake(MAXFLOAT, calenderText.frame.size.height);
     CGSize labelSize = [calenderText.text sizeWithFont:calenderText.font constrainedToSize:constraintSize];
     if (labelSize.width > calenderText.frame.size.width) {
@@ -396,7 +420,7 @@
 -(void)accept{
     
     dataclass *obj = [dataclass getInstance];
-    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=accepted&eventid=%@",directoryaccept,obj.emailTitle,[obj.selectedEvent objectForKey:@"eventID"]];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=accepted&eventid=%@",directoryaccept,[obj.selectedEvent objectForKey:@"relatedEmail"],[obj.selectedEvent objectForKey:@"eventID"]];
     NSLog(@"%@",url);
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSURL *queryUrl = [NSURL URLWithString:url];
@@ -425,7 +449,7 @@
 -(void)maybe{
     
     dataclass *obj = [dataclass getInstance];
-    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=tentative&eventid=%@",directoryaccept,obj.emailTitle,[obj.selectedEvent objectForKey:@"eventID"]];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=tentative&eventid=%@",directoryaccept,[obj.selectedEvent objectForKey:@"relatedEmail"],[obj.selectedEvent objectForKey:@"eventID"]];
     NSLog(@"%@",url);
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSURL *queryUrl = [NSURL URLWithString:url];
@@ -459,7 +483,7 @@
 -(void)rejected{
     
     dataclass *obj = [dataclass getInstance];
-    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=rejected&eventid=%@",directoryaccept,obj.emailTitle,[obj.selectedEvent objectForKey:@"eventID"]];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&action=declined&eventid=%@",directoryaccept,[obj.selectedEvent objectForKey:@"relatedEmail"],[obj.selectedEvent objectForKey:@"eventID"]];
     NSLog(@"%@",url);
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSURL *queryUrl = [NSURL URLWithString:url];

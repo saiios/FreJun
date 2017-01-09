@@ -23,6 +23,7 @@
 #define directoryaccept @"http://104.131.31.146/api/accept.php"
 #define directorythirtyHours @"http://104.131.31.146/api/thirty_hours_schedular.php"
 #define directorythreeHours @"http://104.131.31.146/api/three_hours_schedular.php"
+#define directoryDeleteAccount @"http://104.131.31.146/api/delete_account.php"
 #import "dataclass.h"
 #define color1 [UIColor colorWithRed:243.0/255.0 green:63.0/255.0 blue:63.0/255.0 alpha:1]
 #define color2 [UIColor colorWithRed:75.0/255.0 green:224.0/255.0 blue:60.0/255.0 alpha:1]
