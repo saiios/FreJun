@@ -102,7 +102,9 @@ NSString *const SubscriptionTopic = @"/topics/global";
 {
     CLLocation *mostRecentLocation = locations.lastObject;
    // NSLog(@"Current location: %@ %@", @(mostRecentLocation.coordinate.latitude), @(mostRecentLocation.coordinate.longitude));
-    
+    dataclass *obj = [dataclass getInstance];
+    obj.lat = [NSString stringWithFormat:@"%f",mostRecentLocation.coordinate.latitude];
+    obj.lng = [NSString stringWithFormat:@"%f",mostRecentLocation.coordinate.longitude];
     NSDate *now = [NSDate date];
     NSTimeInterval interval = self.lastTimestamp ? [now timeIntervalSinceDate:self.lastTimestamp] : 0;
     
@@ -187,7 +189,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
     //Hotline
     /* Initialize Hotline*/
     HotlineConfig *config = [[HotlineConfig alloc]initWithAppID:@"e3f8b80a-b615-4667-a77d-fa32938685cb"  andAppKey:@"20cc3da2-7cf3-4de1-8acc-9da9c93b6acf"];
-    //[[Hotline sharedInstance] initWithConfig:config];
+    [[Hotline sharedInstance] initWithConfig:config];
     /* Enable remote notifications */
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
         UIUserNotificationSettings *settings =
@@ -508,6 +510,18 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
                                                                 object:nil
                                                               userInfo:userInfo];
         }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel3_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3_invitees"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4_invitees"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
         else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"notes"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"notes"
@@ -578,6 +592,18 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
                                                                 object:nil
                                                               userInfo:userInfo];
         }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel3_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3_invitees"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4_invitees"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
         else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"notes"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"notes"
@@ -645,6 +671,18 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
         else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4"]){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel3_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3_invitees"
+                                                                object:nil
+                                                              userInfo:userInfo];
+        }
+        else if([userInfo[@"custom"][@"a"][@"title"]  isEqual: @"travel4_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4_invitees"
                                                                 object:nil
                                                               userInfo:userInfo];
         }

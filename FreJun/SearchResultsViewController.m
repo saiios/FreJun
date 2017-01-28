@@ -8,7 +8,8 @@
 
 #import "SearchResultsViewController.h"
 #import "mainTableViewCell.h"
-
+#import "eventInvitaionViewController.h"
+#import "eventDetailsViewController.h"
 @interface SearchResultsViewController ()
 @property (nonatomic, strong) NSArray *searchResults;
 @end
@@ -168,7 +169,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //self.searchResults[indexPath.row]
+    NSLog(@"hi there 2");
+    dataclass *obj = [dataclass getInstance];
+    obj.selectedEvent = self.searchResults[indexPath.row];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"searched" object:self];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {

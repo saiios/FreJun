@@ -86,75 +86,43 @@
     [scrollView addSubview:address2];
     
     //Day Label
-    UILabel *day = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, address2.frame.origin.y+address2.frame.size.height+16*multiplier, fullWidth, 15*multiplier)];
-    day.font = [day.font fontWithSize:14*multiplier];
-    day.text = @"Another One Event";
-    day.text = [selectedEvent objectForKey:@"startTime"];
+    UILabel *day = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, address2.frame.origin.y+address2.frame.size.height+16*multiplier, fullWidth, 20*multiplier)];
+    day.font = [day.font fontWithSize:18*multiplier];
     NSDate *dateFromString = [[NSDate alloc] init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    dateFromString = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime"] substringToIndex:10]];
-    [dateFormatter setDateFormat:@"EEEE,MMM d,yyyy"];
-    NSLog(@"%@",[dateFormatter stringFromDate:dateFromString]);
+    dateFromString = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime_real"] substringToIndex:10]];
+    [dateFormatter setDateFormat:@"EEEE, MMM d, yyyy"];
     day.text = [dateFormatter stringFromDate:dateFromString];
-    
-    NSString *dateString = [[selectedEvent objectForKey:@"startTime"] substringToIndex:[[selectedEvent objectForKey:@"startTime"] length]-9];
-    NSLog(@"date is 2%@",dateString);
-    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    //NSDate *dateFromString = [[NSDate alloc] init];
-    //dateFromString = [dateFormatter dateFromString:@"2016-09-04"];
-    //NSLog(@"date is %@",dateFromString);
-    
-    NSDate *startDate = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    startDate = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime"] substringToIndex:10]];
-    
-    NSDate *endDate = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    endDate = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime"] substringToIndex:10]];
-    
-    NSDate *startDate_real = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    startDate_real = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime_real"] substringToIndex:10]];
-    
-    NSDate *endDate_real = [[NSDate alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    endDate_real = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime_real"] substringToIndex:10]];
-    
-    [dateFormatter setDateFormat:@"MMM d"];
-    
-    day.textColor = [UIColor lightGrayColor];
-    [scrollView addSubview:day];
+    day.textColor = [UIColor grayColor];
+    //[scrollView addSubview:day];
     
     //Time 1 Label
-    UILabel *time1 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, day.frame.origin.y+day.frame.size.height+4*multiplier, fullWidth, 15*multiplier)];
-    time1.font = [time1.font fontWithSize:14*multiplier];
-    time1.text = @"Another One Event";
-    time1.text = [selectedEvent objectForKey:@"startTime"];
-    time1.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ )",[[[selectedEvent objectForKey:@"startTime_real"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate_real],[[[selectedEvent objectForKey:@"endTime_real"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate_real]] ;
-    
-    NSDate *GMTDate = [[NSDate alloc] init];
-    NSDateFormatter *GMTdateFormatter = [[NSDateFormatter alloc] init];
-    [GMTdateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    GMTDate = [GMTdateFormatter dateFromString:[selectedEvent objectForKey:@"startTime"]];
-    GMTdateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:[[selectedEvent objectForKey:@"timeZone"] intValue]];
-    GMTdateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:3600];
-    NSLog(@"formatted %@",[GMTdateFormatter stringFromDate:GMTDate]);
-    
+    UILabel *time1 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, address2.frame.origin.y+address2.frame.size.height+16*multiplier, fullWidth, 20*multiplier)];
+    time1.font = [time1.font fontWithSize:20*multiplier];
+    time1.adjustsFontSizeToFitWidth = YES;
+    time1.text = [selectedEvent objectForKey:@"startTime_real"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFromString = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"startTime_real"] substringToIndex:19]];
+    NSLog(@"dd%@", dateFromString);
+    [dateFormatter setDateFormat:@"MMM d, yyyy, HH:mm (EEEE)"];
+    time1.text = [NSString stringWithFormat:@"From %@",[dateFormatter stringFromDate:dateFromString]];
 
-    
-    time1.textColor = [UIColor lightGrayColor];
+    time1.textColor = [UIColor grayColor];
     [scrollView addSubview:time1];
     
     //Time 2 Label
-    UILabel *time2 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, time1.frame.origin.y+time1.frame.size.height+4*multiplier, fullWidth, 15*multiplier)];
-    time2.font = [time2.font fontWithSize:14*multiplier];
-    time2.text = @"Another One Event";
-    time2.text = [selectedEvent objectForKey:@"startTime"];
-    time2.text = [NSString stringWithFormat:@"from %@ ( %@ ) to %@ ( %@ ) (UTC)",[[[selectedEvent objectForKey:@"startTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:startDate],[[[selectedEvent objectForKey:@"endTime"] substringFromIndex:10] substringToIndex:6],[dateFormatter stringFromDate:endDate]] ;
-    time2.textColor = [UIColor lightGrayColor];
-    //[scrollView addSubview:time2];
+    UILabel *time2 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, time1.frame.origin.y+time1.frame.size.height+4*multiplier, fullWidth, 20*multiplier)];
+    time2.font = [time2.font fontWithSize:20*multiplier];
+    //time2.adjustsFontSizeToFitWidth = YES;
+    time2.text = [selectedEvent objectForKey:@"endTime_real"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFromString = [dateFormatter dateFromString:[[selectedEvent objectForKey:@"endTime_real"] substringToIndex:19]];
+    NSLog(@"dd%@", dateFromString);
+    [dateFormatter setDateFormat:@"MMM d, yyyy, HH:mm (EEEE)"];
+    time2.text = [NSString stringWithFormat:@"To %@",[dateFormatter stringFromDate:dateFromString]];
+    time2.textColor = [UIColor grayColor];
+    [scrollView addSubview:time2];
     
     //line separator
     UIView* separatorLineView = [[UIView alloc]initWithFrame:CGRectMake(leftMargin, time2.frame.origin.y+time2.frame.size.height+18*multiplier, fullWidth+leftMargin, 1)];
@@ -361,8 +329,8 @@
     [scrollView addSubview:editedBy];
     
     //name Label
-    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, editedBy.frame.origin.y+editedBy.frame.size.height+11*multiplier, fullWidth, 12*multiplier)];
-    name.font = [name.font fontWithSize:12*multiplier];
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, editedBy.frame.origin.y+editedBy.frame.size.height+11*multiplier-5, fullWidth, 20*multiplier)];
+    name.font = [name.font fontWithSize:15*multiplier];
     name.text = [selectedEvent objectForKey:@"name"];
     name.textColor = [UIColor lightGrayColor];
     [scrollView addSubview:name];

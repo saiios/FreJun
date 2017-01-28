@@ -36,7 +36,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *notes;
 @property (weak, nonatomic) IBOutlet UILabel *notesLAbel;
-
+@property (weak, nonatomic) IBOutlet UILabel *privateNotesLabel;
+@property (weak, nonatomic) IBOutlet UITextView *privateNotes;
 @property (weak, nonatomic) IBOutlet MVPlaceSearchTextField *address1;
 @property (weak, nonatomic) IBOutlet UICollectionView *list1;
 @property (weak, nonatomic) IBOutlet UICollectionView *list2;

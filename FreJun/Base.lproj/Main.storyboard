@@ -801,8 +801,36 @@ Vivamus adipiscing fermentum.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.30000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zum-iM-tQ5">
-                                                    <rect key="frame" x="14" y="13" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.30000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meeting Description/Agenda" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zum-iM-tQ5">
+                                                    <rect key="frame" x="14" y="13" width="189" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="Tfz-Qf-NSi">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="126" id="1Jo-8M-utN">
+                                        <rect key="frame" x="0.0" y="919" width="320" height="126"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Jo-8M-utN" id="y3p-bI-ouV">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fpf-OR-c74">
+                                                    <rect key="frame" x="8" y="8" width="304" height="109"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.30000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meeting notes (not shared with others)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNA-Ac-oe1">
+                                                    <rect key="frame" x="14" y="13" width="258" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -840,6 +868,8 @@ Vivamus adipiscing fermentum.</string>
                         <outlet property="notes" destination="OQR-iU-hEI" id="ZQO-ao-dVa"/>
                         <outlet property="notesLAbel" destination="Zum-iM-tQ5" id="9d3-kf-FmN"/>
                         <outlet property="prioritySegment" destination="5AB-WJ-lbH" id="SNE-Rc-7Oz"/>
+                        <outlet property="privateNotes" destination="fpf-OR-c74" id="kxg-Zh-VhE"/>
+                        <outlet property="privateNotesLabel" destination="dNA-Ac-oe1" id="LjQ-WJ-RuG"/>
                         <outlet property="startDate" destination="Z4R-Jj-bSI" id="bLp-r2-iXM"/>
                         <outlet property="startTime" destination="TY6-px-SEj" id="h5m-YR-quj"/>
                         <outlet property="timeButton" destination="I3z-gb-iqb" id="dHs-2g-6JM"/>
@@ -849,7 +879,7 @@ Vivamus adipiscing fermentum.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oio-fw-Ctc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4464" y="408"/>
+            <point key="canvasLocation" x="4462.5" y="407.74647887323943"/>
         </scene>
         <!--User Prefrences Table View Controller-->
         <scene sceneID="zYE-pF-KUG">
@@ -1171,7 +1201,7 @@ Vivamus adipiscing fermentum.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Dhi-VF-hhl">
-                            <rect key="frame" x="0.0" y="1003" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="1157" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </scrollView>
                         <sections>
@@ -1689,8 +1719,36 @@ Vivamus adipiscing fermentum.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9R-3T-tkr">
-                                                    <rect key="frame" x="14" y="13" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meeting Description/Agenda" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9R-3T-tkr">
+                                                    <rect key="frame" x="14" y="13" width="191" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle=" " id="fC2-wY-u2i">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="126" id="Wqf-5D-z6L">
+                                        <rect key="frame" x="0.0" y="1031" width="320" height="126"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wqf-5D-z6L" id="njq-1R-ex8">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PbB-dI-yZq">
+                                                    <rect key="frame" x="8" y="8" width="304" height="109"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.30000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meeting notes (not shared with others)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wx-yW-q6S">
+                                                    <rect key="frame" x="14" y="13" width="266" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1730,6 +1788,8 @@ Vivamus adipiscing fermentum.</string>
                         <outlet property="notes" destination="YAg-S5-5ZK" id="3Eu-ba-OjP"/>
                         <outlet property="notesLAbel" destination="w9R-3T-tkr" id="Gvc-4X-H5T"/>
                         <outlet property="prioritySegment" destination="D57-VF-kwU" id="WeY-zG-ou7"/>
+                        <outlet property="privateNotes" destination="PbB-dI-yZq" id="Kod-g9-Aj9"/>
+                        <outlet property="privateNotesLabel" destination="0wx-yW-q6S" id="d9G-bD-FeX"/>
                         <outlet property="startDate" destination="OhQ-Zu-YKG" id="QuD-ji-CDb"/>
                         <outlet property="startTime" destination="2UO-mN-vUP" id="JRc-MN-97D"/>
                         <outlet property="timeButton" destination="nOM-bW-Jrh" id="Kc3-53-kXM"/>
@@ -1739,7 +1799,7 @@ Vivamus adipiscing fermentum.</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wyU-tH-Wri" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3834" y="530"/>
+            <point key="canvasLocation" x="3832.5" y="529.22535211267609"/>
         </scene>
         <!--Event Invitaion View Controller-->
         <scene sceneID="2HL-gd-w02">

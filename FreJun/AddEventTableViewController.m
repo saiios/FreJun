@@ -177,7 +177,7 @@
     self.eventName.delegate = self;
     self.eta.delegate = self;
     self.etd.delegate = self;
-    
+    self.privateNotes.delegate = self;
     tabIndex = 1;
     tHeight1 = 44;
     tHeight2 = 44;
@@ -340,9 +340,14 @@
     if(switchControl.on){
         
         self.endDate.text = self.startDate.text;
-        self.endTime.text = @"";
-        self.startTime.text = @"";
+        self.endTime.hidden = YES;
+        self.startTime.hidden = YES;
         
+    }
+    else{
+        
+        self.endTime.hidden = NO;
+        self.startTime.hidden = NO;
     }
 }
 
@@ -1489,6 +1494,13 @@ didFailAutocompleteWithError:(NSError *)error {
     if (self.notes.text.length == 0) {
         self.notesLAbel.hidden = NO;
     }
+    if (textView == self.privateNotes) {
+        self.privateNotesLabel.hidden = YES;
+    }
+    if (self.privateNotes.text.length == 0) {
+        self.privateNotesLabel.hidden = NO;
+    }
+
 }
 
 //Collection View
@@ -1876,11 +1888,12 @@ didFailAutocompleteWithError:(NSError *)error {
         NSString *repeatString = [NSString stringWithFormat:@"repeatType=%@",repeat];
     NSString *repeatTimeString = [NSString stringWithFormat:@"repeatTime=%@",repeatTime];
     NSString *notesString = [NSString stringWithFormat:@"notes=%@",notes];
+    NSString *privateNotesString = [NSString stringWithFormat:@"privateNotes=%@",_privateNotes.text];
     NSString *inviteesString = [NSString stringWithFormat:@"invitees=%@",string];
     NSString *name = [NSString stringWithFormat:@"name=%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"name"]];
     NSString *timeZone = [NSString stringWithFormat:@"timeZone=%ld",(long)[[NSTimeZone localTimeZone] secondsFromGMT]];
     NSString *defaultEtdAlert = [NSString stringWithFormat:@"defaultEtdAlert=0"];
-    NSArray *values = [[NSArray alloc]initWithObjects:userIDString,emailString,eventNameString,allDayString,startTimeString,endTimeString,priorityString,address1String,address2String,zipCodeString,countryString,longitudeString,lattitudeString,ETDRemindString,eventRemindString,repeatString,repeatTimeString,notesString,inviteesString,name,timeZone,defaultEtdAlert, nil];
+    NSArray *values = [[NSArray alloc]initWithObjects:userIDString,emailString,eventNameString,allDayString,startTimeString,endTimeString,priorityString,address1String,address2String,zipCodeString,countryString,longitudeString,lattitudeString,ETDRemindString,eventRemindString,repeatString,repeatTimeString,notesString,inviteesString,name,timeZone,defaultEtdAlert,privateNotesString, nil];
     NSString *postString = [values componentsJoinedByString:@"&"];
     NSLog(@"strin is %@",postString);
 

@@ -27,6 +27,10 @@
 @property(nonatomic,retain)NSString *lat;
 @property(nonatomic,retain)NSString *lng;
 
+@property int responseSection;
+@property int responseIndex;
+@property(nonatomic,retain)NSString *responseAction;
+
 +(dataclass*)getInstance;
 
 @end

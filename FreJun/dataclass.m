@@ -24,6 +24,8 @@
 @synthesize gcmToken;
 @synthesize lat;
 @synthesize lng;
+
+@synthesize responseIndex,responseSection,responseAction;
 static dataclass *instance = nil;
 
 +(dataclass *)getInstance

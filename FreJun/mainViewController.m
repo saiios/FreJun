@@ -53,6 +53,7 @@ CGFloat kResizeThumbSize = 45.0f;
     NSString *notificationTitle;
     
     BOOL scrolledToCurrentDate;
+    BOOL noInternetAlert;
 }
 @property (strong, nonatomic) NSMutableArray *data;
 @property (strong, nonatomic) UISearchController *controller;
@@ -60,6 +61,8 @@ CGFloat kResizeThumbSize = 45.0f;
 @end
 
 @implementation mainViewController
+
+
 
 -(void)loadingView{
     
@@ -111,7 +114,7 @@ CGFloat kResizeThumbSize = 45.0f;
                              JSONObjectWithData:data4
                              options:kNilOptions
                              error:&error];
-            //NSLog(@"my value is%@",json);
+            NSLog(@"my value is%@",json);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (json) {
                     [loadingView setHidden:YES];
@@ -122,9 +125,10 @@ CGFloat kResizeThumbSize = 45.0f;
                     int check;
                     
                     for (int i = 0; i < json.count ; i++) {
-                        if ([[[json objectAtIndex:i] objectForKey:@"startTime"] length] > 11) {
+                        if ([[[json objectAtIndex:i] objectForKey:@"startTime_real"] length] > 11) {
                             
-                        NSString *date = [[[json objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:10];
+                        NSString *date = [[[json objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10];
+                        //NSString *date = [[json objectAtIndex:i] objectForKey:@"startTime_real"];
                         [dates addObject:date];
                         }}
                     dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
@@ -136,16 +140,23 @@ CGFloat kResizeThumbSize = 45.0f;
                         NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
                         
                         for (int j = 0; j < json.count; j++) {
-                            if ([[[json objectAtIndex:j] objectForKey:@"startTime"] length] > 11) {
+                            if ([[[json objectAtIndex:j] objectForKey:@"startTime_real"] length] > 11) {
                                 
-                            NSString *dateSelected = [[[json objectAtIndex:j] objectForKey:@"startTime"] substringToIndex:10];
-                            
+                            NSString *dateSelected = [[[json objectAtIndex:j] objectForKey:@"startTime_real"] substringToIndex:10];
+                            //NSString *dateSelected = [[json objectAtIndex:j] objectForKey:@"startTime_real"];
                             if ([date isEqualToString:dateSelected]) {
                                 [temp addObject:[json objectAtIndex:j]];
                                 //NSLog(@"efewf");
                             }
                             }
                         }
+                        
+                        NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startTime_real"
+                                                                                         ascending:YES];
+                        NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+                        NSArray *sortedEventArray = [temp sortedArrayUsingDescriptors:sortDescriptors];
+                        // NSLog(@"final data sorted is %@",sortedEventArray);
+                        temp = [[NSMutableArray alloc] initWithArray:sortedEventArray];
                         
                         [tempDict setObject:date forKey:@"date"];
                         [tempDict setObject:temp forKey:@"events"];
@@ -166,7 +177,9 @@ CGFloat kResizeThumbSize = 45.0f;
                     [[NSUserDefaults standardUserDefaults] setObject:json forKey:@"offlineEvents"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     [self.tableView reloadData];
+                    NSLog(@"testjob");
                     if (!scrolledToCurrentDate) {
+                        
                         if ([finalData count] > 0) {
                        [self nearestDate:finalData];
                         }}
@@ -204,8 +217,29 @@ CGFloat kResizeThumbSize = 45.0f;
                 json = obj.events;
                 [self.tableView reloadData];
                 // loading = NO;
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Failed!" message:@"Please check your Internet Connection." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alertView show];
+              //  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Failed!" message:@"Please check your Internet Connection." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+              //  [alertView show];
+                
+                if (!noInternetAlert) {
+                noInternetAlert = YES;
+                UIAlertController *alert =
+                [UIAlertController alertControllerWithTitle:@"Connection Failed!"
+                                                    message:@"Please check your Internet Connection."
+                                             preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                        style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * action) {
+                                                                          noInternetAlert = NO;
+                                                                      }];
+                
+                [alert addAction:dismissAction];
+                UIViewController *presentingViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+                while (presentingViewController.presentedViewController != nil) {
+                    presentingViewController = presentingViewController.presentedViewController;
+                }
+                [presentingViewController presentViewController:alert animated:YES completion:nil];
+                }
 
                 //NSLog(@"poopo");
             });}
@@ -239,10 +273,15 @@ CGFloat kResizeThumbSize = 45.0f;
             index = i;
         }
     }
+    if (index == 0) {
+        index = (int)dates.count - 1;
+    }
+    NSLog(@"Index is : %d", index);
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:index]
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:YES];
     scrolledToCurrentDate = YES;
+    NSLog(@"hayee oye");
     
     
 }
@@ -348,6 +387,35 @@ CGFloat kResizeThumbSize = 45.0f;
     
 }
 
+-(void)thirtyHoursSchedular_invitees:(NSString *)event email:(NSString *)email{
+    
+    NSString *url = [NSString stringWithFormat:@"%@?eventid=%@&email=%@",directorythirtyHours_invitees,event,email];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        //NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        //NSLog(@"string is : %@",newStr);
+        if(data2){
+            NSArray *pref = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            NSLog(@"%@",pref);
+            
+        }
+        else{
+            
+            NSLog(@"There is some issue notifying the Invitees.");
+        }
+    });
+    
+    
+}
+
 -(void)threeHoursSchedular:(NSString *)event{
     
     NSString *url = [NSString stringWithFormat:@"%@?eventid=%@",directorythreeHours,event];
@@ -377,9 +445,39 @@ CGFloat kResizeThumbSize = 45.0f;
     
 }
 
+//[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"invitee_check"]
+-(void)accepted{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSLog(@"sec %d index %d action %@",obj.responseSection,obj.responseIndex,obj.responseAction);
+    if ([obj.responseAction  isEqual: @"declined"]) {
+        
+       [[ finalData[obj.responseSection] objectForKey:@"events"] removeObjectAtIndex:obj.responseIndex];
+        [self.tableView reloadData];
+        
+    }
+    else{
+        NSMutableArray *tempArr = [[NSMutableArray alloc]init];
+        tempArr = [finalData[obj.responseSection] objectForKey:@"events"];
+        
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
+        NSDictionary *oldDict = (NSDictionary *)[tempArr objectAtIndex:obj.responseIndex];
+        [tempDict addEntriesFromDictionary:oldDict];
+        NSLog(@"temp disct %@", tempDict);
+        [tempDict setObject:obj.responseAction forKey:@"invitee_check"];
+        [tempArr replaceObjectAtIndex:obj.responseIndex withObject:tempDict];
+        [finalData[obj.responseSection] setObject:tempArr forKey:@"events"];
+        
+        //[[finalData[obj.responseSection] objectForKey:@"events"][obj.responseIndex] setObject:obj.responseAction forKey:@"invitee_check"];
+    }
+    
+    [_tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    noInternetAlert = NO;
+    scrolledToCurrentDate = NO;
     dataclass *obj = [dataclass getInstance];
     obj.sortedEvents = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineData"];
     obj.events = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineEvents"];
@@ -404,10 +502,30 @@ CGFloat kResizeThumbSize = 45.0f;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:@"refreshData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTitle) name:@"refreshTitle" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accepted) name:@"accepted" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searched) name:@"searched" object:nil];
     
     [self NotificationInit];
     
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(refreshData) userInfo:nil repeats:YES];
+    
+}
+
+-(void)searched{
+    
+    dataclass *obj = [dataclass getInstance];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    if ( [[obj.selectedEvent objectForKey:@"invitee_check"] isEqual: @"needsAction"]) {
+        
+        obj.responseSection = 0;
+        obj.responseIndex = 0;
+        eventInvitaionViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventInvitation"];
+        [self.navigationController pushViewController:infoController animated:YES];
+    }
+    else{
+        eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
+        [self.navigationController pushViewController:infoController animated:YES]; }
     
 }
 
@@ -614,6 +732,14 @@ CGFloat kResizeThumbSize = 45.0f;
                                                  name:@"travel4"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(travel3Call_invitees:)
+                                                 name:@"travel3_invitees"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(travel4Call_invitees:)
+                                                 name:@"travel4_invitees"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notesCall:)
                                                  name:@"notes"
                                                object:nil];
@@ -627,7 +753,7 @@ CGFloat kResizeThumbSize = 45.0f;
 -(void)notesCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
     [self playNotificationSound];
 }
@@ -635,21 +761,26 @@ CGFloat kResizeThumbSize = 45.0f;
 -(void)inviteCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alertView show];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    //[alertView show];
+    
+    dataclass *obj = [dataclass getInstance];
+    obj.selectedEvent = notification.userInfo[@"custom"][@"a"][@"eventDetails"];
+    eventInvitaionViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventInvitation"];
+    [self.navigationController pushViewController:infoController animated:YES];
     [self playNotificationSound];
 }
 -(void)etdCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
     [self playNotificationSound];
 }
 -(void)etaCall:(NSNotification *) notification{
     
     notificationeventId = notification.userInfo[@"eventid"];
-    notificationTitle = notification.userInfo[@"aps"][@"alert"];
+    notificationTitle = notification.userInfo[@"custom"][@"a"][@"subtitle"];
     [NSTimer scheduledTimerWithTimeInterval:10.0
                                      target:self selector:@selector(etaCall2) userInfo:nil repeats:NO];
     
@@ -700,13 +831,13 @@ CGFloat kResizeThumbSize = 45.0f;
 -(void)eta_responseCall:(NSNotification *) notification{
     
     NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"aps"][@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 -(void)reminderCall:(NSNotification *) notification{
     
  //   NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:notification.userInfo[@"custom"][@"a"][@"subtitle"][@"subtitle"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
     [self playNotificationSound];
 }
@@ -741,7 +872,7 @@ CGFloat kResizeThumbSize = 45.0f;
                                                                   }];
                                                               }]];
                                                               
-                                                              [actionSheet addAction:[UIAlertAction actionWithTitle:@"ignore" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                              [actionSheet addAction:[UIAlertAction actionWithTitle:@"Ignore" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                   
                                                                   // Distructive button tapped.
                                                                   [self dismissViewControllerAnimated:YES completion:^{
@@ -784,7 +915,7 @@ CGFloat kResizeThumbSize = 45.0f;
     
     UIAlertController *alert =
     [UIAlertController alertControllerWithTitle:nil
-                                        message:notification.userInfo[@"aps"][@"alert"]
+                                        message:notification.userInfo[@"custom"][@"a"][@"subtitle"]
                                  preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"No"
@@ -835,7 +966,7 @@ CGFloat kResizeThumbSize = 45.0f;
     
     UIAlertController *alert =
     [UIAlertController alertControllerWithTitle:nil
-                                        message:notification.userInfo[@"aps"][@"alert"]
+                                        message:notification.userInfo[@"custom"][@"a"][@"subtitle"]
                                  preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"No"
@@ -916,6 +1047,94 @@ CGFloat kResizeThumbSize = 45.0f;
 
 -(void)travel4Call:(NSNotification *) notification{
     [self askForTravelAssist:notification.userInfo[@"eventid"]];
+    [self playNotificationSound];
+}
+
+-(void)travel3Call_invitees:(NSNotification *) notification{
+    
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:nil
+                                        message:notification.userInfo[@"custom"][@"a"][@"subtitle"]
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"No"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              //Call function here
+                                                              [self askForTravelAssist_invitees:notification.userInfo[@"custom"][@"a"][@"eventid"] email:notification.userInfo[@"custom"][@"a"][@"email"]];
+                                                          }];
+    UIAlertAction *startAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) { [self thirtyHoursSchedular_invitees:notification.userInfo[@"custom"][@"a"][@"eventid"] email:notification.userInfo[@"custom"][@"a"][@"email"]]; }];
+    [alert addAction:startAction];
+    [alert addAction:dismissAction];
+    
+    UIViewController *presentingViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    while (presentingViewController.presentedViewController != nil) {
+        presentingViewController = presentingViewController.presentedViewController;
+    }
+    
+    [presentingViewController presentViewController:alert animated:YES completion:nil];
+    
+    
+    [self playNotificationSound];
+}
+
+-(void)askForTravelAssist_invitees:(NSString *)event email:(NSString *)email{
+    
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:nil
+                                        message:@"Did you make your travel arrangements for this event?"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Options"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              //Call function here
+                                                              UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              
+                                                              [actionSheet addAction:[UIAlertAction actionWithTitle:@"Remind me later" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                  
+                                                                  // Cancel button tappped.
+                                                                  [self dismissViewControllerAnimated:YES completion:^{
+                                                                  }];
+                                                              }]];
+                                                              
+                                                              [actionSheet addAction:[UIAlertAction actionWithTitle:@"Ignore" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                  
+                                                                  // Distructive button tapped.
+                                                                  [self dismissViewControllerAnimated:YES completion:^{
+                                                                  }];
+                                                              }]];
+                                                              
+                                                              [actionSheet addAction:[UIAlertAction actionWithTitle:@"Show Travel Options" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                  
+                                                                  // OK button tapped.
+                                                                  
+                                                                  [self dismissViewControllerAnimated:YES completion:^{
+                                                                  }];
+                                                              }]];
+                                                              
+                                                              // Present action sheet.
+                                                              [self presentViewController:actionSheet animated:YES completion:nil];
+                                                          }];
+    UIAlertAction *startAction = [UIAlertAction actionWithTitle:@"I'm driving"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) { [self thirtyHoursSchedular_invitees:event email:email]; }];
+    [alert addAction:dismissAction];
+    [alert addAction:startAction];
+    
+    
+    UIViewController *presentingViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    while (presentingViewController.presentedViewController != nil) {
+        presentingViewController = presentingViewController.presentedViewController;
+    }
+    
+    [presentingViewController presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)travel4Call_invitees:(NSNotification *) notification{
+    [self askForTravelAssist_invitees:notification.userInfo[@"custom"][@"a"][@"eventid"] email:notification.userInfo[@"custom"][@"a"][@"email"]];
     [self playNotificationSound];
 }
 
@@ -1120,6 +1339,8 @@ CGFloat kResizeThumbSize = 45.0f;
     obj.selectedEvent = [finalData[indexPath.section] objectForKey:@"events"][indexPath.row];
     if ( [[obj.selectedEvent objectForKey:@"invitee_check"] isEqual: @"needsAction"]) {
         
+        obj.responseSection = (int)indexPath.section;
+        obj.responseIndex = (int)indexPath.row;
         eventInvitaionViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventInvitation"];
         [self.navigationController pushViewController:infoController animated:YES];
     }
@@ -1255,7 +1476,7 @@ CGFloat kResizeThumbSize = 45.0f;
             });
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             dataclass *obj = [dataclass getInstance];
-            if ([[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"email"] isEqualToString: obj.emailTitle]) {
+            if (![[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"relatedEmail"]) {
             NSString *url = [NSString stringWithFormat:@"%@?id=%@",directoryDeleteEvent,[[finalData[indexPath.section] objectForKey:@"events"][indexPath.row] objectForKey:@"eventID"]];
             NSLog(@"%@",url);
             url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
@@ -1311,7 +1532,8 @@ CGFloat kResizeThumbSize = 45.0f;
                     NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
                     //NSLog(@"string is : %@",newStr);
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController popViewControllerAnimated:YES]; });
+                        //[self.navigationController popViewControllerAnimated:YES];
+                    });
                     if(data2){
                         NSArray *pref = [NSJSONSerialization
                                          JSONObjectWithData:data2
