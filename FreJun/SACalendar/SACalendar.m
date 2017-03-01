@@ -446,7 +446,7 @@
 
             //NSLog(@"%@ %@ %@",[obj.dates[i] substringFromIndex:8],[obj.dates[i] substringFromIndex:5],[obj.dates[i] substringToIndex:4]);
            // [[[json objectAtIndex:j] objectForKey:@"startTime"] length]
-            if([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] length] > 12){
+            if([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] length] > 9){
             NSString *dateS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringFromIndex:8];
             NSString *monthS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringFromIndex:5];
             monthS = [monthS substringToIndex:2];

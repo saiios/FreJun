@@ -17,6 +17,10 @@
 #import "Hotline.h"
 #import "Amplitude.h"
 #import "dataclass.h"
+
+#import "eventInvitaionViewController.h"
+#import "eventDetailsViewController.h"
+
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 @import UserNotifications;
 #endif
@@ -66,7 +70,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
         AppDelegate *instance = sharedInstance;
         instance.locationManager = [CLLocationManager new];
         instance.locationManager.delegate = instance;
-        instance.locationManager.desiredAccuracy = kCLLocationAccuracyBest; // you can use kCLLocationAccuracyHundredMeters to get better battery life
+        instance.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // you can use kCLLocationAccuracyHundredMeters to get better battery life
         instance.locationManager.pausesLocationUpdatesAutomatically = NO; // this is important
     });
     
@@ -151,10 +155,11 @@ NSString *const SubscriptionTopic = @"/topics/global";
         
         // This block gets called when the user reacts to a notification received
         OSNotificationPayload* payload = result.notification.payload;
-        
+        NSLog(@"payaya : %@R", [[NSUserDefaults standardUserDefaults] objectForKey:@"paya"]);
         NSString* messageTitle = @"OneSignal Example";
         NSString* fullMessage = [payload.body copy];
-        
+        //[[NSUserDefaults standardUserDefaults] setObject:payload.additionalData forKey:@"paya"];
+        //[[NSUserDefaults standardUserDefaults] synchronize];
      /*   if (payload.additionalData) {
             
             if(payload.title)
@@ -167,11 +172,92 @@ NSString *const SubscriptionTopic = @"/topics/global";
         }
         
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:messageTitle
-                                                            message:fullMessage
+                                                            message:payload.additionalData[@"custom"][@"a"][@"title"]
                                                            delegate:self
                                                   cancelButtonTitle:@"Close22"
                                                   otherButtonTitles:nil, nil];
         [alertView show]; */
+        
+        if ([payload.additionalData[@"title"]  isEqual: @"invite"]) {            
+            dataclass *obj = [dataclass getInstance];
+            obj.selectedEvent = payload.additionalData[@"eventDetails"];
+            eventInvitaionViewController* infoController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"eventInvitation"];
+            [(UINavigationController *)self.window.rootViewController pushViewController:infoController animated:YES];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"etd"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"etd"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"] isEqual: @"eta"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"delay"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"delay"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"eta_response"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"eta_response"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"reminder"]){
+            
+            dataclass *obj = [dataclass getInstance];
+            obj.selectedEvent = payload.additionalData[@"eventDetails"];
+            eventDetailsViewController* infoController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"eventDetails"];
+            [(UINavigationController *)self.window.rootViewController pushViewController:infoController animated:YES];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"travel"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"travel2"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel2"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"travel3"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"travel4"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"travel3_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel3_invitees"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"travel4_invitees"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"travel4_invitees"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+        else if([payload.additionalData[@"title"]  isEqual: @"notes"]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"notes"
+                                                                object:nil
+                                                              userInfo:payload.additionalData];
+        }
+
         
     } settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
 
@@ -185,7 +271,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
     
     //Amplitude
     [[Amplitude instance] initializeApiKey:@"78d9e06ace591d133cb55bc87a52721c"];
-    
+    NSLog(@"payaya : %@R", [[NSUserDefaults standardUserDefaults] objectForKey:@"paya"]);
     //Hotline
     /* Initialize Hotline*/
     HotlineConfig *config = [[HotlineConfig alloc]initWithAppID:@"e3f8b80a-b615-4667-a77d-fa32938685cb"  andAppKey:@"20cc3da2-7cf3-4de1-8acc-9da9c93b6acf"];

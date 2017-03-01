@@ -34,6 +34,8 @@
     AVAudioPlayer* player;
     BOOL playing;
     NSString *sound;
+    UISwitch *defaultSwitch;
+    int defaultNotify;
 }
 
 @end
@@ -146,6 +148,17 @@
                     else{
                         data = [[NSMutableDictionary alloc]initWithDictionary:[json objectAtIndex:0]];
                     }
+                    
+                    defaultNotify = [[data objectForKey:@"defaultNotify"] intValue];
+                    if (defaultNotify == 1) {
+                        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"switch"];
+                    }
+                    else{
+                        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"switch"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+
+
                     
                     int first = [[data objectForKey:@"defaultMeetDuration"] intValue];
                     int index1;
@@ -295,12 +308,12 @@
         //cell.imageView.image=[UIImage imageNamed:@"handle.png"];
         cell.selectionStyle=UITableViewCellSelectionStyleNone ;
         
-        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-        cell.accessoryView = switchView;
-        [switchView setOn:NO animated:NO];
-        [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+        defaultSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+        cell.accessoryView = defaultSwitch;
+        [defaultSwitch setOn:NO animated:NO];
+        [defaultSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"switch"] boolValue]) {
-            [switchView setOn:YES animated:NO];
+            [defaultSwitch setOn:YES animated:NO];
         }
         UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0 , 49, self.tableView.frame.size.width, 1)];
         separatorLineView.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1];
@@ -657,7 +670,7 @@
     selected.textAlignment = NSTextAlignmentRight;
     //selected.adjustsFontSizeToFitWidth = YES;
     if (section == 0) {
-        selected.text = @"Default";
+        selected.text = @"Current location";
     }
     if (selectedOptions.count > 0) {
     if (section == 1) {
@@ -882,7 +895,8 @@
     NSString *defaultEtdAlert = [data objectForKey:@"defaultEtdAlert"];
     NSString *defaultMeetDuration = [data objectForKey:@"defaultMeetDuration"];
     NSString *sound = [data objectForKey:@"sound"];
-    NSString *url = [NSString stringWithFormat:@"%@?email=%@&userID=%@&defaultEtaAlert=%@&defaultEtdAlert=%@&defaultMeetDuration=%@&sound=%@&timezone=0&defaultNotify=0",directorypref,email,userID,defaultEtaAlert,defaultEtdAlert,defaultMeetDuration,sound];
+    NSString *allDay = defaultSwitch.on ? @"1" : @"0";
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&userID=%@&defaultEtaAlert=%@&defaultEtdAlert=%@&defaultMeetDuration=%@&sound=%@&timezone=0&defaultNotify=%@",directorypref,email,userID,defaultEtaAlert,defaultEtdAlert,defaultMeetDuration,sound,allDay];
     NSLog(@"%@",url);
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSURL *queryUrl = [NSURL URLWithString:url];

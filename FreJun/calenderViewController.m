@@ -151,9 +151,9 @@
     
     cell.allDayLabel.textAlignment = NSTextAlignmentRight;
     
-    cell.time1.text = [[obj.events[indexPath.row] objectForKey:@"startTime"] substringFromIndex:[[obj.events[indexPath.row] objectForKey:@"startTime"] length] - 8];
+    cell.time1.text = [[obj.events[indexPath.row] objectForKey:@"startTime_real"] substringFromIndex:[[obj.events[indexPath.row] objectForKey:@"startTime_real"] length] - 8];
     if (all != 1) {
-        cell.time2.text = [[obj.events[indexPath.row] objectForKey:@"endTime"] substringFromIndex:[[obj.events[indexPath.row] objectForKey:@"endTime"] length] - 8];
+        cell.time2.text = [[obj.events[indexPath.row] objectForKey:@"endTime_real"] substringFromIndex:[[obj.events[indexPath.row] objectForKey:@"endTime_real"] length] - 8];
     }
 
     if (all == 1) {

@@ -279,6 +279,7 @@
                         [emails addObject:user.profile.email];
                     }
                     [[NSUserDefaults standardUserDefaults] setObject:emails forKey:@"accounts"];
+                    [[NSUserDefaults standardUserDefaults] setObject:user.profile.email forKey:@"navTitle"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
                     loadingView.hidden = YES;

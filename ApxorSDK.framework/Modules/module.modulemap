@@ -1,0 +1,6 @@
+framework module ApxorSDK {
+  umbrella header "ApxorSDK.h"
+
+  export *
+  module * { export * }
+}

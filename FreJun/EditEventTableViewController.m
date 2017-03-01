@@ -96,6 +96,9 @@
     NSString *eventID;
     
     BOOL googlePlace;
+    UIDatePicker *datePicker;
+    UIDatePicker *datePicker2;
+    UIDatePicker *datePicker4;
 }
 
 @property (weak, nonatomic) IBOutlet ZFTokenField *tokenField;
@@ -220,6 +223,16 @@
     self.pickerView = [[UIPickerView alloc] initWithFrame:(CGRect){{0, 44}, self.tableView.frame.size.width, 215}];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
+    
+    datePicker = [[UIDatePicker alloc] initWithFrame:(CGRect){{0, 44}, self.tableView.frame.size.width, 215}];
+    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker setMinimumDate:[NSDate date]];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc]init];
+    [comps setYear:1];
+    datePicker.maximumDate = [calendar dateByAddingComponents:comps toDate:[NSDate date] options:0];
+    [datePicker addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+    
     toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 44)];
     toolBar.barStyle = UIBarStyleDefault;
     toolBar.translucent = true;
@@ -235,6 +248,16 @@
     
     self.pickerView2.delegate = self;
     self.pickerView2.dataSource = self;
+    
+    datePicker2 = [[UIDatePicker alloc] initWithFrame:(CGRect){{0, 44}, self.tableView.frame.size.width, 215}];
+    datePicker2.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker2 setMinimumDate:datePicker.date];
+    NSCalendar *calendar2 = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps2 = [[NSDateComponents alloc]init];
+    [comps2 setYear:1];
+    datePicker2.maximumDate = [calendar2 dateByAddingComponents:comps2 toDate:[NSDate date] options:0];
+    [datePicker2 addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+    
     toolBar2 = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 44)];
     toolBar2.barStyle = UIBarStyleDefault;
     toolBar2.translucent = true;
@@ -248,6 +271,13 @@
     self.pickerView3 = [[UIPickerView alloc] initWithFrame:(CGRect){{0, 44}, self.tableView.frame.size.width, 318}];
     self.pickerView3.delegate = self;
     self.pickerView3.dataSource = self;
+    
+    datePicker4 = [[UIDatePicker alloc] initWithFrame:(CGRect){{0, 264}, self.tableView.frame.size.width, 215}];
+    datePicker4.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker4 setMinimumDate:[NSDate date]];
+    datePicker4.maximumDate = datePicker.date;
+    [datePicker4 addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+    
     toolBar3 = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 44)];
     toolBar3.barStyle = UIBarStyleDefault;
     toolBar3.translucent = true;
@@ -303,11 +333,33 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    _startDate.text = [dateFormatter stringFromDate:tomorrow];
-    _endDate.text = [dateFormatter stringFromDate:tomorrow];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    startTime = [NSString stringWithFormat:@"%@ 10:00:00",[dateFormatter stringFromDate:tomorrow]];
-    endTime = [NSString stringWithFormat:@"%@ 11:00:00",[dateFormatter stringFromDate:tomorrow]];
+
+    
+    //    _startDate.text = [dateFormatter stringFromDate:tomorrow];
+    //    _endDate.text = [dateFormatter stringFromDate:tomorrow];
+    //    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    //    startTime = [NSString stringWithFormat:@"%@ 10:00:00",[dateFormatter stringFromDate:tomorrow]];
+    //    endTime = [NSString stringWithFormat:@"%@ 11:00:00",[dateFormatter stringFromDate:tomorrow]];
+    
+    NSCalendar *calendarInit = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *compsInit = [[NSDateComponents alloc]init];
+    compsInit.minute = 30;
+    NSDate *startDateInit = [calendarInit dateByAddingComponents:compsInit toDate:[NSDate date] options:0];
+    [dateFormatter setDateFormat:@"MMM d, yyyy"];
+    _startDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:startDateInit]];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    _startTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:startDateInit]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    startTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:startDateInit]];
+    
+    compsInit.minute = 60;
+    NSDate *endDateInit = [calendarInit dateByAddingComponents:compsInit toDate:[NSDate date] options:0];
+    [dateFormatter setDateFormat:@"MMM d, yyyy"];
+    _endDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:endDateInit]];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    _endTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:endDateInit]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    endTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:endDateInit]];
     
     //tableview
     //self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
@@ -364,6 +416,7 @@
                                                             longitude:[[obj.selectedEvent objectForKey:@"longitude"] floatValue]
                                                                  zoom:14.0];
     [_mapView animateToCameraPosition:camera];
+    NSLog(@" %f, %f ", [[obj.selectedEvent objectForKey:@"latitude"] floatValue], [[obj.selectedEvent objectForKey:@"longitude"] floatValue]);
     marker = [[GMSMarker alloc]init];
     marker.map = _mapView;
     marker.groundAnchor = CGPointMake(0.5, 0.5);
@@ -740,11 +793,11 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         if (indexPath.row == 2) {
-            [cell addSubview:self.pickerView];
+            [cell addSubview:datePicker];
             [cell addSubview:toolBar];
         }
         if (indexPath.row == 3) {
-            [cell addSubview:self.pickerView2];
+            [cell addSubview:datePicker2];
             [cell addSubview:toolBar2];
         }
     }
@@ -754,7 +807,7 @@
             [cell addSubview:toolBar3];
         }
         if (indexPath.row == 1) {
-            [cell addSubview:_pickerView4];
+            [cell addSubview:datePicker4];
             [cell addSubview:toolBar4];
         }
     }
@@ -961,127 +1014,183 @@
     [self.tableView endUpdates];
 }
 -(void)done{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    _startDate.text = [dateFormatter stringFromDate:datePicked];
-    NSString *timeSuffix;
-    if ([dayTimePicked  isEqual: @"AM"]) {
-        timeSuffix = @"a.m.";
-    }
-    else if ([dayTimePicked  isEqual: @"PM"]){
-        timeSuffix = @"p.m.";
-    }
-    if ([dayTimePicked  isEqual: @"AM"] & [hourPicked  isEqual: @"12"]) {
-        
-        hourPicked = @"00";
-    }
-    _startTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked,minutePicked,timeSuffix];
-    _height = 44;
-    _height2 = 44;
-    
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked]);
-    NSString *hour;
-    hour = hourPicked;
-    if (hour.length == 1) {
-        hour = [NSString stringWithFormat:@"0%@",hour];
-    }
-    if ([dayTimePicked  isEqual: @"PM"]) {
-        hour = [NSString stringWithFormat:@"%d",[hourPicked intValue]+12];
-        if ([hour  isEqual: @"24"]) {
-            hour = @"12";
-        }
-    }
-    
-    NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked]);
-    startTime = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked]];
-    if(self.eventSwitch.on){
-        self.endDate.text = self.startDate.text;
-        self.endTime.text = @"";
-        self.startTime.text = @"";
-    }
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-    [self refreshDates];
-    
-    self.dates2 = [[NSMutableArray alloc]init];
-    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-    for (int i = 0; i<365; i++) {
-        
-        dayComponent.day = i;
-        NSCalendar *theCalendar = [NSCalendar currentCalendar];
-        NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:datePicked options:0];
-        [self.dates2 addObject:nextDate];
-    }
-    _endTime.text = @"-";
-    _endDate.text = @"-";
+    /*   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+     _startDate.text = [dateFormatter stringFromDate:datePicked];
+     NSString *timeSuffix;
+     if ([dayTimePicked  isEqual: @"AM"]) {
+     timeSuffix = @"a.m.";
+     }
+     else if ([dayTimePicked  isEqual: @"PM"]){
+     timeSuffix = @"p.m.";
+     }
+     if ([dayTimePicked  isEqual: @"AM"] & [hourPicked  isEqual: @"12"]) {
+     
+     hourPicked = @"00";
+     }
+     _startTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked,minutePicked,timeSuffix];
+     _height = 44;
+     _height2 = 44;
+     
+     [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked]);
+     NSString *hour;
+     hour = hourPicked;
+     
+     if (hour.length == 1) {
+     hour = [NSString stringWithFormat:@"0%@",hour];
+     }
+     
+     if ([dayTimePicked  isEqual: @"PM"]) {
+     hour = [NSString stringWithFormat:@"%d",[hourPicked intValue]+12];
+     if ([hour  isEqual: @"24"]) {
+     hour = @"12";
+     }
+     }
+     
+     NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked]);
+     startTime = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked]];
+     if(self.eventSwitch.on){
+     self.endDate.text = self.startDate.text;
+     self.endTime.text = @"";
+     self.startTime.text = @"";
+     }
+     [self.tableView beginUpdates];
+     [self.tableView endUpdates];
+     [self refreshDates];
+     
+     self.dates2 = [[NSMutableArray alloc]init];
+     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+     for (int i = 0; i<365; i++) {
+     
+     dayComponent.day = i;
+     NSCalendar *theCalendar = [NSCalendar currentCalendar];
+     NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:datePicked options:0];
+     [self.dates2 addObject:nextDate];
+     }
+     _endTime.text = @"-";
+     _endDate.text = @"-";
+     
+     dataclass *obj = [dataclass getInstance];
+     if ([[obj.pref objectForKey:@"defaultEtaAlert"] intValue]) {
+     
+     dayComponent.minute = -[[obj.pref objectForKey:@"defaultEtaAlert"] intValue];
+     }
+     else{
+     dayComponent.minute = -5;
+     }
+     dayComponent.day = 0;
+     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+     NSCalendar *theCalendar = [NSCalendar currentCalendar];
+     NSDate *ETADate = [theCalendar dateByAddingComponents:dayComponent toDate:[dateFormatter dateFromString:startTime] options:0];
+     //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+     //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+     [dateFormatter setDateFormat:@"MMM-d, YYYY"];
+     //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+     self.etd.text = [dateFormatter stringFromDate:ETADate];
+     [dateFormatter setDateFormat:@"HH:mm"];
+     self.eta.text = [NSString stringWithFormat:@"ETA  %@",[dateFormatter stringFromDate:ETADate]];
+     //[self ETDCalculation];
+     [_pickerView2 reloadAllComponents];
+     
+     */
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MMM d, yyyy"];
+    _startDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker.date]];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    _startTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker.date]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    startTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker.date]];
     
     dataclass *obj = [dataclass getInstance];
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
     if ([[obj.pref objectForKey:@"defaultEtaAlert"] intValue]) {
-        
-        dayComponent.minute = -[[obj.pref objectForKey:@"defaultEtaAlert"] intValue];
-    }
-    else{
-        dayComponent.minute = -5;
-    }
+        dayComponent.minute = -[[obj.pref objectForKey:@"defaultEtaAlert"] intValue]; }
+    else{ dayComponent.minute = -5; }
     dayComponent.day = 0;
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     NSCalendar *theCalendar = [NSCalendar currentCalendar];
-    NSDate *ETADate = [theCalendar dateByAddingComponents:dayComponent toDate:[dateFormatter dateFromString:startTime] options:0];
-    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    NSDate *ETADate = [theCalendar dateByAddingComponents:dayComponent toDate:datePicker.date options:0];
     [dateFormatter setDateFormat:@"MMM-d, YYYY"];
-    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     self.etd.text = [dateFormatter stringFromDate:ETADate];
     [dateFormatter setDateFormat:@"HH:mm"];
     self.eta.text = [NSString stringWithFormat:@"ETA  %@",[dateFormatter stringFromDate:ETADate]];
     
-    [_pickerView2 reloadAllComponents];
-}
--(void)done2{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    _endDate.text = [dateFormatter stringFromDate:datePicked2];
-    NSString *timeSuffix;
-    if ([dayTimePicked2 isEqual: @"AM"]) {
-        timeSuffix = @"a.m.";
-    }
-    else if ([dayTimePicked2  isEqual: @"PM"]){
-        timeSuffix = @"p.m.";
-    }
-    if ([dayTimePicked2  isEqual: @"AM"] & [hourPicked2  isEqual: @"12"]) {
-        
-        hourPicked2 = @"00";
-    }
-    _endTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked2,minutePicked2,timeSuffix];
     _height = 44;
     _height2 = 44;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    [datePicker2 setMinimumDate:datePicker.date];
+    [datePicker4 setMaximumDate:datePicker.date];
     
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked2]);
-    NSString *hour;
-    hour = hourPicked2;
-    if (hour.length == 1) {
-        hour = [NSString stringWithFormat:@"0%@",hour];
-    }
-    if ([dayTimePicked2 isEqual: @"PM"]) {
-        hour = [NSString stringWithFormat:@"%d",[hourPicked2 intValue]+12];
-        if ([hour  isEqual: @"24"]) {
-            hour = @"12";
-        }
-    }
+    dayComponent.minute = 30;
+    [dateFormatter setDateFormat:@"MMM d, yyyy"];
+    NSDate *end = [theCalendar dateByAddingComponents:dayComponent toDate:datePicker.date options:0];
+    _endDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:end]];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    _endTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:end]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    endTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:end]];
+}
+
+-(void)done2{
     
-    NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked2]);
-    endTime = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked2],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked2]];
+    /*  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+     _endDate.text = [dateFormatter stringFromDate:datePicked2];
+     NSString *timeSuffix;
+     if ([dayTimePicked2 isEqual: @"AM"]) {
+     timeSuffix = @"a.m.";
+     }
+     else if ([dayTimePicked2  isEqual: @"PM"]){
+     timeSuffix = @"p.m.";
+     }
+     if ([dayTimePicked2  isEqual: @"AM"] & [hourPicked2  isEqual: @"12"]) {
+     
+     hourPicked2 = @"00";
+     }
+     _endTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked2,minutePicked2,timeSuffix];
+     _height = 44;
+     _height2 = 44;
+     
+     [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked2]);
+     NSString *hour;
+     hour = hourPicked2;
+     if (hour.length == 1) {
+     hour = [NSString stringWithFormat:@"0%@",hour];
+     }
+     if ([dayTimePicked2 isEqual: @"PM"]) {
+     hour = [NSString stringWithFormat:@"%d",[hourPicked2 intValue]+12];
+     if ([hour  isEqual: @"24"]) {
+     hour = @"12";
+     }
+     }
+     
+     NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked2]);
+     endTime = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked2],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked2]];
+     
+     if(self.eventSwitch.on){
+     self.endDate.text = self.startDate.text;
+     self.endTime.text = @"";
+     self.startTime.text = @"";
+     }
+     [self.tableView beginUpdates];
+     [self.tableView endUpdates];
+     */
     
-    if(self.eventSwitch.on){
-        self.endDate.text = self.startDate.text;
-        self.endTime.text = @"";
-        self.startTime.text = @"";
-    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MMM d, yyyy"];
+    _endDate.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker2.date]];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    _endTime.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker2.date]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    endTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker2.date]];
+    
+    _height = 44;
+    _height2 = 44;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     
@@ -1124,42 +1233,51 @@
 
 -(void)done4{
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    NSString *timeSuffix;
-    if ([dayTimePicked4 isEqual: @"AM"]) {
-        timeSuffix = @"a.m.";
-    }
-    else if ([dayTimePicked4  isEqual: @"PM"]){
-        timeSuffix = @"p.m.";
-    }
-    if ([dayTimePicked4  isEqual: @"AM"] & [hourPicked4  isEqual: @"12"]) {
-        
-        hourPicked4 = @"00";
-    }
-    //_endTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked4,minutePicked4,timeSuffix];
+    /*  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+     NSString *timeSuffix;
+     if ([dayTimePicked4 isEqual: @"AM"]) {
+     timeSuffix = @"a.m.";
+     }
+     else if ([dayTimePicked4  isEqual: @"PM"]){
+     timeSuffix = @"p.m.";
+     }
+     if ([dayTimePicked4  isEqual: @"AM"] & [hourPicked4  isEqual: @"12"]) {
+     
+     hourPicked4 = @"00";
+     }
+     //_endTime.text = [NSString stringWithFormat:@"%@:%@ %@",hourPicked4,minutePicked4,timeSuffix];
+     
+     tHeight2 = 264;
+     
+     [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+     NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked4]);
+     NSString *hour;
+     hour = hourPicked4;
+     if (hour.length == 1) {
+     hour = [NSString stringWithFormat:@"0%@",hour];
+     }
+     if ([dayTimePicked4 isEqual: @"PM"]) {
+     hour = [NSString stringWithFormat:@"%d",[hourPicked4 intValue]+12];
+     if ([hour  isEqual: @"24"]) {
+     hour = @"12";
+     }
+     }
+     
+     NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]);
+     _EventRemindLabel.text = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
+     eventRemind = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
+     NSLog(@"remind time is : %@", eventRemind);
+     [self.tableView beginUpdates];
+     [self.tableView endUpdates]; */
     
     tHeight2 = 264;
-    
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSLog(@"DATE : %@",[dateFormatter stringFromDate:datePicked4]);
-    NSString *hour;
-    hour = hourPicked4;
-    if (hour.length == 1) {
-        hour = [NSString stringWithFormat:@"0%@",hour];
-    }
-    if ([dayTimePicked4 isEqual: @"PM"]) {
-        hour = [NSString stringWithFormat:@"%d",[hourPicked4 intValue]+12];
-        if ([hour  isEqual: @"24"]) {
-            hour = @"12";
-        }
-    }
-    
-    NSLog(@"Time : %@",[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]);
-    _EventRemindLabel.text = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
-    eventRemind = [NSString stringWithFormat:@"%@ %@",[dateFormatter stringFromDate:datePicked4],[NSString stringWithFormat:@"%@:%@:00",hour,minutePicked4]];
-    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMM d, yyyy, HH:mm (EEEE)"];
+    _EventRemindLabel.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker4.date]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    eventRemind = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:datePicker4.date]];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     
@@ -1987,8 +2105,11 @@ didFailAutocompleteWithError:(NSError *)error {
     
     if(self.eventSwitch.on){
         startTime = [startTime substringToIndex:10];
-        endTime = [startTime stringByAppendingString:@" 23:59:59"];
-        startTime = [startTime stringByAppendingString:@" 00:00:00"];
+        startTime = [startTime stringByAppendingString:@" "];
+        endTime = [endTime substringToIndex:10];
+        endTime = [endTime stringByAppendingString:@" "];
+        endTime = [endTime stringByAppendingString:@"23:59:59"];
+        startTime = [startTime stringByAppendingString:@"00:00:00"];
     }
     
     

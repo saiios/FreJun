@@ -1,0 +1,201 @@
+{
+    "Monitoring": {
+        "CPUSystem": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "NetworkSendPackets": {
+            "enable": false,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "SystemEvents": {
+            "enable": true
+        },
+        "NetworkTask": {
+            "enable": true
+        },
+        "MemoryVirtual": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "BatteryUser": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "Memory": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "Battery": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "UIHierarchy": {
+            "enable": true,
+            "min": 5,
+            "max": 20,
+            "opt": 10
+        },
+        "BatterySystem": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "FPS": {
+            "enable": true,
+            "min": 2,
+            "max": 10,
+            "opt": 5
+        },
+        "MemoryResidentPeak": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "Network": {
+            "enable": false,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "NetworkSendBytes": {
+            "enable": false,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "NetworkReceivePackets": {
+            "enable": false,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "CPUUser": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "Events": {
+            "enable": true
+        },
+        "BatteryIdleWakeups": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "Crashes": {
+            "enable": true
+        },
+        "MemoryResident": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "CPU": {
+            "enable": true,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "NetworkReceiveBytes": {
+            "enable": false,
+            "min": 2,
+            "max": 8,
+            "opt": 4
+        },
+        "Navigation": {
+            "enable": true
+        }
+    },
+    "Modules": {
+        "APXHealthModule": {
+            "enable": true,
+            "observations": [
+                             "Apxor.HealthModule.CPUUsage",
+                             "Apxor.HealthModule.MemoryLeak",
+                             "Apxor.HealthModule.MemorySpike",
+                             "Apxor.HealthModule.BatteryUsage"
+                             ],
+            "observation_params": {
+                "mem_leak_initial_wait_period": 50,
+                "bat_start_time": 20,
+                "mem_spike_closure_tick_time": 10,
+                "cpu_usage_level2_limit": 70,
+                "cpu_usage_level1_limit": 50,
+                "bat_avg_value": 1,
+                "mem_spike_initial_wait_period": 50,
+                "mem_spike_error_limit": 6,
+                "cpu_usage_closure_tick_time": 8,
+                "mem_leak_level1_limit": 2000,
+                "mem_leak_closure_tick_time": 600,
+                "mem_leak_level2_limit": 1800,
+                "mem_spike_warning_limit": 5,
+                "cpu_usage_sample_count": 10
+            }
+        },
+        "APXUserBehaviourModule": {
+            "enable": true,
+            "observations": [
+                             "Apxor.UserBehaviourModule.LaunchTime"
+                             ],
+            "observation_params": {
+                "launch_issue_time": 100,
+                "launch_closure_tick_time": 10
+            }
+        },
+        "APXResponsivenessModule": {
+            "enable": true,
+            "observations": [
+                             "Apxor.ResponsivenessModule.EventResponsiveness",
+                             "Apxor.ResponsivenessModule.AppHang"
+                             ],
+            "observation_params": {
+                "responsiveness_ui_change_listen_time": 55,
+                "app_hang_ui_change_closure_tick_time": 5,
+                "responsiveness_closure_tick_time": 100,
+                "responsiveness_standard_time_for_event": 50,
+                "app_hang_closure_tick_time": 100,
+                "app_hang_ui_change_listen_time": 10,
+                "responsiveness_ui_change_closure_tick_time": 5,
+                "app_hang_no_response_events_limit": 4
+            }
+        },
+        "APXCrashReporterModule": {
+            "enable": true,
+            "observations": [
+                             "Apxor.CrashReporterModule.CrashReport"
+                             ]
+        },
+        "APXUsabilityModule": {
+            "enable": true,
+            "observations": [
+                             "Apxor.UsabilityModule.LowFPS"
+                             ],
+            "observation_params": {
+                "fps_closure_tick_time": 4,
+                "fps_warning_limit": 30,
+                "fps_error_limit": 15,
+                "fps_sample_count": 3
+            }
+        }
+    },
+    "tickinterval": 0.1,
+    "enable": true
+}

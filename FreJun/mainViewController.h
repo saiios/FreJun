@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WEPopoverController.h"
+//#import "WEPopoverController.h"
 
-@interface mainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,WEPopoverControllerDelegate, UIPopoverControllerDelegate>{
-    WEPopoverController *popoverController;
-    NSInteger currentPopoverCellIndex;
-    Class popoverClass;
+
+@interface mainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+   // WEPopoverController *popoverController;
+   // NSInteger currentPopoverCellIndex;
+   // Class popoverClass;
 }
 
-@property (nonatomic, strong) WEPopoverController *popoverController;
+//@property (nonatomic, strong) WEPopoverController *popoverController;
 
-- (IBAction)showPopover:(id)sender;
+//- (IBAction)showPopover:(id)sender;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *notificationsCountLabel;

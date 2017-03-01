@@ -40,6 +40,9 @@
                            @"status":@"0"},
                          nil];
     //invitees = [selectedEvent objectForKey:@"invitees"];
+    
+
+    
     NSError *error;
     NSString *string = [[selectedEvent objectForKey:@"invitees"] stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"]" withString:@"}"];
@@ -60,10 +63,13 @@
     [self.view addSubview:scrollView];
     scrollView.backgroundColor = [UIColor whiteColor];
     
+
+    
     //Empty View
     UIView* emptyView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35*multiplier)];
     emptyView.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1];
     [scrollView addSubview:emptyView];
+
     
     //Event Name Label
     UILabel *eventName = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, 50*multiplier, fullWidth, 18*multiplier)];
@@ -96,6 +102,17 @@
     day.text = [dateFormatter stringFromDate:dateFromString];
     day.textColor = [UIColor grayColor];
     //[scrollView addSubview:day];
+    
+    
+    UIButton *viewDirections = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 100, 0*multiplier, 100, 25)];
+    [viewDirections setTitle:@"View Directions" forState:UIControlStateNormal];
+    //[viewDirections setBackgroundColor:[UIColor blueColor]];
+    [viewDirections setTitleColor:[UIColor colorWithRed:28.0/255.0 green:87.0/255.0 blue:255.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    viewDirections.titleLabel.font = [UIFont systemFontOfSize:12];
+    [viewDirections addTarget:self action:@selector(openGoogleMaps) forControlEvents:UIControlEventTouchUpInside];
+    if (![[selectedEvent objectForKey:@"longitude"] isEqualToString:@""]) {
+    [scrollView addSubview:viewDirections];
+    }
     
     //Time 1 Label
     UILabel *time1 = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, address2.frame.origin.y+address2.frame.size.height+16*multiplier, fullWidth, 20*multiplier)];
@@ -132,7 +149,7 @@
     //Calender Label
     UILabel *calender = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView.frame.origin.y+separatorLineView.frame.size.height+12*multiplier, 80*multiplier, 18*multiplier)];
     calender.font = [calender.font fontWithSize:17*multiplier];
-    calender.text = @"Calender";
+    calender.text = @"Calendar";
     [scrollView addSubview:calender];
     
     //Calender Text Label
@@ -302,7 +319,7 @@
     //Notes Label
     UILabel *notes = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView5.frame.origin.y+separatorLineView5.frame.size.height+12*multiplier, 60*multiplier, 18*multiplier)];
     notes.font = [notes.font fontWithSize:17*multiplier];
-    notes.text = @"Notes";
+    notes.text = @"Meeting agenda";
     [scrollView addSubview:notes];
     
     //Notes Text Label
@@ -361,6 +378,20 @@
     
     EditEventTableViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"editevent"];
     [self.navigationController pushViewController:infoController animated:YES];
+}
+
+-(void)openGoogleMaps{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSDictionary *selectedEvent = obj.selectedEvent;
+    NSURL *testURL = [NSURL URLWithString:@"comgooglemaps-x-callback://"];
+    if ([[UIApplication sharedApplication] canOpenURL:testURL]) {
+        NSString *directionsRequest = [NSString stringWithFormat:@"comgooglemaps-x-callback://?daddr=%@,%@&x-success=sourceapp://?resume=true&x-source=Frejun",[selectedEvent objectForKey:@"latitude"],[selectedEvent objectForKey:@"longitude"]];
+        NSURL *directionsURL = [NSURL URLWithString:directionsRequest];
+        [[UIApplication sharedApplication] openURL:directionsURL];
+    } else {
+        NSLog(@"Can't use comgooglemaps-x-callback:// on this device.");
+    }
 }
 
 @end

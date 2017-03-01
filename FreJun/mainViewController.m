@@ -21,8 +21,8 @@
 #import "Amplitude.h"
 #import "EditEventTableViewController.h"
 #import "dataclass.h"
-#import "UIBarButtonItem+WEPopover.h"
-#import "Classes/WEPopoverContentViewController.h"
+//#import "UIBarButtonItem+WEPopover.h"
+//#import "Classes/WEPopoverContentViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 CGFloat kResizeThumbSize = 45.0f;
@@ -54,6 +54,7 @@ CGFloat kResizeThumbSize = 45.0f;
     
     BOOL scrolledToCurrentDate;
     BOOL noInternetAlert;
+    UITapGestureRecognizer* tapRecon;
 }
 @property (strong, nonatomic) NSMutableArray *data;
 @property (strong, nonatomic) UISearchController *controller;
@@ -92,23 +93,251 @@ CGFloat kResizeThumbSize = 45.0f;
     
 }
 
+-(NSArray *)returnFilteredEvents:(NSArray *)JSONevents{
+    
+    NSArray *filteredEvents = [[NSArray alloc]init];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"]  isEqual: @"All Accounts"]) {
+        filteredEvents = JSONevents; }
+    else{
+        NSMutableArray *tempArray = [[NSMutableArray alloc]init];
+        for (int i =0; i<JSONevents.count; i++) {
+            if ([[[JSONevents objectAtIndex:i] objectForKey:@"email"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]] || [[[JSONevents objectAtIndex:i] objectForKey:@"relatedEmail"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]] ) {
+                [tempArray addObject:[JSONevents objectAtIndex:i]]; } }
+                filteredEvents = tempArray; }
+    return filteredEvents;
+}
+-(void)createDataToDisplayInApp2{
+ 
+    dataclass *obj = [dataclass getInstance];
+    finalData = [[NSMutableArray alloc]init];
+    NSMutableArray *dates = [[NSMutableArray alloc]init];
+    NSMutableArray *calendarEvents = [[NSMutableArray alloc]init];
+    
+    NSArray *modifiedJSON = [self returnFilteredEvents:json];
+    for (int i = 0; i < modifiedJSON.count ; i++) {
+        if ([[[modifiedJSON objectAtIndex:i] objectForKey:@"startTime_real"] length] > 11) {
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+            NSDate *startDate = [dateFormatter dateFromString:[[[json objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10]];
+            NSDate *endDate = [dateFormatter dateFromString:[[[json objectAtIndex:i] objectForKey:@"endTime_real"] substringToIndex:10]];
+            for (int j = 1; j <= [self daysBetween:startDate and:endDate] ; j++) {
+                
+                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *comps = [[NSDateComponents alloc]init];
+                [comps setDay:j];
+                NSString *datetoAdd = [[NSString stringWithFormat:@"%@",[calendar dateByAddingComponents:comps toDate:startDate options:0]] substringToIndex:10];
+                if (![self checkifDateAlreadyExists:datetoAdd]) {
+                    
+                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                    [tempDict setObject:datetoAdd forKey:@"date"];
+                    NSMutableArray *tempArr = [[NSMutableArray alloc]init];
+                    [tempArr addObject:[modifiedJSON objectAtIndex:i]];
+                    [tempDict setObject:tempArr forKey:@"events"];
+                    [finalData addObject:tempDict];
+                    
+                    [dates addObject:datetoAdd];
+                    NSMutableDictionary *eventDict =  [[NSMutableDictionary alloc]initWithDictionary:[modifiedJSON objectAtIndex:i]];
+                    [eventDict setValue:datetoAdd forKey:@"startTime"];
+                    [calendarEvents addObject:eventDict];
+                    
+                }
+                else{
+                    
+                    
+                    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+                    [tempDict setObject:datetoAdd forKey:@"date"];
+                    int dateIndex = [self getIndexforDate:datetoAdd];
+                    NSMutableArray *tempArr = [[NSMutableArray alloc]initWithArray:finalData[dateIndex][@"events"]];
+                    [tempArr addObject:[modifiedJSON objectAtIndex:i]];
+                    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startTime_real"
+                                                                                     ascending:YES];
+                    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+                    NSArray *sortedEventArray = [tempArr sortedArrayUsingDescriptors:sortDescriptors];
+                    tempArr = [[NSMutableArray alloc] initWithArray:sortedEventArray];
+                    [tempDict setObject:tempArr forKey:@"events"];
+                    [finalData replaceObjectAtIndex:dateIndex withObject:tempDict];
+                    
+                    NSMutableDictionary *eventDict = [[NSMutableDictionary alloc]initWithDictionary:[modifiedJSON objectAtIndex:i]];
+                    [eventDict setValue:datetoAdd forKey:@"startTime"];
+                    [calendarEvents addObject:eventDict];
+                    
+                }
+                
+                
+            }
+
+            
+            
+        
+        }}
+    
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    NSArray *sortedEventArray = [finalData sortedArrayUsingDescriptors:sortDescriptors];
+    finalData = [[NSMutableArray alloc] initWithArray:sortedEventArray];
+    obj.dates = dates;
+    obj.events = modifiedJSON;
+    obj.eventsforCalendar = calendarEvents;
+    obj.sortedEvents = finalData;
+    [[NSUserDefaults standardUserDefaults] setObject:finalData forKey:@"offlineData"];
+    [[NSUserDefaults standardUserDefaults] setObject:modifiedJSON forKey:@"offlineEvents"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.tableView reloadData];
+    if (!scrolledToCurrentDate) {
+        
+        if ([finalData count] > 0) {
+            [self nearestDate:finalData];
+        }}
+
+}
+
+-(BOOL)checkifDateAlreadyExists:(NSString *)date{
+    
+    BOOL result;
+    result = NO;
+    for (int i=0; i<finalData.count; i++) { if ([finalData[i][@"date"] isEqualToString:date]) { result = YES; } }
+    return result;
+}
+
+-(int)getIndexforDate:(NSString *)date{
+    
+    for (int i=0; i<finalData.count; i++) { if ([finalData[i][@"date"] isEqualToString:date]) { return i; } }
+    return 0;
+}
+
+-(void)createDataToDisplayInApp{
+    
+    dataclass *obj = [dataclass getInstance];
+    finalData = [[NSMutableArray alloc]init];
+    NSMutableArray *dates = [[NSMutableArray alloc]init];
+    NSArray *dates2 = [[NSMutableArray alloc]init];
+    
+    NSArray *modifiedJSON = [self returnFilteredEvents:json];
+    
+    
+    for (int i = 0; i < modifiedJSON.count ; i++) {
+        if ([[[modifiedJSON objectAtIndex:i] objectForKey:@"startTime_real"] length] > 11) {
+            
+            NSString *date = [[[modifiedJSON objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10];
+            //[dates addObject:date];
+            
+             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+             [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+             NSDate *startDate = [dateFormatter dateFromString:[[[json objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10]];
+             NSDate *endDate = [dateFormatter dateFromString:[[[json objectAtIndex:i] objectForKey:@"endTime_real"] substringToIndex:10]];
+             for (int i = 0; i < [self daysBetween:startDate and:endDate] ; i++) {
+             
+             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+             NSDateComponents *comps = [[NSDateComponents alloc]init];
+             [comps setDay:i];
+             //[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0];
+             //[dates addObject:date];
+             NSString *datetoAdd = [[NSString stringWithFormat:@"%@",[calendar dateByAddingComponents:comps toDate:startDate options:0]] substringToIndex:10];
+             [dates addObject:datetoAdd];
+             
+             }
+            
+            //NSString *date = [[json objectAtIndex:i] objectForKey:@"startTime_real"];
+            
+            //[dates addObject:date];
+        }}
+    dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    obj.dates = dates2;
+    for (int i = 0; i < dates2.count; i++) {
+        
+        NSString *date = dates2[i];
+        NSMutableArray *temp = [[NSMutableArray alloc]init];
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
+        
+        for (int j = 0; j < modifiedJSON.count; j++) {
+            if ([[[modifiedJSON objectAtIndex:j] objectForKey:@"startTime_real"] length] > 11) {
+                
+                NSString *dateSelected = [[[modifiedJSON objectAtIndex:j] objectForKey:@"startTime_real"] substringToIndex:10];
+                //NSString *dateSelected = [[json objectAtIndex:j] objectForKey:@"startTime_real"];
+                
+                
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                 [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+                 NSDate *startDate = [dateFormatter dateFromString:[[[json objectAtIndex:j] objectForKey:@"startTime_real"] substringToIndex:10]];
+                 NSDate *endDate = [dateFormatter dateFromString:[[[json objectAtIndex:j] objectForKey:@"endTime_real"] substringToIndex:10]];
+                 for (int k = 0; k < [self daysBetween:startDate and:endDate] ; k++) {
+                 
+                 NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                 NSDateComponents *comps = [[NSDateComponents alloc]init];
+                 [comps setDay:k];
+                 //[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0];
+                 //[dates addObject:date];
+                 NSString *datetoAdd = [[NSString stringWithFormat:@"%@",[calendar dateByAddingComponents:comps toDate:startDate options:0]] substringToIndex:10];
+                 
+                 
+                 
+                 
+                 
+                 
+                 if ([date isEqualToString:datetoAdd]) {
+                 
+                 
+                 
+                 
+                 
+                 [temp addObject:[json objectAtIndex:j]];
+                 //NSLog(@"efewf");
+                 }
+                 }
+                
+               // if ([date isEqualToString:dateSelected]) { [temp addObject:[modifiedJSON objectAtIndex:j]]; }
+            }
+        }
+        
+        NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startTime_real"
+                                                                         ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+        NSArray *sortedEventArray = [temp sortedArrayUsingDescriptors:sortDescriptors];
+        // NSLog(@"final data sorted is %@",sortedEventArray);
+        temp = [[NSMutableArray alloc] initWithArray:sortedEventArray];
+        
+        [tempDict setObject:date forKey:@"date"];
+        [tempDict setObject:temp forKey:@"events"];
+        [finalData addObject:tempDict];
+    }
+    
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    NSArray *sortedEventArray = [finalData sortedArrayUsingDescriptors:sortDescriptors];
+    finalData = [[NSMutableArray alloc] initWithArray:sortedEventArray];
+
+    obj.events = modifiedJSON;
+    obj.eventsforCalendar = modifiedJSON;
+    obj.sortedEvents = finalData;
+    [[NSUserDefaults standardUserDefaults] setObject:finalData forKey:@"offlineData"];
+    [[NSUserDefaults standardUserDefaults] setObject:modifiedJSON forKey:@"offlineEvents"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.tableView reloadData];
+    if (!scrolledToCurrentDate) {
+        
+        if ([finalData count] > 0) {
+            [self nearestDate:finalData];
+        }}
+}
+
 -(void)loadData{
+    
     deleteStatus = 0;
     json = [[NSArray alloc]init];
-
     dataclass *obj = [dataclass getInstance];
-    NSString *url = [NSString stringWithFormat:@"%@?userID=%@",directoryEventList,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
+    NSString *url;
+    NSArray *accounts = [[NSArray alloc]init];
+    accounts = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+    url = [NSString stringWithFormat:@"%@?userID=%@&emails=%@",directoryEventList,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"], [accounts componentsJoinedByString:@","]];
     NSLog(@"%@",url);
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     NSURL *queryUrl = [NSURL URLWithString:url];
-    //NSLog(@"%@",queryUrl);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSData *data4 = [NSData dataWithContentsOfURL: queryUrl];
         NSError* error;
-        //NSLog(@"bholi %@",data4);
         NSString* newStr = [[NSString alloc] initWithData:data4 encoding:NSUTF8StringEncoding];
-        //NSLog(@"string is : %@",newStr);
         if(data4){
             json = [NSJSONSerialization
                              JSONObjectWithData:data4
@@ -117,74 +346,7 @@ CGFloat kResizeThumbSize = 45.0f;
             NSLog(@"my value is%@",json);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (json) {
-                    [loadingView setHidden:YES];
-                    
-                    finalData = [[NSMutableArray alloc]init];
-                    NSMutableArray *dates = [[NSMutableArray alloc]init];
-                    NSArray *dates2 = [[NSMutableArray alloc]init];
-                    int check;
-                    
-                    for (int i = 0; i < json.count ; i++) {
-                        if ([[[json objectAtIndex:i] objectForKey:@"startTime_real"] length] > 11) {
-                            
-                        NSString *date = [[[json objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10];
-                        //NSString *date = [[json objectAtIndex:i] objectForKey:@"startTime_real"];
-                        [dates addObject:date];
-                        }}
-                    dates2 = [dates valueForKeyPath:@"@distinctUnionOfObjects.self"];
-                    obj.dates = dates2;
-                    for (int i = 0; i < dates2.count; i++) {
-                        
-                        NSString *date = dates2[i];
-                        NSMutableArray *temp = [[NSMutableArray alloc]init];
-                        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
-                        
-                        for (int j = 0; j < json.count; j++) {
-                            if ([[[json objectAtIndex:j] objectForKey:@"startTime_real"] length] > 11) {
-                                
-                            NSString *dateSelected = [[[json objectAtIndex:j] objectForKey:@"startTime_real"] substringToIndex:10];
-                            //NSString *dateSelected = [[json objectAtIndex:j] objectForKey:@"startTime_real"];
-                            if ([date isEqualToString:dateSelected]) {
-                                [temp addObject:[json objectAtIndex:j]];
-                                //NSLog(@"efewf");
-                            }
-                            }
-                        }
-                        
-                        NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startTime_real"
-                                                                                         ascending:YES];
-                        NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
-                        NSArray *sortedEventArray = [temp sortedArrayUsingDescriptors:sortDescriptors];
-                        // NSLog(@"final data sorted is %@",sortedEventArray);
-                        temp = [[NSMutableArray alloc] initWithArray:sortedEventArray];
-                        
-                        [tempDict setObject:date forKey:@"date"];
-                        [tempDict setObject:temp forKey:@"events"];
-                        [finalData addObject:tempDict];
-                    }
-                    
-                    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date"
-                                                                                     ascending:YES];
-                    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
-                    NSArray *sortedEventArray = [finalData sortedArrayUsingDescriptors:sortDescriptors];
-                    // NSLog(@"final data sorted is %@",sortedEventArray);
-                    finalData = [[NSMutableArray alloc] initWithArray:sortedEventArray];
-                    // NSLog(@"final data is %@",finalData);
-                    obj.events = json;
-                    obj.eventsforCalendar = json;
-                    obj.sortedEvents = finalData;
-                    [[NSUserDefaults standardUserDefaults] setObject:finalData forKey:@"offlineData"];
-                    [[NSUserDefaults standardUserDefaults] setObject:json forKey:@"offlineEvents"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    [self.tableView reloadData];
-                    NSLog(@"testjob");
-                    if (!scrolledToCurrentDate) {
-                        
-                        if ([finalData count] > 0) {
-                       [self nearestDate:finalData];
-                        }}
-
-                    //NSLog(@"choolaaaaa");
+                    [self createDataToDisplayInApp2];
                 }
                 
                 else{
@@ -476,6 +638,7 @@ CGFloat kResizeThumbSize = 45.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //popoverController.delegate  = self;
     noInternetAlert = NO;
     scrolledToCurrentDate = NO;
     dataclass *obj = [dataclass getInstance];
@@ -484,9 +647,16 @@ CGFloat kResizeThumbSize = 45.0f;
     obj.eventsforCalendar = [[NSUserDefaults standardUserDefaults] objectForKey:@"offlineEvents"];
     finalData = [[NSMutableArray alloc]initWithArray: obj.sortedEvents];
 
+    
+    
     [[Amplitude instance] logEvent:@"Homepage"];
     navBarHeight = self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height;
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"]) {
+        self.navigationItem.title = [[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"];
+    }
+    else{
     self.navigationItem.title = obj.emailTitle;
+    }
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.tableView = [[UITableView alloc]init];
     self.tableView.delegate = self;
@@ -509,7 +679,10 @@ CGFloat kResizeThumbSize = 45.0f;
     [self NotificationInit];
     
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(refreshData) userInfo:nil repeats:YES];
+   // [self eventAdded];
     
+    
+
 }
 
 -(void)searched{
@@ -544,15 +717,29 @@ CGFloat kResizeThumbSize = 45.0f;
     [numberBadge addSubview:number];
     [self.navigationController.navigationBar addSubview:numberBadge];
     
-    popoverClass = [WEPopoverController class];
-    currentPopoverCellIndex = -1;
+    //popoverClass = [WEPopoverController class];
+    //currentPopoverCellIndex = -1;
+    //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:27]
+    //                      atScrollPosition:UITableViewScrollPositionTop
+    //                              animated:YES];
+    if (!scrolledToCurrentDate) {
+        
+        if ([finalData count] > 0) {
+            [self nearestDate:finalData];
+            NSLog(@"faya %@",finalData);
+        }}
+    
+
+
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     dispatch_async(dispatch_get_main_queue(), ^{
         [loadingView setHidden:NO];
     });
     [super viewWillDisappear:animated];
     [numberBadge removeFromSuperview];
+    [self.navigationController.navigationBar removeGestureRecognizer:tapRecon];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -561,6 +748,10 @@ CGFloat kResizeThumbSize = 45.0f;
     [[self navigationController] setNavigationBarHidden:NO];
     [self loadData];
     [self fetchPref];
+    tapRecon = [[UITapGestureRecognizer alloc]
+                                        initWithTarget:self action:@selector(accoutsList)];
+    tapRecon.numberOfTapsRequired = 1;
+    [self.navigationController.navigationBar addGestureRecognizer:tapRecon];
 }
 
 -(void)refreshData{
@@ -571,7 +762,7 @@ CGFloat kResizeThumbSize = 45.0f;
 -(void)refreshTitle{
     
     dataclass *obj = [dataclass getInstance];
-    self.navigationItem.title = obj.emailTitle;
+    self.navigationItem.title = [[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"];
 }
 
 -(void)viewDidLayoutSubviews{
@@ -601,7 +792,7 @@ CGFloat kResizeThumbSize = 45.0f;
     [self blackBar];
 
 }
-
+/*
 - (WEPopoverContainerViewProperties *)improvedContainerViewProperties {
     
     WEPopoverContainerViewProperties *props = [[WEPopoverContainerViewProperties alloc] init];
@@ -651,6 +842,15 @@ CGFloat kResizeThumbSize = 45.0f;
     }
 }
 
+-(void)userSelectedRowInPopover:(NSUInteger)row{
+    
+    if (self.popoverController) {
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+    }
+    
+}
+
 #pragma mark -
 #pragma mark WEPopoverControllerDelegate implementation
 
@@ -663,7 +863,7 @@ CGFloat kResizeThumbSize = 45.0f;
     //The popover is automatically dismissed if you click outside it, unless you return NO here
     return YES;
 }
-
+*/
 -(void)playNotificationSound{
     [player stop];
     //AudioServicesPlaySystemSound(1009);
@@ -781,17 +981,17 @@ CGFloat kResizeThumbSize = 45.0f;
     
     notificationeventId = notification.userInfo[@"eventid"];
     notificationTitle = notification.userInfo[@"custom"][@"a"][@"subtitle"];
-    [NSTimer scheduledTimerWithTimeInterval:10.0
-                                     target:self selector:@selector(etaCall2) userInfo:nil repeats:NO];
+  //  [NSTimer scheduledTimerWithTimeInterval:10.0
+    //                                 target:self selector:@selector(etaCall2) userInfo:nil repeats:NO];
     
     //notification.userInfo[@"aps"][@"alert"]
-    notificationeventId = notification.userInfo[@"eventid"];
+    notificationeventId = notification.userInfo[@"custom"][@"a"][@"eventid"];
 }
 
 -(void)etaCall2{
     
     NSString *message = @"You are running a bit late, do you want to notify your invitees about it?";
-    message = notificationTitle;
+    //message = notificationTitle;
     NSString *eventID = notificationeventId;
     
     UIAlertController *alert2 =
@@ -956,7 +1156,9 @@ CGFloat kResizeThumbSize = 45.0f;
         presentingViewController = presentingViewController.presentedViewController;
     }
     
+    if ([notification.userInfo[@"custom"][@"a"][@"subtitle"] length]) {
     [presentingViewController presentViewController:alert animated:YES completion:nil];
+    }
 
     
     [self playNotificationSound];
@@ -973,11 +1175,11 @@ CGFloat kResizeThumbSize = 45.0f;
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
                                                               //Call function here
-                                                              [self askForTravelAssist:notification.userInfo[@"eventid"]];
+                                                              [self askForTravelAssist:notification.userInfo[@"custom"][@"a"][@"eventid"]];
                                                           }];
     UIAlertAction *startAction = [UIAlertAction actionWithTitle:@"Yes"
                                                           style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * action) { [self thirtyHoursSchedular:notification.userInfo[@"eventid"]]; }];
+                                                        handler:^(UIAlertAction * action) { [self thirtyHoursSchedular:notification.userInfo[@"custom"][@"a"][@"eventid"]]; }];
     [alert addAction:startAction];
     [alert addAction:dismissAction];
     
@@ -985,9 +1187,9 @@ CGFloat kResizeThumbSize = 45.0f;
     while (presentingViewController.presentedViewController != nil) {
         presentingViewController = presentingViewController.presentedViewController;
     }
-    
+    if ([notification.userInfo[@"custom"][@"a"][@"subtitle"] length]) {
     [presentingViewController presentViewController:alert animated:YES completion:nil];
-    
+    }
     
     [self playNotificationSound];
 }
@@ -1046,7 +1248,7 @@ CGFloat kResizeThumbSize = 45.0f;
 }
 
 -(void)travel4Call:(NSNotification *) notification{
-    [self askForTravelAssist:notification.userInfo[@"eventid"]];
+    [self askForTravelAssist:notification.userInfo[@"custom"][@"a"][@"eventid"]];
     [self playNotificationSound];
 }
 
@@ -1609,6 +1811,100 @@ CGFloat kResizeThumbSize = 45.0f;
         
     }
     return _controller;
+}
+
+-(void)eventAdded{
+    
+    NSString *date = @"2017-01-30";
+    NSString *eventName = @"Bholu";
+    int index;
+    index = -1;
+    
+    for (int i = 0; i < finalData.count; i++) {
+        
+        if ([[finalData[i] objectForKey:@"date"] isEqualToString:date]) {
+            
+            index = i;
+        }
+        
+    }
+    
+    
+    if (index<0) {
+        
+        NSMutableDictionary *temp = [[NSMutableDictionary alloc]init];
+        [temp setObject:date forKey:@"date"];
+        NSMutableDictionary *eventDetails = [[NSMutableDictionary alloc]init];
+        [eventDetails setValue:eventName forKey:@"eventName"];
+        NSArray *event = [[NSArray alloc]initWithObjects:eventDetails,nil];
+        [temp setObject:event forKey:@"events"];
+        
+        NSMutableArray *tempDict = [[NSMutableArray alloc]initWithArray:finalData copyItems:YES];
+        
+        [tempDict addObject:temp];
+        finalData = tempDict;
+    }
+    else{
+        
+        NSMutableDictionary *eventDetails = [[NSMutableDictionary alloc]init];
+        [eventDetails setValue:eventName forKey:@"eventName"];
+        NSMutableArray *tempArr = [[NSMutableArray alloc]init];
+        tempArr = [finalData[index] objectForKey:@"events"];
+        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:tempArr];
+        [arr addObject:[eventDetails mutableCopy]];
+        tempArr = [arr copy];
+        [finalData[index] setObject:[tempArr mutableCopy] forKey:@"events"];
+        
+        
+        
+//        NSMutableArray *tempArr = [[NSMutableArray alloc]init];
+//        tempArr = [finalData[obj.responseSection] objectForKey:@"events"];
+//        
+//        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
+//        NSDictionary *oldDict = (NSDictionary *)[tempArr objectAtIndex:obj.responseIndex];
+//        [tempDict addEntriesFromDictionary:oldDict];
+//        NSLog(@"temp disct %@", tempDict);
+//        [tempDict setObject:obj.responseAction forKey:@"invitee_check"];
+//        [tempArr replaceObjectAtIndex:obj.responseIndex withObject:tempDict];
+//        [finalData[obj.responseSection] setObject:tempArr forKey:@"events"];
+        
+    }
+    
+    
+   // [[finalData[indexPath.section] objectForKey:@"events"] removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+}
+
+-(void)accoutsList{
+
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Account" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSArray *accounts = [[NSArray alloc]init];
+    accounts = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+    
+    for (int i = 0; i < accounts.count; i++) {
+        [actionSheet addAction:[UIAlertAction actionWithTitle:accounts[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) { [self selectAccount:accounts[i]]; }]];
+    }
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"All Accounts" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) { [self selectAccount:@"All Accounts"]; }]];
+    [self presentViewController:actionSheet animated:YES completion:nil];
+    
+}
+
+- (void)selectAccount:(NSString *)title{
+    scrolledToCurrentDate = NO;
+    dataclass *obj = [dataclass getInstance];
+    if ([title  isEqual: @"All Accounts"]) {
+        obj.emailTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] objectAtIndex:0];
+    }
+    else{
+    obj.emailTitle = title;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:obj.emailTitle forKey:@"email1"];
+    [[NSUserDefaults standardUserDefaults] setObject:title forKey:@"navTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTitle" object:self];
+    [self createDataToDisplayInApp2];
+    [self.tableView reloadData];
 }
 
 @end

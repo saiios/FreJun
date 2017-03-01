@@ -133,7 +133,7 @@
     //Calender Label
     UILabel *calender = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView.frame.origin.y+separatorLineView.frame.size.height+12*multiplier, 80*multiplier, 18*multiplier)];
     calender.font = [calender.font fontWithSize:17*multiplier];
-    calender.text = @"Calender";
+    calender.text = @"Calendar";
     [scrollView addSubview:calender];
     
     //Calender Text Label
@@ -303,7 +303,7 @@
     //Notes Label
     UILabel *notes = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView5.frame.origin.y+separatorLineView5.frame.size.height+12*multiplier, 60*multiplier, 18*multiplier)];
     notes.font = [notes.font fontWithSize:17*multiplier];
-    notes.text = @"Notes";
+    notes.text = @"Meeting agenda";
     [scrollView addSubview:notes];
     
     //Notes Text Label

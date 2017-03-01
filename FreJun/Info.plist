@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>68</string>
+	<string>84</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -53,6 +53,13 @@
 			</dict>
 		</array>
 	</dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>comgooglemaps-x-callback</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -65,7 +72,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>Frejun needs access to your phone contacts</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Frejun needs to access your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Frejun is asking for your location</string>
 	<key>NSMicrophoneUsageDescription</key>

@@ -48,6 +48,8 @@
 		B4527D701D685212006E6969 /* calenderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4527D6F1D685212006E6969 /* calenderTableViewCell.m */; };
 		B45F920B1D71DBB500B69267 /* ZFTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = B45F920A1D71DBB500B69267 /* ZFTokenField.m */; };
 		B45F920D1D71DBC200B69267 /* TokenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B45F920C1D71DBC200B69267 /* TokenView.xib */; };
+		B46070BC1E40CB8800689A1D /* ApxorSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46070BB1E40CB8800689A1D /* ApxorSDK.framework */; };
+		B46070BE1E40CC0100689A1D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B46070BD1E40CC0100689A1D /* libsqlite3.tbd */; };
 		B465CA331D5B05CA00E83C30 /* google-login-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B465CA321D5B05CA00E83C30 /* google-login-button.png */; };
 		B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA351D5B092D00E83C30 /* mainViewController.m */; };
 		B465CA411D5B0D7100E83C30 /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA391D5B0D7100E83C30 /* DateUtil.m */; };
@@ -55,20 +57,6 @@
 		B465CA431D5B0D7100E83C30 /* SACalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA3D1D5B0D7100E83C30 /* SACalendar.m */; };
 		B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CA3F1D5B0D7100E83C30 /* SACalendarCell.m */; };
 		B465CA491D5B44E000E83C30 /* handle.png in Resources */ = {isa = PBXBuildFile; fileRef = B465CA481D5B44E000E83C30 /* handle.png */; };
-		B477C5911DC28DA800E63411 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C55B1DC28DA800E63411 /* UIBarButtonItem+WEPopover.m */; };
-		B477C5921DC28DA800E63411 /* UIView+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C55D1DC28DA800E63411 /* UIView+WEPopover.m */; };
-		B477C5931DC28DA800E63411 /* WEBlockingGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C55F1DC28DA800E63411 /* WEBlockingGestureRecognizer.m */; };
-		B477C5941DC28DA800E63411 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5611DC28DA800E63411 /* WEPopoverContainerView.m */; };
-		B477C5951DC28DA800E63411 /* WEPopoverContainerViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5631DC28DA800E63411 /* WEPopoverContainerViewProperties.m */; };
-		B477C5961DC28DA800E63411 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5651DC28DA800E63411 /* WEPopoverController.m */; };
-		B477C5971DC28DA800E63411 /* WETouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5681DC28DA800E63411 /* WETouchableView.m */; };
-		B477C5981DC28DA800E63411 /* WEWeakReference.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C56A1DC28DA800E63411 /* WEWeakReference.m */; };
-		B477C5991DC28DA800E63411 /* WEColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C56C1DC28DA800E63411 /* WEColorUtils.m */; };
-		B477C59A1DC28DA800E63411 /* WECustomPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C56E1DC28DA800E63411 /* WECustomPopoverController.m */; };
-		B477C59B1DC28DA800E63411 /* WEPopoverAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5701DC28DA800E63411 /* WEPopoverAppDelegate.m */; };
-		B477C59C1DC28DA800E63411 /* WEPopoverContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5721DC28DA800E63411 /* WEPopoverContentViewController.m */; };
-		B477C59D1DC28DA800E63411 /* WEPopoverTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5741DC28DA800E63411 /* WEPopoverTableViewController.m */; };
-		B477C59E1DC28DA800E63411 /* WEPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B477C5761DC28DA800E63411 /* WEPopoverViewController.m */; };
 		B477C59F1DC28DA800E63411 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B477C5781DC28DA800E63411 /* MainWindow.xib */; };
 		B477C5A01DC28DA800E63411 /* CustomPopover.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B477C57B1DC28DA800E63411 /* CustomPopover.xcassets */; };
 		B477C5A11DC28DA800E63411 /* popoverArrowDown-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B477C57C1DC28DA800E63411 /* popoverArrowDown-white@2x.png */; };
@@ -204,6 +192,8 @@
 		B45F92091D71DBB500B69267 /* ZFTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTokenField.h; sourceTree = "<group>"; };
 		B45F920A1D71DBB500B69267 /* ZFTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTokenField.m; sourceTree = "<group>"; };
 		B45F920C1D71DBC200B69267 /* TokenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TokenView.xib; sourceTree = "<group>"; };
+		B46070BB1E40CB8800689A1D /* ApxorSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ApxorSDK.framework; sourceTree = "<group>"; };
+		B46070BD1E40CC0100689A1D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B465CA321D5B05CA00E83C30 /* google-login-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-login-button.png"; sourceTree = "<group>"; };
 		B465CA341D5B092D00E83C30 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
 		B465CA351D5B092D00E83C30 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
@@ -217,35 +207,6 @@
 		B465CA3F1D5B0D7100E83C30 /* SACalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACalendarCell.m; sourceTree = "<group>"; };
 		B465CA401D5B0D7100E83C30 /* SACalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACalendarConstants.h; sourceTree = "<group>"; };
 		B465CA481D5B44E000E83C30 /* handle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = handle.png; sourceTree = "<group>"; };
-		B477C55A1DC28DA800E63411 /* UIBarButtonItem+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WEPopover.h"; sourceTree = "<group>"; };
-		B477C55B1DC28DA800E63411 /* UIBarButtonItem+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WEPopover.m"; sourceTree = "<group>"; };
-		B477C55C1DC28DA800E63411 /* UIView+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WEPopover.h"; sourceTree = "<group>"; };
-		B477C55D1DC28DA800E63411 /* UIView+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WEPopover.m"; sourceTree = "<group>"; };
-		B477C55E1DC28DA800E63411 /* WEBlockingGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEBlockingGestureRecognizer.h; sourceTree = "<group>"; };
-		B477C55F1DC28DA800E63411 /* WEBlockingGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBlockingGestureRecognizer.m; sourceTree = "<group>"; };
-		B477C5601DC28DA800E63411 /* WEPopoverContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContainerView.h; sourceTree = "<group>"; };
-		B477C5611DC28DA800E63411 /* WEPopoverContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverContainerView.m; sourceTree = "<group>"; };
-		B477C5621DC28DA800E63411 /* WEPopoverContainerViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContainerViewProperties.h; sourceTree = "<group>"; };
-		B477C5631DC28DA800E63411 /* WEPopoverContainerViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverContainerViewProperties.m; sourceTree = "<group>"; };
-		B477C5641DC28DA800E63411 /* WEPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverController.h; sourceTree = "<group>"; };
-		B477C5651DC28DA800E63411 /* WEPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverController.m; sourceTree = "<group>"; };
-		B477C5661DC28DA800E63411 /* WEPopoverParentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverParentView.h; sourceTree = "<group>"; };
-		B477C5671DC28DA800E63411 /* WETouchableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WETouchableView.h; sourceTree = "<group>"; };
-		B477C5681DC28DA800E63411 /* WETouchableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WETouchableView.m; sourceTree = "<group>"; };
-		B477C5691DC28DA800E63411 /* WEWeakReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEWeakReference.h; sourceTree = "<group>"; };
-		B477C56A1DC28DA800E63411 /* WEWeakReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEWeakReference.m; sourceTree = "<group>"; };
-		B477C56B1DC28DA800E63411 /* WEColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEColorUtils.h; sourceTree = "<group>"; };
-		B477C56C1DC28DA800E63411 /* WEColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEColorUtils.m; sourceTree = "<group>"; };
-		B477C56D1DC28DA800E63411 /* WECustomPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WECustomPopoverController.h; sourceTree = "<group>"; };
-		B477C56E1DC28DA800E63411 /* WECustomPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WECustomPopoverController.m; sourceTree = "<group>"; };
-		B477C56F1DC28DA800E63411 /* WEPopoverAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverAppDelegate.h; sourceTree = "<group>"; };
-		B477C5701DC28DA800E63411 /* WEPopoverAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverAppDelegate.m; sourceTree = "<group>"; };
-		B477C5711DC28DA800E63411 /* WEPopoverContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContentViewController.h; sourceTree = "<group>"; };
-		B477C5721DC28DA800E63411 /* WEPopoverContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverContentViewController.m; sourceTree = "<group>"; };
-		B477C5731DC28DA800E63411 /* WEPopoverTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverTableViewController.h; sourceTree = "<group>"; };
-		B477C5741DC28DA800E63411 /* WEPopoverTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverTableViewController.m; sourceTree = "<group>"; };
-		B477C5751DC28DA800E63411 /* WEPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverViewController.h; sourceTree = "<group>"; };
-		B477C5761DC28DA800E63411 /* WEPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverViewController.m; sourceTree = "<group>"; };
 		B477C5781DC28DA800E63411 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		B477C57B1DC28DA800E63411 /* CustomPopover.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomPopover.xcassets; sourceTree = "<group>"; };
 		B477C57C1DC28DA800E63411 /* popoverArrowDown-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popoverArrowDown-white@2x.png"; sourceTree = "<group>"; };
@@ -324,9 +285,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B46070BE1E40CC0100689A1D /* libsqlite3.tbd in Frameworks */,
 				B477ECF41D71A5B30088FF3B /* AddressBookUI.framework in Frameworks */,
 				B4004EA41D841DE6002384CF /* Fabric.framework in Frameworks */,
 				B477ECF21D71A5AC0088FF3B /* AddressBook.framework in Frameworks */,
+				B46070BC1E40CB8800689A1D /* ApxorSDK.framework in Frameworks */,
 				B477ECF01D71A5A50088FF3B /* Contacts.framework in Frameworks */,
 				B4004EA51D841DE6002384CF /* Crashlytics.framework in Frameworks */,
 				A11A199D85580B7FF9FECF1C /* libPods-FreJun.a in Frameworks */,
@@ -539,50 +502,6 @@
 			path = SACalendar;
 			sourceTree = "<group>";
 		};
-		B477C5581DC28DA800E63411 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				B477C5591DC28DA800E63411 /* Popover */,
-				B477C56B1DC28DA800E63411 /* WEColorUtils.h */,
-				B477C56C1DC28DA800E63411 /* WEColorUtils.m */,
-				B477C56D1DC28DA800E63411 /* WECustomPopoverController.h */,
-				B477C56E1DC28DA800E63411 /* WECustomPopoverController.m */,
-				B477C56F1DC28DA800E63411 /* WEPopoverAppDelegate.h */,
-				B477C5701DC28DA800E63411 /* WEPopoverAppDelegate.m */,
-				B477C5711DC28DA800E63411 /* WEPopoverContentViewController.h */,
-				B477C5721DC28DA800E63411 /* WEPopoverContentViewController.m */,
-				B477C5731DC28DA800E63411 /* WEPopoverTableViewController.h */,
-				B477C5741DC28DA800E63411 /* WEPopoverTableViewController.m */,
-				B477C5751DC28DA800E63411 /* WEPopoverViewController.h */,
-				B477C5761DC28DA800E63411 /* WEPopoverViewController.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		B477C5591DC28DA800E63411 /* Popover */ = {
-			isa = PBXGroup;
-			children = (
-				B477C55A1DC28DA800E63411 /* UIBarButtonItem+WEPopover.h */,
-				B477C55B1DC28DA800E63411 /* UIBarButtonItem+WEPopover.m */,
-				B477C55C1DC28DA800E63411 /* UIView+WEPopover.h */,
-				B477C55D1DC28DA800E63411 /* UIView+WEPopover.m */,
-				B477C55E1DC28DA800E63411 /* WEBlockingGestureRecognizer.h */,
-				B477C55F1DC28DA800E63411 /* WEBlockingGestureRecognizer.m */,
-				B477C5601DC28DA800E63411 /* WEPopoverContainerView.h */,
-				B477C5611DC28DA800E63411 /* WEPopoverContainerView.m */,
-				B477C5621DC28DA800E63411 /* WEPopoverContainerViewProperties.h */,
-				B477C5631DC28DA800E63411 /* WEPopoverContainerViewProperties.m */,
-				B477C5641DC28DA800E63411 /* WEPopoverController.h */,
-				B477C5651DC28DA800E63411 /* WEPopoverController.m */,
-				B477C5661DC28DA800E63411 /* WEPopoverParentView.h */,
-				B477C5671DC28DA800E63411 /* WETouchableView.h */,
-				B477C5681DC28DA800E63411 /* WETouchableView.m */,
-				B477C5691DC28DA800E63411 /* WEWeakReference.h */,
-				B477C56A1DC28DA800E63411 /* WEWeakReference.m */,
-			);
-			path = Popover;
-			sourceTree = "<group>";
-		};
 		B477C5771DC28DA800E63411 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,6 +598,7 @@
 			isa = PBXGroup;
 			children = (
 				B47EDD621D5A005E0003A602 /* Podfile */,
+				B46070BB1E40CB8800689A1D /* ApxorSDK.framework */,
 				B47EDD2B1D5A00080003A602 /* FreJun */,
 				B47EDD481D5A00080003A602 /* FreJunTests */,
 				B47EDD531D5A00080003A602 /* FreJunUITests */,
@@ -704,7 +624,6 @@
 			isa = PBXGroup;
 			children = (
 				B453EE531DCB5D1500A5A6A2 /* FreJun.entitlements */,
-				B477C5581DC28DA800E63411 /* Classes */,
 				B477C5771DC28DA800E63411 /* Resources */,
 				B40A73761D672BFE003CDF57 /* Delegates */,
 				B44211101D6AFDD700CE82CD /* Login Controllers */,
@@ -774,6 +693,7 @@
 		BE8D8C20676BCFF051BB8654 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B46070BD1E40CC0100689A1D /* libsqlite3.tbd */,
 				B477ECF31D71A5B30088FF3B /* AddressBookUI.framework */,
 				B477ECF11D71A5AC0088FF3B /* AddressBook.framework */,
 				B477ECEF1D71A5A50088FF3B /* Contacts.framework */,
@@ -854,6 +774,7 @@
 					B47EDD281D5A00070003A602 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 8C5P67PLD5;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1006,6 +927,8 @@
 			files = (
 			);
 			inputPaths = (
+				"SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name upload_symbol_file.sh | head -n1`",
+				"/bin/sh \"${SCRIPT}\"",
 			);
 			outputPaths = (
 			);
@@ -1038,18 +961,14 @@
 				B4E664011D631C3B0034E7B9 /* calenderViewController.m in Sources */,
 				B477ECE31D7149550088FF3B /* PlaceDetail.m in Sources */,
 				B4392C371D796B0900E86E56 /* SWUtilityButtonView.m in Sources */,
-				B477C5991DC28DA800E63411 /* WEColorUtils.m in Sources */,
 				B477ECF81D71C8670088FF3B /* MPGTextField.m in Sources */,
 				B47EDD341D5A00080003A602 /* ViewController.m in Sources */,
 				B477ECE21D7149550088FF3B /* MVPlaceSearchTextField.m in Sources */,
 				B412D3981D6738A200EE09E0 /* NotificationsTableViewController.m in Sources */,
-				B477C5981DC28DA800E63411 /* WEWeakReference.m in Sources */,
 				B426D3241D708EA800624F5F /* dataclass.m in Sources */,
 				B47EDD3A1D5A00080003A602 /* FreJun.xcdatamodeld in Sources */,
 				B4392C331D796B0900E86E56 /* SWCellScrollView.m in Sources */,
-				B477C59A1DC28DA800E63411 /* WECustomPopoverController.m in Sources */,
 				B465CA441D5B0D7100E83C30 /* SACalendarCell.m in Sources */,
-				B477C5971DC28DA800E63411 /* WETouchableView.m in Sources */,
 				B477ECE41D7149550088FF3B /* PlaceObject.m in Sources */,
 				B4AA79FA1D7DE1BE005829DD /* SearchResultsViewController.m in Sources */,
 				B465CA361D5B092D00E83C30 /* mainViewController.m in Sources */,
@@ -1059,27 +978,17 @@
 				B465CA421D5B0D7100E83C30 /* DMLazyScrollView.m in Sources */,
 				B477ECE11D7149550088FF3B /* NSString+Levenshtein.m in Sources */,
 				B465CA411D5B0D7100E83C30 /* DateUtil.m in Sources */,
-				B477C59C1DC28DA800E63411 /* WEPopoverContentViewController.m in Sources */,
 				B465CA431D5B0D7100E83C30 /* SACalendar.m in Sources */,
-				B477C59E1DC28DA800E63411 /* WEPopoverViewController.m in Sources */,
 				B40537391D66FC550036FB02 /* AccountsTableViewController.m in Sources */,
 				B40537351D66F5BE0036FB02 /* SettingsTableViewController.m in Sources */,
 				B4392C351D796B0900E86E56 /* SWTableViewCell.m in Sources */,
-				B477C5941DC28DA800E63411 /* WEPopoverContainerView.m in Sources */,
-				B477C5921DC28DA800E63411 /* UIView+WEPopover.m in Sources */,
 				B477ECEE1D71A54E0088FF3B /* ContactList.m in Sources */,
 				B47EDD311D5A00080003A602 /* AppDelegate.m in Sources */,
-				B477C5951DC28DA800E63411 /* WEPopoverContainerViewProperties.m in Sources */,
-				B477C5931DC28DA800E63411 /* WEBlockingGestureRecognizer.m in Sources */,
-				B477C5911DC28DA800E63411 /* UIBarButtonItem+WEPopover.m in Sources */,
 				B4527D701D685212006E6969 /* calenderTableViewCell.m in Sources */,
 				B4392C341D796B0900E86E56 /* SWLongPressGestureRecognizer.m in Sources */,
 				B45F920B1D71DBB500B69267 /* ZFTokenField.m in Sources */,
 				B47EDD2E1D5A00080003A602 /* main.m in Sources */,
-				B477C5961DC28DA800E63411 /* WEPopoverController.m in Sources */,
-				B477C59B1DC28DA800E63411 /* WEPopoverAppDelegate.m in Sources */,
 				B42D7FA01DF2D95C00B87DFD /* eventInvitaionViewController.m in Sources */,
-				B477C59D1DC28DA800E63411 /* WEPopoverTableViewController.m in Sources */,
 				B4921E5B1D6361A700BE2C1F /* eventDetailsViewController.m in Sources */,
 				B424FEAD1D7B0D40005FEDE9 /* UserPrefrencesTableViewController.m in Sources */,
 				B426D3361D70B4AE00624F5F /* accountsTableViewCell.m in Sources */,
@@ -1235,6 +1144,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8C5P67PLD5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1245,8 +1155,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1b294a06-c5a1-4b7c-9c94-14dfaf9df199";
-				PROVISIONING_PROFILE_SPECIFIER = Frejun;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1259,6 +1169,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8C5P67PLD5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1269,8 +1180,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1b294a06-c5a1-4b7c-9c94-14dfaf9df199";
-				PROVISIONING_PROFILE_SPECIFIER = Frejun;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
