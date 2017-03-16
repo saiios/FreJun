@@ -169,7 +169,8 @@
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
     NSURL *queryUrl = [NSURL URLWithString:url];
-    
+
+    if (obj.gcmToken != NULL){
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSData *data = [NSData dataWithContentsOfURL: queryUrl];
         NSError* error;
@@ -228,8 +229,26 @@
                // [self alertStatus:@"Please try again after some time." :@"Connection Failed!"];
                 
             });}
-    });
-    
+    }); }
+    else{
+        UIAlertController *alert =
+        [UIAlertController alertControllerWithTitle:@"Error!"
+                                            message:@"Seems like notifications are not allowed for Frejun, please allow from settings or restart the app."
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  
+                                                              }];
+        
+        [alert addAction:dismissAction];
+        UIViewController *presentingViewController = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+        while (presentingViewController.presentedViewController != nil) {
+            presentingViewController = presentingViewController.presentedViewController;
+        }
+        [presentingViewController presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 

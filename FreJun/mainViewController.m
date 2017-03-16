@@ -138,7 +138,7 @@ CGFloat kResizeThumbSize = 45.0f;
                     
                     [dates addObject:datetoAdd];
                     NSMutableDictionary *eventDict =  [[NSMutableDictionary alloc]initWithDictionary:[modifiedJSON objectAtIndex:i]];
-                    [eventDict setValue:datetoAdd forKey:@"startTime"];
+                    [eventDict setValue:datetoAdd forKey:@"startTime_real"];
                     [calendarEvents addObject:eventDict];
                     
                 }
@@ -159,7 +159,7 @@ CGFloat kResizeThumbSize = 45.0f;
                     [finalData replaceObjectAtIndex:dateIndex withObject:tempDict];
                     
                     NSMutableDictionary *eventDict = [[NSMutableDictionary alloc]initWithDictionary:[modifiedJSON objectAtIndex:i]];
-                    [eventDict setValue:datetoAdd forKey:@"startTime"];
+                    [eventDict setValue:datetoAdd forKey:@"startTime_real"];
                     [calendarEvents addObject:eventDict];
                     
                 }
@@ -986,6 +986,7 @@ CGFloat kResizeThumbSize = 45.0f;
     
     //notification.userInfo[@"aps"][@"alert"]
     notificationeventId = notification.userInfo[@"custom"][@"a"][@"eventid"];
+    [self etaCall2];
 }
 
 -(void)etaCall2{
@@ -1068,8 +1069,10 @@ CGFloat kResizeThumbSize = 45.0f;
                                                               [actionSheet addAction:[UIAlertAction actionWithTitle:@"Remind me later" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                   
                                                                   // Cancel button tappped.
-                                                                  [self dismissViewControllerAnimated:YES completion:^{
-                                                                  }];
+//                                                                  [self dismissViewControllerAnimated:YES completion:^{
+//                                                                  }];
+                                                                  [self postpone:notification.userInfo[@"custom"][@"a"][@"eventID"]];
+                                                                  
                                                               }]];
                                                               
                                                               [actionSheet addAction:[UIAlertAction actionWithTitle:@"Ignore" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -1104,6 +1107,33 @@ CGFloat kResizeThumbSize = 45.0f;
     
     [presentingViewController presentViewController:alert animated:YES completion:nil];
     [self playNotificationSound];
+}
+
+-(void)postpone:(NSString *)eventID{
+    
+    dataclass *obj = [dataclass getInstance];
+    NSString *url = [NSString stringWithFormat:@"%@?email=%@&eventID=%@&identifier=reject",directoryPostpone,obj.emailTitle,eventID];
+    NSLog(@"%@",url);
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    NSURL *queryUrl = [NSURL URLWithString:url];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data2 = [NSData dataWithContentsOfURL: queryUrl];
+        NSError* error;
+        //NSLog(@"bholi %@",data2);
+        NSString* newStr = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+        //NSLog(@"string is : %@",newStr);
+        if(data2){
+            NSArray *pref = [NSJSONSerialization
+                             JSONObjectWithData:data2
+                             options:kNilOptions
+                             error:&error];
+            //NSLog(@"%@",pref);
+            dispatch_async(dispatch_get_main_queue(), ^{
+          
+            });
+        }
+    });
+    
 }
 
 -(void)travel2Call:(NSNotification *) notification{

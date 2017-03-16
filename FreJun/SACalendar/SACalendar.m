@@ -446,11 +446,11 @@
 
             //NSLog(@"%@ %@ %@",[obj.dates[i] substringFromIndex:8],[obj.dates[i] substringFromIndex:5],[obj.dates[i] substringToIndex:4]);
            // [[[json objectAtIndex:j] objectForKey:@"startTime"] length]
-            if([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] length] > 9){
-            NSString *dateS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringFromIndex:8];
-            NSString *monthS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringFromIndex:5];
+            if([[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime_real"] length] > 9){
+            NSString *dateS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime_real"] substringFromIndex:8];
+            NSString *monthS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime_real"] substringFromIndex:5];
             monthS = [monthS substringToIndex:2];
-            NSString *yearS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime"] substringToIndex:4];
+            NSString *yearS = [[[obj.eventsforCalendar objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:4];
             if (indexPath.row - firstDay + 1 == [dateS intValue]
                 && monthToLoad == [monthS intValue]
                 && yearToLoad == [yearS intValue]

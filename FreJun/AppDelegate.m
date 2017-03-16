@@ -17,7 +17,7 @@
 #import "Hotline.h"
 #import "Amplitude.h"
 #import "dataclass.h"
-
+#import <ApxorSDK/ApxorSDK.h>
 #import "eventInvitaionViewController.h"
 #import "eventDetailsViewController.h"
 

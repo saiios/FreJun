@@ -317,7 +317,7 @@
     [scrollView addSubview:separatorLineView5];
     
     //Notes Label
-    UILabel *notes = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView5.frame.origin.y+separatorLineView5.frame.size.height+12*multiplier, 60*multiplier, 18*multiplier)];
+    UILabel *notes = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView5.frame.origin.y+separatorLineView5.frame.size.height+12*multiplier, 160*multiplier, 22*multiplier)];
     notes.font = [notes.font fontWithSize:17*multiplier];
     notes.text = @"Meeting agenda";
     [scrollView addSubview:notes];
@@ -340,7 +340,7 @@
     [scrollView addSubview:separatorLineView6];
     
     //Edited by Label
-    UILabel *editedBy = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView6.frame.origin.y+separatorLineView6.frame.size.height+12*multiplier, 80*multiplier, 18*multiplier)];
+    UILabel *editedBy = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, separatorLineView6.frame.origin.y+separatorLineView6.frame.size.height+12*multiplier, 80*multiplier, 22*multiplier)];
     editedBy.font = [editedBy.font fontWithSize:17*multiplier];
     editedBy.text = @"Edited by";
     [scrollView addSubview:editedBy];
