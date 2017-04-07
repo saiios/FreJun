@@ -773,7 +773,7 @@
 				TargetAttributes = {
 					B47EDD281D5A00070003A602 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 8C5P67PLD5;
+						DevelopmentTeam = E8FDK5MRZ5;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1143,7 +1143,7 @@
 				CODE_SIGN_ENTITLEMENTS = FreJun/FreJun.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8C5P67PLD5;
+				DEVELOPMENT_TEAM = E8FDK5MRZ5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1151,9 +1151,9 @@
 				);
 				GCC_PREFIX_HEADER = Frejun/PrefixHeader.pch;
 				INFOPLIST_FILE = FreJun/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SteelonCall.SteelonCall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1168,7 +1168,7 @@
 				CODE_SIGN_ENTITLEMENTS = FreJun/FreJun.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8C5P67PLD5;
+				DEVELOPMENT_TEAM = E8FDK5MRZ5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1176,9 +1176,9 @@
 				);
 				GCC_PREFIX_HEADER = Frejun/PrefixHeader.pch;
 				INFOPLIST_FILE = FreJun/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goteso.FreJun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SteelonCall.SteelonCall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

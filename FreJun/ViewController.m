@@ -52,7 +52,8 @@
     [GIDSignIn sharedInstance].serverClientID = @"303546570344-ttv0ingquts4thesu9ub93l2473f6ras.apps.googleusercontent.com";
     
     // Uncomment to automatically sign in the user.
-    if ([GIDSignIn sharedInstance].hasAuthInKeychain) {
+    if ([GIDSignIn sharedInstance].hasAuthInKeychain)
+    {
     [[GIDSignIn sharedInstance] signInSilently];
     }
     

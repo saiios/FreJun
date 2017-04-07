@@ -40,9 +40,7 @@
                            @"status":@"0"},
                          nil];
     //invitees = [selectedEvent objectForKey:@"invitees"];
-    
-
-    
+        
     NSError *error;
     NSString *string = [[selectedEvent objectForKey:@"invitees"] stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"]" withString:@"}"];

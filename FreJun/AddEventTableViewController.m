@@ -520,15 +520,18 @@
     lattitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.latitude];
     longitude = [NSString stringWithFormat:@"%f",responseDict.coordinate.longitude];
     
-    for (int i=0;i<[[responseDict addressComponents] count];i++) {
-        if ([[[[responseDict addressComponents] objectAtIndex:i] valueForKey:@"type"] isEqualToString:@"country"]) {
-                self.country.text = [[[responseDict addressComponents]objectAtIndex:i] valueForKey:@"name"];
-        }
-        if ([[[[responseDict addressComponents] objectAtIndex:i] valueForKey:@"type"] isEqualToString:@"postal_code"]) {
-            self.zipcode.text = [[[responseDict addressComponents]objectAtIndex:i] valueForKey:@"name"];
-        }
-    }
-    
+    //https://developers.google.com/places/supported_types
+//    self.country.text = [self getObjectFromGoogleResponse:<#(NSString *)#> withDict:<#(GMSPlace *)#>];
+//    self.zipcode.text = [[[responseDict addressComponents]objectAtIndex:i] valueForKey:@"name"];
+//    for (int i=0;i<[[responseDict addressComponents] count];i++) {
+//        if ([[[[responseDict addressComponents] objectAtIndex:i] valueForKey:@"type"] isEqualToString:@"country"]) {
+//            
+//        }
+//        if ([[[[responseDict addressComponents] objectAtIndex:i] valueForKey:@"type"] isEqualToString:@"postal_code"]) {
+//            
+//        }
+//    }         
+//    
     marker.position = CLLocationCoordinate2DMake(responseDict.coordinate.latitude, responseDict.coordinate.longitude);
     marker.title = responseDict.name;
     marker.snippet = responseDict.formattedAddress;
@@ -540,6 +543,16 @@
     
     [_mapView animateToCameraPosition:camera];
 }
+
+-(NSString *)getObjectFromGoogleResponse:(NSString *)identifier withDict:(GMSPlace*)responseDict{
+    
+    for (int i=0;i<[[responseDict addressComponents] count];i++) {
+        if ([[[[responseDict addressComponents] objectAtIndex:i] valueForKey:@"type"] isEqualToString:identifier]) {
+            return [[[responseDict addressComponents]objectAtIndex:i] valueForKey:@"name"];
+        }}
+    return @"";
+}
+
 -(void)placeSearchWillShowResult:(MVPlaceSearchTextField*)textField{
     
 }

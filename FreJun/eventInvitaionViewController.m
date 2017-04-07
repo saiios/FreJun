@@ -16,7 +16,8 @@
 @end
 
 @implementation eventInvitaionViewController
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[Amplitude instance] logEvent:@"Event Details"];

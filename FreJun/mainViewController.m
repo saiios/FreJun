@@ -63,11 +63,10 @@ CGFloat kResizeThumbSize = 45.0f;
 
 @implementation mainViewController
 
-
-
--(void)loadingView{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
+-(void)loadingView
+{
+    dispatch_async(dispatch_get_main_queue(),
+                   ^{
         [loadingView setHidden:NO];
     });
     loadingView = [[UIView alloc]initWithFrame:CGRectMake(100, 400, 80, 80)];
@@ -90,24 +89,32 @@ CGFloat kResizeThumbSize = 45.0f;
     
     [self.view addSubview:loadingView];
     [loadingView setHidden:YES];
-    
 }
 
--(NSArray *)returnFilteredEvents:(NSArray *)JSONevents{
-    
+-(NSArray *)returnFilteredEvents:(NSArray *)JSONevents
+{
     NSArray *filteredEvents = [[NSArray alloc]init];
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"]  isEqual: @"All Accounts"]) {
-        filteredEvents = JSONevents; }
-    else{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"]  isEqual: @"All Accounts"])
+    {
+        filteredEvents = JSONevents;
+    }
+    else
+    {
         NSMutableArray *tempArray = [[NSMutableArray alloc]init];
-        for (int i =0; i<JSONevents.count; i++) {
-            if ([[[JSONevents objectAtIndex:i] objectForKey:@"email"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]] || [[[JSONevents objectAtIndex:i] objectForKey:@"relatedEmail"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]] ) {
-                [tempArray addObject:[JSONevents objectAtIndex:i]]; } }
-                filteredEvents = tempArray; }
+        for (int i =0; i<JSONevents.count; i++)
+        {
+            if ([[[JSONevents objectAtIndex:i] objectForKey:@"email"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]] || [[[JSONevents objectAtIndex:i] objectForKey:@"relatedEmail"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"email1"]] )
+            {
+                [tempArray addObject:[JSONevents objectAtIndex:i]];
+            }
+        }
+        filteredEvents = tempArray;
+    }
     return filteredEvents;
 }
--(void)createDataToDisplayInApp2{
- 
+
+-(void)createDataToDisplayInApp2
+{
     dataclass *obj = [dataclass getInstance];
     finalData = [[NSMutableArray alloc]init];
     NSMutableArray *dates = [[NSMutableArray alloc]init];
@@ -163,13 +170,7 @@ CGFloat kResizeThumbSize = 45.0f;
                     [calendarEvents addObject:eventDict];
                     
                 }
-                
-                
             }
-
-            
-            
-        
         }}
     
     NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
@@ -189,25 +190,30 @@ CGFloat kResizeThumbSize = 45.0f;
         if ([finalData count] > 0) {
             [self nearestDate:finalData];
         }}
-
 }
 
--(BOOL)checkifDateAlreadyExists:(NSString *)date{
-    
+-(BOOL)checkifDateAlreadyExists:(NSString *)date
+{
     BOOL result;
     result = NO;
     for (int i=0; i<finalData.count; i++) { if ([finalData[i][@"date"] isEqualToString:date]) { result = YES; } }
     return result;
 }
 
--(int)getIndexforDate:(NSString *)date{
-    
-    for (int i=0; i<finalData.count; i++) { if ([finalData[i][@"date"] isEqualToString:date]) { return i; } }
+-(int)getIndexforDate:(NSString *)date
+{
+    for (int i=0; i<finalData.count; i++)
+    {
+        if ([finalData[i][@"date"] isEqualToString:date])
+        {
+            return i;
+        }
+    }
     return 0;
 }
 
--(void)createDataToDisplayInApp{
-    
+-(void)createDataToDisplayInApp
+{
     dataclass *obj = [dataclass getInstance];
     finalData = [[NSMutableArray alloc]init];
     NSMutableArray *dates = [[NSMutableArray alloc]init];
@@ -215,8 +221,8 @@ CGFloat kResizeThumbSize = 45.0f;
     
     NSArray *modifiedJSON = [self returnFilteredEvents:json];
     
-    
-    for (int i = 0; i < modifiedJSON.count ; i++) {
+    for (int i = 0; i < modifiedJSON.count ; i++)
+    {
         if ([[[modifiedJSON objectAtIndex:i] objectForKey:@"startTime_real"] length] > 11) {
             
             NSString *date = [[[modifiedJSON objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10];
@@ -226,8 +232,8 @@ CGFloat kResizeThumbSize = 45.0f;
              [dateFormatter setDateFormat:@"YYYY-MM-dd"];
              NSDate *startDate = [dateFormatter dateFromString:[[[json objectAtIndex:i] objectForKey:@"startTime_real"] substringToIndex:10]];
              NSDate *endDate = [dateFormatter dateFromString:[[[json objectAtIndex:i] objectForKey:@"endTime_real"] substringToIndex:10]];
-             for (int i = 0; i < [self daysBetween:startDate and:endDate] ; i++) {
-             
+             for (int i = 0; i < [self daysBetween:startDate and:endDate] ; i++)
+             {
              NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
              NSDateComponents *comps = [[NSDateComponents alloc]init];
              [comps setDay:i];
@@ -250,14 +256,14 @@ CGFloat kResizeThumbSize = 45.0f;
         NSMutableArray *temp = [[NSMutableArray alloc]init];
         NSMutableDictionary *tempDict = [[NSMutableDictionary alloc]init];
         
-        for (int j = 0; j < modifiedJSON.count; j++) {
+        for (int j = 0; j < modifiedJSON.count; j++)
+        {
             if ([[[modifiedJSON objectAtIndex:j] objectForKey:@"startTime_real"] length] > 11) {
                 
                 NSString *dateSelected = [[[modifiedJSON objectAtIndex:j] objectForKey:@"startTime_real"] substringToIndex:10];
                 //NSString *dateSelected = [[json objectAtIndex:j] objectForKey:@"startTime_real"];
                 
-                
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                  [dateFormatter setDateFormat:@"YYYY-MM-dd"];
                  NSDate *startDate = [dateFormatter dateFromString:[[[json objectAtIndex:j] objectForKey:@"startTime_real"] substringToIndex:10]];
                  NSDate *endDate = [dateFormatter dateFromString:[[[json objectAtIndex:j] objectForKey:@"endTime_real"] substringToIndex:10]];
@@ -345,7 +351,8 @@ CGFloat kResizeThumbSize = 45.0f;
                              error:&error];
             NSLog(@"my value is%@",json);
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (json) {
+                if (json)
+                {
                     [self createDataToDisplayInApp2];
                 }
                 
@@ -444,18 +451,18 @@ CGFloat kResizeThumbSize = 45.0f;
                                   animated:YES];
     scrolledToCurrentDate = YES;
     NSLog(@"hayee oye");
-    
-    
 }
 
-- (int)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2 {
+- (int)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
+{
     NSUInteger unitFlags = NSDayCalendarUnit;
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
     return [components day]+1;
 }
 
--(void)fetchPref{
+-(void)fetchPref
+{
     
     dataclass *obj = [dataclass getInstance];
     NSString *url = [NSString stringWithFormat:@"%@?email=%@&userID=%@",directoryFetchPref,obj.emailTitle,[[NSUserDefaults standardUserDefaults] stringForKey:@"userID"]];
@@ -754,19 +761,19 @@ CGFloat kResizeThumbSize = 45.0f;
     [self.navigationController.navigationBar addGestureRecognizer:tapRecon];
 }
 
--(void)refreshData{
-    
+-(void)refreshData
+{
     [self loadData];
 }
 
--(void)refreshTitle{
-    
+-(void)refreshTitle
+{
     dataclass *obj = [dataclass getInstance];
     self.navigationItem.title = [[NSUserDefaults standardUserDefaults] objectForKey:@"navTitle"];
 }
 
--(void)viewDidLayoutSubviews{
-    
+-(void)viewDidLayoutSubviews
+{
     [super viewDidLayoutSubviews];
     
     self.calendarBackGroundView.frame = CGRectMake(0, navBarHeight, self.view.frame.size.width, (self.view.frame.size.height-navBarHeight)/2);
@@ -787,7 +794,6 @@ CGFloat kResizeThumbSize = 45.0f;
     UISwipeGestureRecognizer * swiperight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swiperight:)];
     swiperight.direction=UISwipeGestureRecognizerDirectionLeft ;
     [_calendarBackGroundView addGestureRecognizer:swiperight];
-
     
     [self blackBar];
 
@@ -864,7 +870,8 @@ CGFloat kResizeThumbSize = 45.0f;
     return YES;
 }
 */
--(void)playNotificationSound{
+-(void)playNotificationSound
+{
     [player stop];
     //AudioServicesPlaySystemSound(1009);
     dataclass *obj = [dataclass getInstance];
@@ -887,10 +894,9 @@ CGFloat kResizeThumbSize = 45.0f;
     [player play];
 }
 
--(void)NotificationInit{
-    
+-(void)NotificationInit
+{
    // [self playNotificationSound];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(inviteCall:)
                                                  name:@"invite"
@@ -1042,7 +1048,8 @@ CGFloat kResizeThumbSize = 45.0f;
     [alertView show];
     [self playNotificationSound];
 }
--(void)reminderScreenCall:(NSNotification *) notification{
+-(void)reminderScreenCall:(NSNotification *) notification
+{
     
     //   NSLog(@"cholla %@",notification.userInfo[@"gcm.notification.message"]);
     dataclass *obj = [dataclass getInstance];
@@ -1379,7 +1386,8 @@ CGFloat kResizeThumbSize = 45.0f;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionMoveIn;
     transition.subtype= kCATransitionFromLeft;
-    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];    SettingsTableViewController* infoController = [[SettingsTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+    SettingsTableViewController* infoController = [[SettingsTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:infoController animated:NO];
 }
 
@@ -1806,28 +1814,36 @@ CGFloat kResizeThumbSize = 45.0f;
 }
 
 # pragma mark - Search Results Updater
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
     // filter the search results
     //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains [cd] %@", self.controller.searchBar.text];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventName contains [c] %@", self.controller.searchBar.text];
-    self.results = [json filteredArrayUsingPredicate:predicate];
     
-    // NSLog(@"Search Results are: %@", [self.results description]);
+    NSLog(@"Search text are: %@", self.controller.searchBar.text);
+
+   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventName contains [c] %@", self.controller.searchBar.text];
+   // self.results = [json filteredArrayUsingPredicate:predicate];
+    
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"eventName contains [c] %@", self.controller.searchBar.text];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"email contains [c] %@", self.controller.searchBar.text];
+    NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[predicate1, predicate2]];
+
+    self.results = [json filteredArrayUsingPredicate:predicate];
+
+   // NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"X == 2"];
+     NSLog(@"Search Results are: %@", [self.results description]);
 }
 
-- (IBAction)searchButtonPressed:(id)sender {
-    
+- (IBAction)searchButtonPressed:(id)sender
+{
     // present the search controller
     [self presentViewController:self.controller animated:YES completion:nil];
-    
 }
 
-- (UISearchController *)controller {
-    
-    if (!_controller) {
-        
+- (UISearchController *)controller
+{
+    if (!_controller)
+    {
         // instantiate search results table view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         SearchResultsViewController *resultsController = [storyboard instantiateViewControllerWithIdentifier:@"SearchResults"];
@@ -1838,7 +1854,6 @@ CGFloat kResizeThumbSize = 45.0f;
         
         // optional: set the search controller delegate
         _controller.delegate = self;
-        
     }
     return _controller;
 }
