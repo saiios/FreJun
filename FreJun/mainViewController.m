@@ -683,33 +683,35 @@ CGFloat kResizeThumbSize = 45.0f;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searched) name:@"searched" object:nil];
     
-    [self NotificationInit];
-    
+    //[self NotificationInit];
+    NotificationsTableViewController* infoController = [[NotificationsTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:infoController animated:YES];
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(refreshData) userInfo:nil repeats:YES];
    // [self eventAdded];
-    
-    
-
 }
 
--(void)searched{
+-(void)searched//searched result tapped
+{
     
     dataclass *obj = [dataclass getInstance];
     [self dismissViewControllerAnimated:NO completion:nil];
-    if ( [[obj.selectedEvent objectForKey:@"invitee_check"] isEqual: @"needsAction"]) {
-        
+    if ( [[obj.selectedEvent objectForKey:@"invitee_check"] isEqual: @"needsAction"])
+    {
         obj.responseSection = 0;
         obj.responseIndex = 0;
         eventInvitaionViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventInvitation"];
         [self.navigationController pushViewController:infoController animated:YES];
     }
-    else{
+    else
+    {
         eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
-        [self.navigationController pushViewController:infoController animated:YES]; }
+        [self.navigationController pushViewController:infoController animated:YES];
+    }
     
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     numberBadge = [[UIView alloc]initWithFrame:CGRectMake(14, 10, 22, 22)];
     numberBadge.backgroundColor = [UIColor redColor];
@@ -879,7 +881,8 @@ CGFloat kResizeThumbSize = 45.0f;
     
     sound = [NSString stringWithFormat:@"sound%@.mp3", obj.pref[@"sound"]];
     
-    if (obj.pref[@"sound"] == NULL) {
+    if (obj.pref[@"sound"] == NULL)
+    {
         sound = @"sound1.mp3";
     }
     
@@ -1464,7 +1467,8 @@ CGFloat kResizeThumbSize = 45.0f;
     }
 }
 
-- (void)pan:(UIPanGestureRecognizer *)aPan; {
+- (void)pan:(UIPanGestureRecognizer *)aPan;
+{
     CGPoint currentPoint = [aPan locationInView:self.calendarBackGroundView];
     NSLog(@"hj");
     [UIView animateWithDuration:0.01f
@@ -1473,21 +1477,23 @@ CGFloat kResizeThumbSize = 45.0f;
                          _calendarBackGroundView.frame = CGRectMake(oldFrame.origin.x, currentPoint.y, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height - currentPoint.y));
                      }];
 }
-- (IBAction)notifications:(id)sender {
-    
+
+- (IBAction)notifications:(id)sender
+{
         NotificationsTableViewController* infoController = [[NotificationsTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
         [self.navigationController pushViewController:infoController animated:YES];
 }
 
-- (IBAction)addEvent:(id)sender {
+- (IBAction)addEvent:(id)sender
+{
     AddEventTableViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"addevent"];
     [self.navigationController pushViewController:infoController animated:YES];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[finalData[section] objectForKey:@"events"] count];
     NSLog(@"count row : %ld %lu",(long)section,[[finalData[section] objectForKey:@"events"] count]);
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1573,26 +1579,30 @@ CGFloat kResizeThumbSize = 45.0f;
     return cell;
 
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     dataclass *obj = [dataclass getInstance];
     obj.selectedEvent = [finalData[indexPath.section] objectForKey:@"events"][indexPath.row];
-    if ( [[obj.selectedEvent objectForKey:@"invitee_check"] isEqual: @"needsAction"]) {
-        
+    if ( [[obj.selectedEvent objectForKey:@"invitee_check"] isEqual: @"needsAction"])
+    {
         obj.responseSection = (int)indexPath.section;
         obj.responseIndex = (int)indexPath.row;
         eventInvitaionViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventInvitation"];
         [self.navigationController pushViewController:infoController animated:YES];
     }
-    else{
+    else
+    {
     eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
-        [self.navigationController pushViewController:infoController animated:YES]; }
-    
+        [self.navigationController pushViewController:infoController animated:YES];
+    }
 }
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return finalData.count;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 30;
@@ -1656,7 +1666,8 @@ CGFloat kResizeThumbSize = 45.0f;
     NSLog(@"date here %@",date);
     dataclass *obj = [dataclass getInstance];
     for (int i = 0; i < finalData.count; i++) {
-        if ([[finalData[i] objectForKey:@"date"] isEqualToString:date]) {
+        if ([[finalData[i] objectForKey:@"date"] isEqualToString:date])
+        {
             obj.events = [finalData[i] objectForKey:@"events"];
             obj.selectedDate = date;
             NSDate *dateFromString = [[NSDate alloc] init];
@@ -1675,7 +1686,8 @@ CGFloat kResizeThumbSize = 45.0f;
 /**
  *  Delegate method : get called user has scroll to a new month
  */
--(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
+-(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year
+{
     NSLog(@"Displaying : %@ %04i",[DateUtil getMonthString:month],year);
 }
 

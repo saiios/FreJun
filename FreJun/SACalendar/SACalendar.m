@@ -114,9 +114,7 @@
     }
 }
 
-
 #pragma SCROLL VIEW DELEGATE
-
 - (UIViewController *) controllerAtIndex:(NSInteger) index {
     /*
      * Handle right scroll
@@ -250,12 +248,10 @@
         //lineView.alpha = 0.1;
         //[contr.view addSubview:blankView];
 
-        
         [contr.view addSubview:monthLabel];
         [contr.view addSubview:calendar];
         [contr.view addSubview:daysView];
         [contr.view addSubview:lineView];
-        
         
         [calendars setObject:calendar forKey:[NSString stringWithFormat:@"%li",(long)index]];
         [controllers setObject:contr forKey:[NSString stringWithFormat:@"%li",(long)index]];
@@ -302,6 +298,7 @@
  *
  *  @return year that the collection view should load
  */
+
 -(int)yearToLoad:(int)tag
 {
     if (scroll_state == SCROLLSTATE_120) {
@@ -322,7 +319,6 @@
 }
 
 #pragma COLLECTION VIEW DELEGATE
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     int monthToLoad = [self monthToLoad:(int)collectionView.tag];
@@ -352,11 +348,12 @@
     int daysInMonth = (int)[DateUtil getDaysInMonth:monthToLoad year:yearToLoad];
     
     // if cell is out of the month, do not show
-    if (indexPath.row < firstDay || indexPath.row >= firstDay + daysInMonth) {
+    if (indexPath.row < firstDay || indexPath.row >= firstDay + daysInMonth)
+    {
         cell.topLineView.hidden = cell.dateLabel.hidden = cell.circleView.hidden = cell.selectedView.hidden = cell.eventSign.hidden = cell.eventSign2.hidden = cell.eventSign3.hidden = cell.eventSign4.hidden = cell.eventSign5.hidden = YES;
-
     }
-    else{
+    else
+    {
         cell.topLineView.hidden = cell.dateLabel.hidden = NO;
         cell.circleView.hidden = YES;
         // get appropriate font size
@@ -548,7 +545,8 @@
 /*
  * Scale the collection view size to fit the frame
  */
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     int width = self.frame.size.width;
     int height = (self.frame.size.height - headerSize);
     cellSize = CGSizeMake(width/DAYS_IN_WEEKS, height / MAX_WEEK);
@@ -569,6 +567,7 @@
 /*
  * If the width of the calendar cannot be divided by 7, add offset to each side to fit the calendar in
  */
+
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     int width = self.frame.size.width;
@@ -577,7 +576,8 @@
     return UIEdgeInsetsMake(0,offset,0,offset);
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     int daysInMonth = (int)[DateUtil getDaysInMonth:[self monthToLoad:(int)collectionView.tag] year:[self yearToLoad:(int)collectionView.tag]];
     if (!(indexPath.row < firstDay || indexPath.row >= firstDay + daysInMonth)) {
         

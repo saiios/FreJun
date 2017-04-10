@@ -67,7 +67,8 @@
     _tableView.delegate=self;
     
     sortedEvents = [[NSMutableArray alloc]init];
-    for (int i = 0; i < events.count; i++) {
+    for (int i = 0; i < events.count; i++)
+    {
         
         NSDictionary *eventsDict = [events objectAtIndex:i];
         NSString *allday;
@@ -123,12 +124,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
         dataclass *obj = [dataclass getInstance];
         return obj.events.count;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,16 +135,19 @@
     dataclass *obj = [dataclass getInstance];
     static NSString *cellid=@"calenderTableViewCell";
     calenderTableViewCell *cell = (calenderTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellid];
-    if (cell==nil) {
+    if (cell==nil)
+    {
         NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"calenderTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
     int all = [[obj.events[indexPath.row] objectForKey:@"allDay"] intValue];
-    if (all == 1) {
+    if (all == 1)
+    {
         cell.allDayLabel.text = @"all-Day";
     }
-    else{
+    else
+    {
         cell.allDayLabel.text = @"";
     }
     
@@ -197,17 +199,16 @@
     cell.priorityLabel.frame = CGRectMake(cell.title.frame.origin.x + cell.title.frame.size.width, 0, 35, cell.frame.size.height);
     
     //cell.accessoryType = [[obj.events[indexPath.row] objectForKey:@"allDay"] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     dataclass *obj = [dataclass getInstance];
     obj.selectedEvent = obj.events[indexPath.row];
+    
     eventDetailsViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"eventDetails"];
     [self.navigationController pushViewController:infoController animated:YES];
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

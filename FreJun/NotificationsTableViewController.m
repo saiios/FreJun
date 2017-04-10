@@ -22,7 +22,8 @@
 
 @implementation NotificationsTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     dataclass *obj = [dataclass getInstance];
@@ -36,10 +37,12 @@
     timestamps = [[NSArray alloc] initWithObjects:@"2 hours ago",@"2 days ago",@"1 month ago", nil];
     self.view.backgroundColor = [UIColor colorWithRed:243.0/255.0 green:243.0/255.0 blue:243.0/255.0 alpha:1];
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
+    
     [self initNotifications];
 }
 
--(void)initNotifications{
+-(void)initNotifications
+{
     dataclass *obj = [dataclass getInstance];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:directoryNotifications]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -51,35 +54,57 @@
     [request setHTTPBody:parameterData];
     [request setHTTPMethod:@"POST"];
     [request addValue: @"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                      {
+                                          // do something with the data
+                                          NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
+                                                                                               options:kNilOptions
+                                                                                                 error:&error];
+                                          
+                                         // NSArray* latestLoans = [json objectForKey:@"loans"];
+                                          
+                                          NSLog(@"loans: %@", json);
+                                          [loadingView setHidden:YES];
+
+                                      }];
+    [dataTask resume];
+    
+/*
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
     if( connection )
     {
         mutableData = [NSMutableData new];
         [loadingView setHidden:YES];
     }
-
+ */
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 0;
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell==nil) {
+    if (cell==nil)
+    {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
     

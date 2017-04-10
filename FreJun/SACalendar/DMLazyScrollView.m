@@ -9,7 +9,8 @@
 
 #import "DMLazyScrollView.h"
 
-enum {
+enum
+{
     DMLazyScrollViewScrollDirectionBackward     = 0,
     DMLazyScrollViewScrollDirectionForward      = 1
 }; typedef NSUInteger DMLazyScrollViewScrollDirection;
@@ -164,12 +165,14 @@ enum {
     }
 }
 
-- (void) reloadData {
+- (void) reloadData
+{
     [self setCurrentViewController:0];
     [self resetAutoPlay];
 }
 
-- (void) layoutSubviews {
+- (void) layoutSubviews
+{
     [super layoutSubviews];
 }
 
@@ -260,7 +263,8 @@ enum {
     }
 }
 
-- (void) setCurrentViewController:(NSInteger) index {
+- (void) setCurrentViewController:(NSInteger) index//calender down swipe
+{
     if (index == currentPage) return;
     currentPage = index;
     
@@ -318,7 +322,8 @@ enum {
 
 }
 
-- (void) moveByPages:(NSInteger) offset animated:(BOOL) animated {
+- (void) moveByPages:(NSInteger) offset animated:(BOOL) animated
+{
     NSUInteger finalIndex = [self pageIndexByAdding:offset from:self.currentPage];
     DMLazyScrollViewTransition transition = (offset >= 0 ?  DMLazyScrollViewTransitionForward :
                                              DMLazyScrollViewTransitionBackward);
@@ -375,11 +380,13 @@ enum {
     }
 }
 
-- (void) setCurrentPage:(NSUInteger)newCurrentPage {
+- (void) setCurrentPage:(NSUInteger)newCurrentPage//calender swipe
+{
     [self setCurrentViewController:newCurrentPage];
 }
 
-- (UIViewController *) loadControllerAtIndex:(NSInteger) index andPlaceAtIndex:(NSInteger) destIndex {
+- (UIViewController *) loadControllerAtIndex:(NSInteger) index andPlaceAtIndex:(NSInteger) destIndex//loading calender
+{
     UIViewController *viewController = dataSource(index);
     viewController.view.tag = 0;
     

@@ -26,60 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513242059.854381"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1948"
-            endingLineNumber = "1948"
+            startingLineNumber = "1955"
+            endingLineNumber = "1955"
             landmarkName = "-selectAccount:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513160355.941976"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
-            landmarkName = "-checkifDateAlreadyExists:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513160357.42466"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "-getIndexforDate:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513160360.328869"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "-getIndexforDate:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -134,54 +86,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "462"
-            endingLineNumber = "462"
-            landmarkName = "-daysBetween:and:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "751"
-            endingLineNumber = "751"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "761"
-            endingLineNumber = "761"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -202,13 +106,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513242059.854381"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1936"
-            endingLineNumber = "1936"
+            startingLineNumber = "1943"
+            endingLineNumber = "1943"
             landmarkName = "-accoutsList"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[mainViewController accoutsList]"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
+                  timestampString = "513493468.630275"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1943"
+                  endingLineNumber = "1943"
+                  offsetFromSymbolStart = "324">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[mainViewController accoutsList]_block_invoke"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
+                  timestampString = "513493468.631998"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1943"
+                  endingLineNumber = "1943"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.1011"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
+                  timestampString = "513493468.634585"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1943"
+                  endingLineNumber = "1943"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.1012"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
+                  timestampString = "513493468.63635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1943"
+                  endingLineNumber = "1943"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -218,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513242059.854381"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1922"
-            endingLineNumber = "1922"
+            startingLineNumber = "1929"
+            endingLineNumber = "1929"
             landmarkName = "-eventAdded"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,43 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513242059.854381"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1860"
-            endingLineNumber = "1860"
-            landmarkName = "-controller"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513241382.714455"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1817"
             endingLineNumber = "1817"
-            landmarkName = "-updateSearchResultsForSearchController:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513160630.574898"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1809"
-            endingLineNumber = "1809"
             landmarkName = "-searchDisplayController:shouldReloadTableForSearchString:"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,107 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "474"
-            endingLineNumber = "474"
-            landmarkName = "-fetchPref"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
-            landmarkName = "-fetchPref"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[mainViewController fetchPref]_block_invoke"
-                  moduleName = "FreJun"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
-                  timestampString = "513241384.167274"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "484"
-                  endingLineNumber = "484"
-                  offsetFromSymbolStart = "260">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[mainViewController fetchPref]_block_invoke_2"
-                  moduleName = "FreJun"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
-                  timestampString = "513241384.168985"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "484"
-                  endingLineNumber = "484"
-                  offsetFromSymbolStart = "40">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513161959.715977"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "766"
-            endingLineNumber = "766"
-            landmarkName = "-refreshData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "774"
-            endingLineNumber = "774"
-            landmarkName = "-viewDidLayoutSubviews"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "871"
-            endingLineNumber = "871"
+            startingLineNumber = "873"
+            endingLineNumber = "873"
             landmarkName = "@implementation mainViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -394,27 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "896"
-            endingLineNumber = "896"
-            landmarkName = "-NotificationInit"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162158.248392"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1380"
-            endingLineNumber = "1380"
+            startingLineNumber = "1382"
+            endingLineNumber = "1382"
             landmarkName = "-swipeleft:"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,11 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162165.656531"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1392"
-            endingLineNumber = "1392"
+            startingLineNumber = "1394"
+            endingLineNumber = "1394"
             landmarkName = "-swipeleft:"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162170.072631"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1403"
-            endingLineNumber = "1403"
+            startingLineNumber = "1405"
+            endingLineNumber = "1405"
             landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "7">
          </BreakpointContent>
@@ -458,27 +280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162178.616905"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1413"
-            endingLineNumber = "1413"
-            landmarkName = "-wasDragged:withEvent:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162181.656781"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1436"
-            endingLineNumber = "1436"
+            startingLineNumber = "1438"
+            endingLineNumber = "1438"
             landmarkName = "-finishedDragging:withEvent:"
             landmarkType = "7">
          </BreakpointContent>
@@ -486,48 +292,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162196.001196"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1650"
-            endingLineNumber = "1650"
-            landmarkName = "-tableView:heightForFooterInSection:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162197.585325"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1645"
-            endingLineNumber = "1645"
-            landmarkName = "-tableView:viewForHeaderInSection:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162200.35326"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1599"
-            endingLineNumber = "1599"
-            landmarkName = "-tableView:heightForHeaderInSection:"
+            startingLineNumber = "1495"
+            endingLineNumber = "1495"
+            landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -538,75 +312,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162202.353359"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1594"
-            endingLineNumber = "1594"
-            landmarkName = "-numberOfSectionsInTableView:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162203.689375"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1590"
-            endingLineNumber = "1590"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162206.833377"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1574"
-            endingLineNumber = "1574"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162208.969527"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1492"
-            endingLineNumber = "1492"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FreJun/mainViewController.m"
-            timestampString = "513162211.601603"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1485"
-            endingLineNumber = "1485"
+            startingLineNumber = "1487"
+            endingLineNumber = "1487"
             landmarkName = "-addEvent:"
             landmarkType = "7">
          </BreakpointContent>
@@ -618,11 +328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162214.17743"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1479"
-            endingLineNumber = "1479"
+            startingLineNumber = "1481"
+            endingLineNumber = "1481"
             landmarkName = "-notifications:"
             landmarkType = "7">
          </BreakpointContent>
@@ -634,60 +344,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162216.66555"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1474"
-            endingLineNumber = "1474"
+            startingLineNumber = "1476"
+            endingLineNumber = "1476"
             landmarkName = "-pan:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__26-[mainViewController pan:]_block_invoke"
-                  moduleName = "FreJun"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
-                  timestampString = "513241384.229865"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1474"
-                  endingLineNumber = "1474"
-                  offsetFromSymbolStart = "348">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.811"
-                  moduleName = "FreJun"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
-                  timestampString = "513241384.231584"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1474"
-                  endingLineNumber = "1474"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.812"
-                  moduleName = "FreJun"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/mainViewController.m"
-                  timestampString = "513241384.233298"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1474"
-                  endingLineNumber = "1474"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -697,11 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162221.905767"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1465"
-            endingLineNumber = "1465"
+            startingLineNumber = "1467"
+            endingLineNumber = "1467"
             landmarkName = "-finishedDragging:withEvent:"
             landmarkType = "7">
          </BreakpointContent>
@@ -713,11 +376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162244.034268"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1372"
-            endingLineNumber = "1372"
+            startingLineNumber = "1374"
+            endingLineNumber = "1374"
             landmarkName = "-askForTravelAssist_invitees:email:"
             landmarkType = "7">
          </BreakpointContent>
@@ -729,11 +392,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162274.970866"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1320"
-            endingLineNumber = "1320"
+            startingLineNumber = "1322"
+            endingLineNumber = "1322"
             landmarkName = "-travel3Call_invitees:"
             landmarkType = "7">
          </BreakpointContent>
@@ -745,11 +408,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162277.56298"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1290"
-            endingLineNumber = "1290"
+            startingLineNumber = "1292"
+            endingLineNumber = "1292"
             landmarkName = "-travel4Call:"
             landmarkType = "7">
          </BreakpointContent>
@@ -761,11 +424,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162278.778955"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1284"
-            endingLineNumber = "1284"
+            startingLineNumber = "1286"
+            endingLineNumber = "1286"
             landmarkName = "-askForTravelAssist:"
             landmarkType = "7">
          </BreakpointContent>
@@ -777,11 +440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162281.499049"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1232"
-            endingLineNumber = "1232"
+            startingLineNumber = "1234"
+            endingLineNumber = "1234"
             landmarkName = "-travel3Call:"
             landmarkType = "7">
          </BreakpointContent>
@@ -793,11 +456,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162284.243156"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1202"
-            endingLineNumber = "1202"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
             landmarkName = "-travel2Call:"
             landmarkType = "7">
          </BreakpointContent>
@@ -809,11 +472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162286.611115"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1149"
-            endingLineNumber = "1149"
+            startingLineNumber = "1151"
+            endingLineNumber = "1151"
             landmarkName = "-travel2Call:"
             landmarkType = "7">
          </BreakpointContent>
@@ -825,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162288.875235"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1117"
-            endingLineNumber = "1117"
+            startingLineNumber = "1119"
+            endingLineNumber = "1119"
             landmarkName = "-travelCall:"
             landmarkType = "7">
          </BreakpointContent>
@@ -841,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162291.251257"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1061"
-            endingLineNumber = "1061"
+            startingLineNumber = "1063"
+            endingLineNumber = "1063"
             landmarkName = "-reminderScreenCall:"
             landmarkType = "7">
          </BreakpointContent>
@@ -857,12 +520,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162293.355268"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1051"
-            endingLineNumber = "1051"
-            landmarkName = "-reminderScreenCall:"
+            startingLineNumber = "1053"
+            endingLineNumber = "1053"
+            landmarkName = "-reminderCall:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -873,11 +536,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1043"
-            endingLineNumber = "1043"
+            startingLineNumber = "1045"
+            endingLineNumber = "1045"
             landmarkName = "-eta_responseCall:"
             landmarkType = "7">
          </BreakpointContent>
@@ -889,11 +552,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1036"
-            endingLineNumber = "1036"
+            startingLineNumber = "1038"
+            endingLineNumber = "1038"
             landmarkName = "-delayCall:"
             landmarkType = "7">
          </BreakpointContent>
@@ -905,12 +568,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1030"
-            endingLineNumber = "1030"
-            landmarkName = "-delayCall:"
+            startingLineNumber = "1032"
+            endingLineNumber = "1032"
+            landmarkName = "-etaCall2"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -921,11 +584,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "977"
-            endingLineNumber = "977"
+            startingLineNumber = "979"
+            endingLineNumber = "979"
             landmarkName = "-inviteCall:"
             landmarkType = "7">
          </BreakpointContent>
@@ -937,11 +600,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "965"
-            endingLineNumber = "965"
+            startingLineNumber = "967"
+            endingLineNumber = "967"
             landmarkName = "-notesCall:"
             landmarkType = "7">
          </BreakpointContent>
@@ -953,12 +616,571 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FreJun/mainViewController.m"
-            timestampString = "513162906.410567"
+            timestampString = "513492950.996316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "957"
-            endingLineNumber = "957"
-            landmarkName = "-NotificationInit"
+            startingLineNumber = "1675"
+            endingLineNumber = "1675"
+            landmarkName = "-SACalendar:didSelectDate:month:year:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/calenderViewController.m"
+            timestampString = "513249210.338401"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/calenderViewController.m"
+            timestampString = "513249927.719239"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/mainViewController.m"
+            timestampString = "513492950.996316"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1687"
+            endingLineNumber = "1687"
+            landmarkName = "@implementation mainViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/mainViewController.m"
+            timestampString = "513250144.812675"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250259.831502"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "+getCurrentDateString"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250267.551258"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "+getDayOfDate:month:year:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250268.839742"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "+getDaysInMonth:year:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250270.23967"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "+getDayString:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250271.503756"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "+getMonthString:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250273.815818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "+getCurrentDay"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250275.463784"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "+getCurrentYear"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250277.359774"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "+getCurrentMonth"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DateUtil.m"
+            timestampString = "513250279.351902"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "+getCurrentDate"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251722.066517"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "-visibleViewController"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DMLazyScrollView visibleViewController]"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/SACalendar/DMLazyScrollView.m"
+                  timestampString = "513493468.743943"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "292"
+                  endingLineNumber = "292"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__Block_byref_object_copy_"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/SACalendar/DMLazyScrollView.m"
+                  timestampString = "513493468.746347"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "292"
+                  endingLineNumber = "292"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__Block_byref_object_dispose_"
+                  moduleName = "FreJun"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Manoyadav/Desktop/FreJun/FreJun/SACalendar/DMLazyScrollView.m"
+                  timestampString = "513493468.748115"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "292"
+                  endingLineNumber = "292"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251722.066517"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
+            landmarkName = "-pageIndexByAdding:from:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251722.066517"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "-moveByPages:animated:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251722.066517"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
+            landmarkName = "-loadControllerAtIndex:andPlaceAtIndex:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/SACalendar.m"
+            timestampString = "513250413.163211"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-initWithFrame:month:year:scrollDirection:pagingEnabled:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/SACalendar.m"
+            timestampString = "513250495.329169"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
+            landmarkName = "-collectionView:layout:sizeForItemAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/SACalendar.m"
+            timestampString = "513250527.181682"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "583"
+            endingLineNumber = "583"
+            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251722.066517"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
+            landmarkName = "-setCurrentPage:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251251.519814"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
+            landmarkName = "-loadControllerAtIndex:andPlaceAtIndex:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/SACalendar/DMLazyScrollView.m"
+            timestampString = "513251253.791933"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "-loadControllerAtIndex:andPlaceAtIndex:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/NotificationsTableViewController.m"
+            timestampString = "513493467.494445"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/NotificationsTableViewController.m"
+            timestampString = "513260977.743238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-initNotifications"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/mainViewController.m"
+            timestampString = "513492950.996316"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1585"
+            endingLineNumber = "1585"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/mainViewController.m"
+            timestampString = "513492950.996316"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "696"
+            endingLineNumber = "696"
+            landmarkName = "-searched"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/mainViewController.m"
+            timestampString = "513491643.652654"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "-searched"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/eventDetailsViewController.m"
+            timestampString = "513491896.243129"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
+            landmarkName = "-openGoogleMaps"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/eventDetailsViewController.m"
+            timestampString = "513491934.508314"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "-openGoogleMaps"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/eventDetailsViewController.m"
+            timestampString = "513491935.428561"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
+            landmarkName = "-openGoogleMaps"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FreJun/NotificationsTableViewController.m"
+            timestampString = "513493467.494445"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-initNotifications"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

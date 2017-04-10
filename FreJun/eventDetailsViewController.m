@@ -372,22 +372,25 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)edit{
-    
+-(void)edit
+{
     EditEventTableViewController* infoController = [self.storyboard instantiateViewControllerWithIdentifier:@"editevent"];
     [self.navigationController pushViewController:infoController animated:YES];
 }
 
--(void)openGoogleMaps{
-    
+-(void)openGoogleMaps
+{
     dataclass *obj = [dataclass getInstance];
     NSDictionary *selectedEvent = obj.selectedEvent;
     NSURL *testURL = [NSURL URLWithString:@"comgooglemaps-x-callback://"];
-    if ([[UIApplication sharedApplication] canOpenURL:testURL]) {
+    if ([[UIApplication sharedApplication] canOpenURL:testURL])
+    {
         NSString *directionsRequest = [NSString stringWithFormat:@"comgooglemaps-x-callback://?daddr=%@,%@&x-success=sourceapp://?resume=true&x-source=Frejun",[selectedEvent objectForKey:@"latitude"],[selectedEvent objectForKey:@"longitude"]];
         NSURL *directionsURL = [NSURL URLWithString:directionsRequest];
         [[UIApplication sharedApplication] openURL:directionsURL];
-    } else {
+    }
+    else
+    {
         NSLog(@"Can't use comgooglemaps-x-callback:// on this device.");
     }
 }

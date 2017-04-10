@@ -72,7 +72,6 @@
     return [NSString stringWithFormat:@"%@/%@/%@",[self getCurrentMonth],[self getCurrentDate],[self getCurrentYear]];
 }
 
-
 +(NSString*)getMonthString:(int)index
 {
     NSArray *months = [[NSArray alloc]initWithObjects:@"January",@"Febuary",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
